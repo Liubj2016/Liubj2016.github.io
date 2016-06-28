@@ -1,0 +1,24 @@
+# auto: true
+
+markdown: kramdown
+highlighter: rouge
+paginate: 8
+permalink: /:title
+encoding: UTF-8
+gems: [jekyll-paginate]
+
+title: liubaojie_test
+url: http://Liubj2016.github.io
+feed: /atom.xml
+author_info: <a href="http://Liubj2016.github.io/">Liubj2016</a>
+
+myblog:
+  gavatar: images/2.jpg
+  gpname: liubaojie
+  linkedin: http://www.linkedin.com/in
+  github: https://github.com/
+  email: mailto:liubaojie2016@163.com
+  coverimgs: []
+  postbgimg: []
+
+categories: [python, books]
