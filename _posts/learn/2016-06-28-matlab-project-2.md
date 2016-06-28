@@ -1,7 +1,7 @@
 ---
 layout: post  
 categories: [books]  
-tags: [jekyll, github, git, markdown]
+title: matlab project2 蒙特卡罗方法为美式期权定价
 ---
 
 # matlab project 2——蒙特卡洛模拟的美式期权

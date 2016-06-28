@@ -1,7 +1,7 @@
 ---
 layout: post  
 categories: [learn]   
-title: matlab project1  
+title: matlab project1 美式期权的三叉树定价
 description:
 ---
 
