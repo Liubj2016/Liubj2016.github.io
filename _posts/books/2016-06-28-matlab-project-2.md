@@ -1,3 +1,9 @@
+---
+layout: post  
+categories: [books]  
+tags: [jekyll, github, git, markdown]
+---
+
 # matlab project 2——蒙特卡洛模拟的美式期权
 >Stock prices sometimes change by large values in short periods of time, making a
 jump diffusion model be a more appropriate model to capture this characteristic than a

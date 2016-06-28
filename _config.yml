@@ -18,7 +18,7 @@ myblog:
   linkedin: http://www.linkedin.com/in
   github: https://github.com/
   email: mailto:liubaojie2016@163.com
-  coverimgs: []
+  coverimgs: [images/cover.jpg]
   postbgimg: []
 
 categories: [python, books]

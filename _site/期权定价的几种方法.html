@@ -1,0 +1,443 @@
+
+<h1 id="section">期权定价的几种方法</h1>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h2 id="black-scholes">1.Black-Scholes期权定价公式的推导</h2>
+<p>保罗萨缪尔森在1965年提出来的股价模型：
+<script type="math/tex">dS=\mu S dt+\sigma S dB①</script>
+其中\( \mu\,\sigma\)是常数,B是布朗运动。<br />
+上述微分方程的解为：</p>
+
+<script type="math/tex; mode=display">S_{t}=S_{0}exp\left[\sigma B_{t}+\left( \mu -\sigma^{2}/2 \right)t \right]②</script>
+
+<p>对于欧式看涨期权，最终支付为\(\left(S_{T}-X \right)^{+}\)，所以有：</p>
+
+<script type="math/tex; mode=display">V=e^{-r T}E\left[\left(S_{T}-X\right)^{+}\right]③</script>
+
+<p>我们用②的模型：</p>
+
+<script type="math/tex; mode=display">S_{T}=S_{0}exp\left[\sigma B_{T}+\left( \mu -\sigma^{2}/2 \right)t \right]④</script>
+
+<p>由于\(B_{T}\)是服从均值为0，方差为T的正态分布，所以考虑用$\sqrt{T} Z$代替$B_{T}$,Z是标准正态分布：</p>
+
+<script type="math/tex; mode=display">S_{T}=S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]⑤</script>
+
+<p>则</p>
+
+<script type="math/tex; mode=display">V=e^{-r T}E\left[\left(S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)^{+}\right]⑥</script>
+
+<p>则有：</p>
+
+<script type="math/tex; mode=display">V= \frac{e^{-r T}}{ \sqrt{2 \pi }} \int_{- \infty }^{ \infty }  \left \{ \left(S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)\right \}^{+}e^{-x^{2}/2}dx⑦</script>
+
+<p>解方程\(S_{0} e x p \left [ \sigma  \sqrt{T} a+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right ]-x=0\)</p>
+
+<p>得到：</p>
+
+<script type="math/tex; mode=display">a= \frac{ \ln \left( \frac{X}{S_{0}} \right)- \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}</script>
+
+<p>接下来将⑦分为两部分求解，第二部分：</p>
+
+<script type="math/tex; mode=display">\frac{1}{ \sqrt{2 \pi }} \int_{a}^{ \infty } -X e^{-x^{2}/2} d x=-X N \left(-a \right)</script>
+
+<p>第一部分：</p>
+
+<script type="math/tex; mode=display">\frac{1}{ \sqrt{2 \pi }} \int_{a}^{ \infty } S_{0} e x p \left [ \sigma  \sqrt{T} x+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right ] e^{-x^{2}/2} d x</script>
+
+<p>它等于：</p>
+
+<script type="math/tex; mode=display">S_{0} e^{r T} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)</script>
+
+<p>因此：<br />
+<script type="math/tex">V=S_{0} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)-X e^{-r T} N \left(-a \right)</script></p>
+
+<p>这时之前求得的a值就有用了：<br />
+<script type="math/tex">a= \frac{ \ln \left( \frac{S_{0}}{X} \right)+ \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}</script></p>
+
+<script type="math/tex; mode=display">a= \frac{ \ln \left( \frac{S_{0}}{X} \right)+ \left(r+ \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}</script>
+
+<p>令 $-a=d_{2}$ and $a- \sigma \sqrt{T}=d_{1}$,则有：</p>
+
+<script type="math/tex; mode=display">V=S_{0} N \left(d_{1} \right)-e^{-r T} X N \left(d_{2} \right)</script>
+
+<p>以上求解均假设没有分红，交易费用等。<br />
+对于欧式期权，BS公式有精确的定价公式，但对于美式期权，BS公式不可能求出解的表达式。</p>
+
+<h2 id="section-1">2.二叉树期权定价</h2>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<blockquote>
+  <p>二叉树也称为二项式定价模型，二项期权定价模型由考克斯（J.C.Cox）、罗斯（S.A.Ross）、鲁宾斯坦（M.Rubinstein）和夏普（Sharpe）等人提出的一种期权定价模型，主要用于计算美式期权的价值。其优点在于比较直观简单，不需要太多数学知识就可以加以应用。</p>
+</blockquote>
+
+<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/BT1.png" alt="image" /></p>
+
+<p>在很小的一段时间内假设股价会向上运动到$S_{0}u$,也可能向下运动到$S_{0}d$。<br />
+为了确定u，d，p，我们假设市场为风险中性，即股票预期收益率等于无风险利率，接着我们构造资产组合：<br />
+<strong>Portfolio</strong>：买$\Delta$单位的标的资产，卖出1单位的衍生品（期权）。<br />
+<strong>上涨情形</strong>：资产组合的价值为：</p>
+
+<script type="math/tex; mode=display">S_{0}u\Delta - f_{u}</script>
+
+<p><strong>下跌情形</strong>：资产组合的价值为：</p>
+
+<script type="math/tex; mode=display">S_{0}d\Delta - f_{d}</script>
+
+<p>复制无风险资产，上述两式相等，可以解出：</p>
+
+<script type="math/tex; mode=display">\Delta = \frac{f_{u}-fsbtd}{S_{0} u-S_{0} d}</script>
+
+<p>再根据</p>
+
+<script type="math/tex; mode=display">S_{0} \Delta -f_{0}= \left(S_{0} u-f_{u} \right) e^{-r T}</script>
+
+<p>求出</p>
+
+<script type="math/tex; mode=display">f_{0}=S_{0} \Delta - \left(S_{0} u \Delta -f_{u} \right) e^{-r T}</script>
+
+<p>将$\Delta$代入得到</p>
+
+<script type="math/tex; mode=display">f_{0}=e^{-r T} \left [p f_{u}+ \left(1-p \right) f_{d} \right ]</script>
+
+<p>其中：<br />
+<script type="math/tex">p= \frac{e^{-r T}-d}{u-d}</script></p>
+
+<p>根据风险中性的假设，我们有如下方程组(均值和方差)：</p>
+
+<script type="math/tex; mode=display">p u+ \left(1-p \right) d=e^{r\Delta t}</script>
+
+<script type="math/tex; mode=display">p u^{2}+ \left(1-p \right) d^{2}-e^{2 r \Delta t}= \sigma^{2} \Delta t</script>
+
+<p>再假设u=1/d，那么便可以解出p，u，d：</p>
+
+<script type="math/tex; mode=display">u=e^{\sigma \sqrt \Delta t}</script>
+
+<script type="math/tex; mode=display">d=e^{- \sigma \sqrt \Delta t}</script>
+
+<p>以下是在matlab中实现的欧式期权二叉树定价，假设没有红利支付。可以用N来调节需要的二叉树的期数。</p>
+
+<div class="language-matlab highlighter-rouge"><pre class="highlight"><code><span class="k">function</span> <span class="p">[</span><span class="n">c1</span><span class="p">,</span><span class="n">p1</span><span class="p">]</span><span class="o">=</span><span class="n">bt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="c1">%s0: stock price</span>
+<span class="c1">%k: strik price</span>
+<span class="c1">%sigma: volatility of stock</span>
+<span class="c1">%r：riskfree rate</span>
+<span class="c1">%T：expiration date</span>
+
+<span class="n">s0</span><span class="o">=</span><span class="mf">99.62</span><span class="p">;</span>
+<span class="n">k</span><span class="o">=</span><span class="mi">100</span><span class="p">;</span>
+<span class="n">sigma</span><span class="o">=</span><span class="mf">0.4782</span><span class="p">;</span>
+<span class="n">r</span><span class="o">=</span><span class="mf">0.0185</span><span class="p">;</span>
+<span class="n">T</span><span class="o">=</span><span class="mf">0.2322</span><span class="p">;</span>
+<span class="n">dt</span><span class="o">=</span><span class="n">T</span><span class="p">/</span><span class="n">N</span><span class="p">;</span>
+
+<span class="n">u</span><span class="o">=</span><span class="nb">exp</span><span class="p">(</span><span class="n">sigma</span><span class="o">*</span><span class="nb">sqrt</span><span class="p">(</span><span class="n">dt</span><span class="p">));</span>
+<span class="n">d</span><span class="o">=</span><span class="mi">1</span><span class="p">/</span><span class="n">u</span><span class="p">;</span>
+
+<span class="n">pu</span><span class="o">=</span><span class="p">(</span><span class="nb">exp</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">dt</span><span class="p">)</span><span class="o">-</span><span class="n">d</span><span class="p">)/(</span><span class="n">u</span><span class="o">-</span><span class="n">d</span><span class="p">);</span>
+<span class="n">pd</span><span class="o">=</span><span class="p">(</span><span class="n">u</span><span class="o">-</span><span class="nb">exp</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">dt</span><span class="p">))/(</span><span class="n">u</span><span class="o">-</span><span class="n">d</span><span class="p">);</span>
+
+
+<span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="o">=</span><span class="mi">0</span><span class="p">:</span><span class="n">N</span>
+    <span class="n">s</span><span class="o">=</span><span class="n">s0</span><span class="o">*</span><span class="n">u</span><span class="o">^</span><span class="nb">i</span><span class="o">*</span><span class="n">d</span><span class="o">^</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="nb">i</span><span class="p">);</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="o">+</span><span class="nb">max</span><span class="p">((</span><span class="n">s</span><span class="o">-</span><span class="n">k</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">pu</span><span class="o">^</span><span class="nb">i</span><span class="o">*</span><span class="nb">nchoosek</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="nb">i</span><span class="p">)</span><span class="o">*</span><span class="n">pd</span><span class="o">^</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="nb">i</span><span class="p">);</span>
+    <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="o">+</span><span class="nb">max</span><span class="p">((</span><span class="n">k</span><span class="o">-</span><span class="n">s</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="n">pu</span><span class="o">^</span><span class="nb">i</span><span class="o">*</span><span class="nb">nchoosek</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="nb">i</span><span class="p">)</span><span class="o">*</span><span class="n">pd</span><span class="o">^</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="nb">i</span><span class="p">);</span>
+<span class="k">end</span>
+
+<span class="n">c1</span><span class="o">=</span><span class="n">c</span><span class="o">*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">T</span><span class="p">);</span>
+<span class="n">p1</span><span class="o">=</span><span class="n">p</span><span class="o">*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">T</span><span class="p">);</span>
+</code></pre>
+</div>
+
+<h3 id="bs">二叉树和BS公式定价的比较</h3>
+
+<p>可以证明，随着期数的增加，二叉树的结果收敛于BS公式的结果。</p>
+
+<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/BT2.png" alt="image" /></p>
+
+<p>当然，二叉树也可以为美式期权定价，方法与欧式期权类似，只不过需要算出每个节点的价格，代码就不贴了，有兴趣可以自己实现以下。</p>
+
+<h2 id="regression-based-methods">3.蒙特卡洛模拟美式看跌期权定价——Regression-Based Methods</h2>
+
+<blockquote>
+  <p>蒙特卡洛模拟可以轻松实现路径依赖期权（障碍期权、亚式齐全）的定价。近年来，由Longstaff和Schwartz提出的最小二乘蒙特卡洛(LSM)模拟方法， 该方法已成为目前使用蒙特卡洛模拟美式期权定价的标准方法。LSM有这样一些假定：不支付交易费和税收、无套利机会、不支付红利、无风险利率是常数、标的资产价格演化遵循几何布朗运动。</p>
+</blockquote>
+
+<p>基本思想：
+<script type="math/tex">V_{ \imath } \left(s \right)=m a x \left \{h_{ \imath } \left(s \right) , E \left [V_{ \imath +1} \left(S_{ \imath +1} \right) | S_{ \imath }=s \right ] \right \}</script>
+max里第一项是现在执行获得的payoff，第二项是选择等待所能获得的payoff的期望，这个期望用多项式回归的方法获得，即建立当期股价与下期payoff的模型。</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="k">def</span> <span class="nf">regressionP</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">M</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">N</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="c">#lam: poisson分布的均值</span>
+<span class="c">#S：模拟的股价矩阵</span>
+<span class="c">#f：立即执行的payoff矩阵</span>
+<span class="c">#M：模拟的路径数量</span>
+<span class="c">#N：模拟的期数</span>
+    <span class="n">r</span><span class="o">=</span><span class="mf">0.0173</span>
+    <span class="n">sigma</span><span class="o">=</span><span class="mf">0.24722</span>
+    <span class="n">S0</span><span class="o">=</span><span class="mf">96.10</span>
+    <span class="c">#K=97.50</span>
+    <span class="n">T</span><span class="o">=</span><span class="mf">117.0</span><span class="o">/</span><span class="mi">360</span> <span class="c">#单位是年</span>
+    <span class="n">lam</span><span class="o">=</span><span class="mi">4</span>
+    <span class="n">dt</span><span class="o">=</span><span class="n">T</span><span class="o">/</span><span class="n">N</span>
+    <span class="n">S</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">S</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">S0</span>
+    <span class="n">f</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+    <span class="n">f</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+
+    <span class="c">#这里模拟股价矩阵用到了跳跃扩散过程，也可以试一下其它的</span>
+    <span class="n">X</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">lam</span><span class="o">*</span><span class="n">dt</span><span class="p">,(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">Y</span><span class="o">=</span><span class="mf">1.1</span><span class="o">+</span><span class="mf">0.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">m</span><span class="o">=</span><span class="n">Y</span><span class="o">.</span><span class="n">prod</span><span class="p">()</span>
+            <span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">((</span><span class="n">r</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="o">+</span><span class="n">sigma</span><span class="o">*</span><span class="n">dt</span><span class="o">**</span><span class="mf">0.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">())</span><span class="o">*</span><span class="n">m</span>
+            <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="nb">max</span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="n">S</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="n">P</span><span class="o">=</span><span class="mi">0</span> <span class="c">#期权价格</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">))</span> <span class="c">#最小二乘拟合的payoff</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">M</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="c">#用于计数，之后判断f矩阵中的值是不是每行第一个大于0的</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="c">#a，b是临时储存向量的变量（想不出什么好名字。。）</span>
+        <span class="n">b</span><span class="o">=</span><span class="n">S</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span>
+        
+        <span class="n">W</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">dt</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c">#W是回归模型的因变量</span>
+        <span class="c">#s是回归模拟的自变量</span>
+        <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">size</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="c">#这里建立的是二次多项式模型，试了下更高次的，结果区别不大</span>
+            <span class="n">p</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+            <span class="n">y</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">p</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        
+            <span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="p">((</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="n">y</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span>
+        
+        
+            <span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">+</span><span class="p">((</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">q</span><span class="o">=</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">P</span><span class="o">=</span><span class="n">P</span><span class="o">+</span><span class="nb">sum</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">d</span><span class="o">==</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">dt</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
+            <span class="c">#这个地方的reshape折腾的死去活来。。</span>
+    
+    <span class="c">#由于最后一列的f没有在上述循环里面，需要单独写出来</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">d</span><span class="o">+</span><span class="p">((</span><span class="n">f</span><span class="p">[:,</span><span class="n">N</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span><span class="o">*</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">q</span><span class="o">=</span><span class="n">f</span><span class="p">[:,</span><span class="n">N</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">P</span><span class="o">=</span><span class="p">(</span><span class="n">P</span><span class="o">+</span><span class="nb">sum</span><span class="p">(</span><span class="n">q</span><span class="p">[</span><span class="n">d</span><span class="o">==</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">T</span><span class="p">))</span><span class="o">/</span><span class="n">M</span>
+    <span class="k">return</span> <span class="n">P</span>
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">"ignore"</span><span class="p">)</span>
+<span class="n">p</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mf">2.5</span><span class="p">):</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">regressionP</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">regressionP</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="n">real</span><span class="o">=</span><span class="p">[</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">1.23</span><span class="p">,</span><span class="mf">1.65</span><span class="p">,</span><span class="mf">2.18</span><span class="p">,</span><span class="mf">2.58</span><span class="p">,</span><span class="mf">3.67</span><span class="p">,</span><span class="mf">4.70</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mf">7.5</span><span class="p">,</span><span class="mf">11.47</span><span class="p">,</span><span class="mf">15.65</span><span class="p">,</span><span class="mf">19.30</span><span class="p">,</span><span class="mf">24.15</span><span class="p">,</span><span class="mf">29.60</span><span class="p">]</span>
+<span class="n">l1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="n">l2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">130</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">l1</span><span class="p">,</span><span class="n">l2</span><span class="p">))</span>
+
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="s">'k-'</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">'LSM method'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">real</span><span class="p">,</span><span class="s">'k--'</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s">'real price'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'put option price'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'strike price'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s">'best'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre>
+</div>
+
+<p><img src="output_14_0.png" alt="png" /></p>
+
+<p>这里我选择苹果公司的股票和期权来进行定价。一般来讲，做模拟的话，深度实值或者深度虚值期权定价与实际价格的差距较大，越接近平值越准确。可是上图却好像是相反的，这是怎么回事，我也还没有想清楚，还请大神赐教。</p>
+
+<h2 id="section-2">4.有限差分</h2>
+
+<h3 id="b-s-partial-differential-equation">B-S partial differential equation</h3>
+
+<p>先来看一下BS偏微分方程（这个东西很让人头大啊。。）：</p>
+
+<p>之前提过，股票的价格遵循几何布朗运动：</p>
+
+<script type="math/tex; mode=display">dS=\mu S dt+\sigma S dB①</script>
+
+<p>$\mu$和$\sigma$表示股票价格的预期收益率和波动率。</p>
+
+<p>$V \left(S , t \right)$表示某股票期权的价格，我们对它做泰勒展开(直接省略了大于2阶的项)：</p>
+
+<script type="math/tex; mode=display">d V= \frac{ \partial V}{ \partial S} d S+ \frac{ \partial V}{ \partial t} d t+ \frac{1}{2       ^{ }            } \frac{ \partial^{2} V}{ \partial S^{2}} \left( d S \right)^{2}+ \frac{ \partial^{2} V}{ \partial S \partial t} \left( d S d t \right)+ \frac{1}{2} \frac{ \partial^{2} V}{ \partial t^{2}} \left( d t \right)^{2}②</script>
+
+<p>将①代入②中，并只保留$dt$的一阶项：</p>
+
+<script type="math/tex; mode=display">d V= \frac{ \partial V}{ \partial S} \left( \mu S d t+ \sigma S d B \right)+ \frac{ \partial V}{ \partial t} d t+ \frac{1}{2}       ^{ }            \frac{ \partial^{2} V}{ \partial S^{2}} \left( \mu S d t+ \sigma S d B \right)^{2}+ \frac{ \partial^{2} V}{ \partial S \partial t} \left( \mu S d t+ \sigma S d B \right) \left( d t \right)</script>
+
+<p>用$\sqrt{T} Z$代替$dB$,Z是标准正态分布，还是只保留一阶项：</p>
+
+<script type="math/tex; mode=display">d V= \left( \frac{ \partial V}{ \partial t}+ \mu S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \left( \sigma^{2} S^{2} Z^{2} \right) \frac{ \partial^{2} V}{ \partial S^{2}} \right) d t+ \sigma S \frac{ \partial V}{ \partial S} d B③</script>
+
+<p>为了简化上式，用$Z^{2}$的期望值代替它，$E \left(Z^{2} \right)=V a r \left(Z \right)=1$，进一步得到：</p>
+
+<script type="math/tex; mode=display">d V= \left( \frac{ \partial V}{ \partial t}+ \mu S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \left( \sigma^{2} S^{2} \right) \frac{ \partial^{2} V}{ \partial S^{2}} \right) d t+ \sigma S \frac{ \partial V}{ \partial S} d B④</script>
+
+<p>接下来考虑①式和③式离散的形式：</p>
+
+<script type="math/tex; mode=display">\Delta S= \mu S \Delta t+ \sigma S \Delta B</script>
+
+<script type="math/tex; mode=display">\Delta V= \left( \frac{ \partial V}{ \partial t}+ \mu S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \left( \sigma^{2} S^{2} \right) \frac{ \partial^{2} V}{ \partial S^{2}} \right) \Delta t+ \sigma S \frac{ \partial V}{ \partial S} \Delta B</script>
+
+<p>为了消除$\Delta B$，我们构建一个包含一单位衍生证券空头和$ \frac{ \partial V}{ \partial S}$，单位标的证券多头的投资组合，令$\Pi$为该组合的价值，则：</p>
+
+<script type="math/tex; mode=display">\Pi =-V+ \frac{ \partial V}{ \partial S} S</script>
+
+<p>在经过$\Delta t$时间后，该资产组合的价值变化量为：</p>
+
+<script type="math/tex; mode=display">\Delta  \Pi =- \Delta V+ \frac{ \partial V}{ \partial S} \Delta S⑤</script>
+
+<p>将$\Delta S$和$\Delta V$代入⑤式：</p>
+
+<script type="math/tex; mode=display">\Delta  \Pi =- \left( \frac{ \partial V}{ \partial t}+ \frac{1}{2} \frac{ \partial^{2} V}{ \partial S^{2}} \sigma^{2} S^{2} \right) \Delta t ⑥</script>
+
+<p>⑥式中不含$\Delta B$，因此在时间间隔$\Delta t$后该组合的价值必定无风险，其在$\Delta t$后的瞬时收益率一定等于无风险收益率，所以就有：$ \Delta  \Pi =r \Pi  \Delta t$，与⑥式联立整理后得到：</p>
+
+<script type="math/tex; mode=display">\frac{ \partial V}{ \partial t}+r S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \frac{ \partial^{2} V}{ \partial S^{2}} \sigma^{2} S^{2}=r V⑦</script>
+
+<p>这就是著名的BS偏微分方程，可以应用于价格取决于标的资产价格S的所有衍生证券定价。</p>
+
+<h3 id="section-3">用差分估计参数</h3>
+
+<p>终于搞定了PDE，现在就是要估计$\frac{ \partial V}{ \partial t}$，$\frac{ \partial V}{ \partial S}$  ，和$\frac{ \partial^{2} V}{ \partial S^{2}}$，于是就要用到差分的方法了：</p>
+
+<script type="math/tex; mode=display">V_{ \imath , j}=V \left( \imath  \Delta t , j \Delta S \right) , \imath =0 , 1 , \dotsi , N , j=0 , 1 , \dotsi , M</script>
+
+<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/BSPDE1.png" alt="image" /></p>
+
+<ul>
+  <li>对于一阶项：</li>
+</ul>
+
+<p>forward approximation：  $ \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j+1}-V_{ \imath , j}}{ \Delta S}$，$ \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath +1 , j}-V_{ \imath , j}}{ \Delta t}$</p>
+
+<p>backward approximation：$ \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j}-V_{ \imath , j-1}}{ \Delta S}$，$ \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath , j}-V_{ \imath -1 , j}}{ \Delta t}$</p>
+
+<p>center approximation： $ \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j+1}-V_{ \imath , j-1}}{2 \Delta S}$，$ \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath +1 , j}-V_{ \imath -1 , j}}{2 \Delta t}$</p>
+
+<ul>
+  <li>二阶项：</li>
+</ul>
+
+<script type="math/tex; mode=display">\frac{ \partial^{2} V}{ \partial S^{2}} \cong  \frac{V_{ \imath , j+1}+V_{ \imath , j-1}-2 V_{ \imath , j}}{ \Delta S^{2}}</script>
+
+<h3 id="section-4">隐性差分</h3>
+
+<script type="math/tex; mode=display">\frac{ \partial V}{ \partial t} =  \frac{V_{ \imath +1 , j}-V_{ \imath , j}}{ \Delta t}</script>
+
+<script type="math/tex; mode=display">\frac{ \partial V}{ \partial S} =  \frac{V_{ \imath , j}-V_{ \imath , j-1}}{ \Delta S}</script>
+
+<script type="math/tex; mode=display">\frac{ \partial^{2} V}{ \partial S^{2}} =  \frac{V_{ \imath , j+1}+V_{ \imath , j-1}-2 V_{ \imath , j}}{ \Delta S^{2}}</script>
+
+<p>有了以上3个式子，再加上PDE，就可以得到下面的：</p>
+
+<script type="math/tex; mode=display">a_{j} f_{ \imath , j-1}+b_{j} f_{ \imath , j}+c_{j} f_{ \imath , j+1}=f_{ \imath +1 , j}</script>
+
+<p>可以得到$a_{j}$，$b_{j}$，$c_{j}$的通式(其中$ \frac{S}{ \Delta S}=j$)：</p>
+
+<script type="math/tex; mode=display">a_{j}= \frac{1}{2} \Delta t \left(r j- \sigma^{2} j^{2} \right)</script>
+
+<script type="math/tex; mode=display">b_{j}=1+ \Delta t \left( \sigma^{2} j^{2}+r \right)</script>
+
+<script type="math/tex; mode=display">c_{j}= \frac{-1}{2} \Delta t \left( \sigma^{2} j^{2}+r j \right)</script>
+
+<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/BSPDE2.png" alt="image" /></p>
+
+<p>回想上面的网格图，以欧式看跌期权为例，算法如下：<br />
+1.初始化一些值，$f_{ \imath , 0}=K , f_{ \imath , M}=0 , f_{N , j}=m a x \left(K-j \Delta S , 0 \right)$，还有$a_{j}$，$b_{j}$，$c_{j}$。</p>
+
+<p>2.for i =N:0，解方程组：</p>
+
+<script type="math/tex; mode=display">a_{1} f_{ \imath -1, 0}+b_{1} f_{ \imath -1, 1}+c_{1} f_{ \imath -1, 2}=f_{ \imath  , 1}</script>
+
+<script type="math/tex; mode=display">a_{2} f_{ \imath -1, 1}+b_{2} f_{ \imath -1, 2}+c_{2} f_{ \imath -1, 3}=f_{ \imath  , 2}</script>
+
+<script type="math/tex; mode=display">\dotsi</script>
+
+<script type="math/tex; mode=display">a_{M-1} f_{ \imath -1, M-2}+b_{M-1} f_{ \imath -1, M-1}+c_{M-1} f_{ \imath -1, M}=f_{ \imath  , M}</script>
+
+<p>3.找到离S0最近的点，输出期权价格。</p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="n">SMAX</span><span class="o">=</span><span class="mi">150</span>
+<span class="n">dS</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">T</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">dT</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="n">K</span><span class="o">=</span><span class="mi">50</span>
+<span class="n">r</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="n">sigma</span><span class="o">=</span><span class="mf">0.5</span>
+
+<span class="n">N</span><span class="o">=</span><span class="n">T</span><span class="o">/</span><span class="n">dT</span>
+<span class="n">M</span><span class="o">=</span><span class="n">SMAX</span><span class="o">/</span><span class="n">dS</span>
+
+<span class="n">f</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">=</span><span class="n">K</span>
+<span class="n">f</span><span class="p">[</span><span class="n">M</span><span class="p">,:]</span><span class="o">=</span><span class="mi">0</span>
+
+<span class="n">f</span><span class="p">[:,</span><span class="n">N</span><span class="p">]</span><span class="o">=</span><span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="n">j</span><span class="o">*</span><span class="n">dS</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">a</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="o">*</span><span class="n">dT</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">r</span><span class="o">*</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="o">+</span><span class="n">dT</span><span class="o">*</span><span class="p">(</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">dT</span><span class="o">*</span><span class="p">(</span><span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">r</span><span class="o">*</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">M</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">j</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">j</span><span class="o">+=</span><span class="mi">1</span>
+<span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">[:,</span><span class="mi">1</span><span class="p">:</span><span class="n">M</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="n">M</span><span class="p">]</span>
+    <span class="n">f</span><span class="p">[:,</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="n">M</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s">'3d'</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">151</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">surf</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">f</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'summer'</span><span class="p">,</span> <span class="n">cstride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">rstride</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"Time"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">"Stock price"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s">"Option price"</span><span class="p">)</span>
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>c:\python27\lib\site-packages\ipykernel\__main__.py:17: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+c:\python27\lib\site-packages\ipykernel\__main__.py:22: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+c:\python27\lib\site-packages\ipykernel\__main__.py:36: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+c:\python27\lib\site-packages\ipykernel\__main__.py:37: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+
+
+
+
+
+&lt;matplotlib.text.Text at 0x125a26b0&gt;
+</code></pre>
+</div>
+
+<p><img src="output_23_2.png" alt="png" /></p>
+
