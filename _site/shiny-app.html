@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>R-shiny-app | liubaojie_test</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="/css/default.css" type="text/css" />
+  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
+  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
+  <link rel="shortcut icon" href="/css/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/css/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
+  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
+  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
+  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
+  <script src="/js/common.js" type="text/javascript"></script>
+
+<body>
+  <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+  html {
+    background: #333333;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+  @media screen and (max-width: 750px){
+    body { background: rgba(255, 255, 255, 0.9); }
+  }
+</style>
+
+<div id="content" class="post" style="margin-top: 20px;">
+  <div id="avatar" class="avatar circle" data-in-right="false" style="width: 150px; height: 150px; position: fixed; top: 40px; z-index: 99; opacity: 0;">
+    <div class="center" style="margin-top: 4px; height: 142px; width: 142px; border-radius: 71px; background-image: url('../images/user.png');"></div>
+  </div>
+
+  <div class="entry" style="position: relative;">
+    <h1 class="entry-title"><a href="/shiny-app" title="R-shiny-app">R-shiny-app</a></h1>
+
+    <p class="entry-date">2016-06-15 
+        <span class="lastModified" style="display: none;" data-source="_posts/python&R/2016-06-15-shiny-app.md">最后更新时间: 
+        </span>
+    </p>
+
+
+    <h1 id="shiny-app">shiny app的网页分享</h1>
+
+<blockquote>
+  <p>A web application framework for R<br />
+Turn your analyses into interactive web applications<br />
+No HTML, CSS, or JavaScript knowledge required</p>
+</blockquote>
+
+<p>在这之前，需要先知道<code class="highlighter-rouge">shiny</code>是什么，以上是官网介绍，你不需要Html,css和js的知识也能够实现强大的交互式数据可视化。那么如何将自己制作的app分享给电脑上没有R的人呢？请看：</p>
+
+<blockquote>
+  <p><strong>Share as a web page</strong></p>
+</blockquote>
+
+<blockquote>
+  <p>All of the above methods share the same limitation. They require your user to have R and Shiny installed on their computer.</p>
+</blockquote>
+
+<blockquote>
+  <p>However, Shiny creates the perfect opportunity to share output with people who do not have R (and have no intention of getting it). Your Shiny app happens to be one of the most widely used communication tools in the world: a web page. If you host the app at its own URL, users can visit the app (and not need to worry about code).</p>
+</blockquote>
+
+<blockquote>
+  <p>If you are familiar with web hosting or have access to an IT department, you can host your Shiny apps yourself.</p>
+</blockquote>
+
+<blockquote>
+  <p>If you’d prefer an easier experience or need support, RStudio offers three ways to host your Shiny app as a web page:</p>
+</blockquote>
+
+<blockquote>
+  <p>1.Shinyapps.io.<br />
+2.Shiny Server, and<br />
+3.Shiny Server Pro</p>
+</blockquote>
+
+<p>以上是官方的文档，介绍了三种方法来实现shiny app的网页化，这里我选择第一种：<a href="http://shinyapps.io/">shinyapps.io</a></p>
+
+<p>注册网站后登陆（我用的是github账号登陆），就进入了教程页面。</p>
+
+<blockquote>
+  <p>STEP 1 – INSTALL RSCONNECT<br />
+The <code class="highlighter-rouge">rsconnect</code> package can be installed directly from CRAN. To make sure you have the latest version run following code in your R console:</p>
+</blockquote>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s1">'rsconnect'</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+<p>首先是安装这个包，不多说。</p>
+
+<blockquote>
+  <p>STEP 2 – AUTHORIZE ACCOUNT<br />
+The <code class="highlighter-rouge">rsconnect</code> package must be authorized to your account using a token and secret. To do this, click the copy button below and we’ll copy the whole command you need to your clipboard. Just paste it into your console to authorize your account. Once you’ve entered the command successfully in R, that computer is now authorized to deploy applications to your shinyapps.io account.
+<code class="highlighter-rouge">r
+rsconnect::setAccountInfo(name='akuan',
+			  token='**************',
+			  secret='&lt;SECRET&gt;')
+</code></p>
+</blockquote>
+
+<p>安装完包之后就是配置账户，非常简单，只要将网页上的代码粘贴到R命令行回车运行就可以了。</p>
+
+<blockquote>
+  <p>STEP 3 – DEPLOY<br />
+Once the <code class="highlighter-rouge">rsconnect</code> package has been configured, you’re ready to deploy your first application. If you haven’t written any applications yet, you can also checkout the Getting Started Guide for instructions on how to deploy our demo application. Run the following code in your R console.</p>
+</blockquote>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rsconnect</span><span class="p">)</span><span class="w">
+</span><span class="n">rsconnect</span><span class="o">::</span><span class="n">deployApp</span><span class="p">(</span><span class="s1">'path/to/your/app'</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>如果上一步没有报错，就可以用上面的代码来发布自己的app了。</p>
+
+<p>我自己试了一下：</p>
+
+<p><img src="images/5.png" alt="image" /></p>
+
+<p>成功！
+<a href="https://akuan.shinyapps.io/stockVis/">点这里</a></p>
+
+<p>当然在这之前你需要先会用<code class="highlighter-rouge">shiny</code>，这里是<a href="http://shiny.rstudio.com/tutorial/">官方教程。</a></p>
+
+
+
+  </div>
+
+
+  <div id="menuIndex" class="sidenav">
+    <div class="myinfo"><center>
+      <div id="avatarHolder" class="avatar circle" style="width: 0px; height: 0px; box-shadow: none; margin-bottom: 20px;"></div>
+      <a href="/index.html" title="Homepage"><i class="icon-home icon-large"></i> Home</a>
+      <a href="http://www.linkedin.com/in"><i class="icon-linkedin-sign icon-large"></i> Profile</a>
+      <a href="https://github.com/"><i class="icon-github icon-large"></i> Code</a>
+      <a href="mailto:liubaojie2016@163.com"><i class="icon-envelope icon-large"></i> Mail</a>
+    </center></div>
+    <div id="menu"></div>
+  </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+</body>
+</html>

@@ -1,5 +1,10 @@
 
-<h1 id="section">期权定价的几种方法</h1>
+<hr />
+<p>layout: post<br />
+categories: [learn]<br />
+tags: [jekyll, github, git, markdown]
+—
+# 期权定价的几种方法</p>
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
@@ -64,7 +69,7 @@
 <p>以上求解均假设没有分红，交易费用等。<br />
 对于欧式期权，BS公式有精确的定价公式，但对于美式期权，BS公式不可能求出解的表达式。</p>
 
-<h2 id="section-1">2.二叉树期权定价</h2>
+<h2 id="section">2.二叉树期权定价</h2>
 
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
@@ -264,7 +269,7 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
 
 <p>这里我选择苹果公司的股票和期权来进行定价。一般来讲，做模拟的话，深度实值或者深度虚值期权定价与实际价格的差距较大，越接近平值越准确。可是上图却好像是相反的，这是怎么回事，我也还没有想清楚，还请大神赐教。</p>
 
-<h2 id="section-2">4.有限差分</h2>
+<h2 id="section-1">4.有限差分</h2>
 
 <h3 id="b-s-partial-differential-equation">B-S partial differential equation</h3>
 
@@ -316,7 +321,7 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
 
 <p>这就是著名的BS偏微分方程，可以应用于价格取决于标的资产价格S的所有衍生证券定价。</p>
 
-<h3 id="section-3">用差分估计参数</h3>
+<h3 id="section-2">用差分估计参数</h3>
 
 <p>终于搞定了PDE，现在就是要估计$\frac{ \partial V}{ \partial t}$，$\frac{ \partial V}{ \partial S}$  ，和$\frac{ \partial^{2} V}{ \partial S^{2}}$，于是就要用到差分的方法了：</p>
 
@@ -340,7 +345,7 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
 
 <script type="math/tex; mode=display">\frac{ \partial^{2} V}{ \partial S^{2}} \cong  \frac{V_{ \imath , j+1}+V_{ \imath , j-1}-2 V_{ \imath , j}}{ \Delta S^{2}}</script>
 
-<h3 id="section-4">隐性差分</h3>
+<h3 id="section-3">隐性差分</h3>
 
 <script type="math/tex; mode=display">\frac{ \partial V}{ \partial t} =  \frac{V_{ \imath +1 , j}-V_{ \imath , j}}{ \Delta t}</script>
 
