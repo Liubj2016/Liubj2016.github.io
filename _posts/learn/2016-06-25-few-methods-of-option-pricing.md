@@ -10,7 +10,7 @@ description: 总结了课上学过的集中方法。
 
 
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+<script type="text/javascript" src="https://github.com/Liubj2016/Liubj2016.github.io/tree/master/extensions/MathJax.js"></script>
 ## 1.Black-Scholes期权定价公式的推导  
 保罗萨缪尔森在1965年提出来的股价模型：
 $$dS=\mu S dt+\sigma S dB①$$  

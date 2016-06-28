@@ -26,7 +26,7 @@
    <title>liubaojie's site</title>
    <link href="http://Liubj2016.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://Liubj2016.github.io" rel="alternate" type="text/html" />
-   <updated>2016-06-28T14:47:20+08:00</updated>
+   <updated>2016-06-28T14:54:54+08:00</updated>
    <id>http://Liubj2016.github.io</id>
    <author>
      <name></name>
@@ -226,7 +226,7 @@ getSymbols(&quot;SANY.HEAVY&quot;)
      <link href="/few-methods-of-option-pricing"/>
      <updated>2016-06-25T00:00:00+08:00</updated>
      <id>/few-methods-of-option-pricing</id>
-     <content type="html">&lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&quot;&gt;&lt;/script&gt;
+     <content type="html">&lt;script type=&quot;text/javascript&quot; src=&quot;https://github.com/Liubj2016/Liubj2016.github.io/tree/master/extensions/MathJax.js&quot;&gt;&lt;/script&gt;
 
 &lt;h2 id=&quot;black-scholes&quot;&gt;1.Black-Scholes期权定价公式的推导&lt;/h2&gt;
 &lt;p&gt;保罗萨缪尔森在1965年提出来的股价模型：
