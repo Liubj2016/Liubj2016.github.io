@@ -13,13 +13,15 @@ description: 总结了课上学过的集中方法。
 
 ## 1.Black-Scholes期权定价公式的推导  
 保罗萨缪尔森在1965年提出来的股价模型：
+
 $$dS=\mu S dt+\sigma S dB①$$  
+
 其中\\(\mu\,\sigma\\)是常数,\\(B\\)是布朗运动。  
 上述微分方程的解为：  
 
 {% raw %}
 $$S\_{t}=S\_{0}exp\left[\sigma B\_{t}+\left( \mu -\sigma^{2}/2 \right)t \right]②$$
-{% raw %}
+{% endraw %}
 
 对于欧式看涨期权，最终支付为\\(\left(S\_{T}-X \right)^{+}\\)，所以有：  
 
