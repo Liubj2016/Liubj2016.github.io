@@ -26,7 +26,7 @@
    <title>liubaojie's site</title>
    <link href="http://Liubj2016.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://Liubj2016.github.io" rel="alternate" type="text/html" />
-   <updated>2016-06-28T14:54:54+08:00</updated>
+   <updated>2016-06-29T18:38:32+08:00</updated>
    <id>http://Liubj2016.github.io</id>
    <author>
      <name></name>
@@ -39,34 +39,34 @@
      <link href="/matlab-project-2"/>
      <updated>2016-06-28T00:00:00+08:00</updated>
      <id>/matlab-project-2</id>
-     <content type="html">&lt;h1 id=&quot;matlab-project-2&quot;&gt;matlab project 2——蒙特卡洛模拟的美式期权&lt;/h1&gt;
+     <content type="html">&lt;h1&gt;matlab project 2——蒙特卡洛模拟的美式期权&lt;/h1&gt;
+
 &lt;blockquote&gt;
-  &lt;p&gt;Stock prices sometimes change by large values in short periods of time, making a
+&lt;p&gt;Stock prices sometimes change by large values in short periods of time, making a
 jump diffusion model be a more appropriate model to capture this characteristic than a
 plain diffusion model. We extend the Black-Scholes to include jumps, resulting in the
-following model in risk-neutral world,&lt;br /&gt;
-&lt;img src=&quot;images/project2.png&quot; alt=&quot;image&quot; /&gt;&lt;br /&gt;
+following model in risk-neutral world,&lt;br&gt;
+&lt;img src=&quot;images/project2.png&quot; alt=&quot;image&quot;&gt;&lt;br&gt;
 where Yi ~U(1.1, 1.3) and N(t) is a Poisson process with lambda=4 per year.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;&lt;em&gt;其中Z服从标准正态分布。&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;思路如下（这里只是简单思路，具体可以上网上看paper）：&lt;/p&gt;
+&lt;p&gt;思路如下（这里只是简单思路，具体可以上网上看paper）：  &lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;先模拟出每个节点的股票价格S和在此点执行所能得到的收益f；&lt;/li&gt;
-  &lt;li&gt;总共模拟MxN个，M代表M条路径，N代表将一段时间分为N期。用S(n)代表股价的每一列。&lt;/li&gt;
-  &lt;li&gt;如果在S(n)选择执行，即f(n)&amp;gt;0,那么就将f(n+1)与对应的S(n)进行一元二次回归，得到一个模型，系数向量为p；&lt;/li&gt;
-  &lt;li&gt;将S(n)全部代入模型中得到拟合值y；&lt;/li&gt;
-  &lt;li&gt;将f与y进行比较，f&amp;gt;y的值就留下，f&amp;lt;y的值令其为0；&lt;/li&gt;
-  &lt;li&gt;从左往右汇总f，如果某个值所在路径上它是第一个大于0的值，其值有效，否则无效。&lt;/li&gt;
+&lt;li&gt;先模拟出每个节点的股票价格S和在此点执行所能得到的收益f；&lt;/li&gt;
+&lt;li&gt;总共模拟MxN个，M代表M条路径，N代表将一段时间分为N期。用S(n)代表股价的每一列。&lt;/li&gt;
+&lt;li&gt;如果在S(n)选择执行，即f(n)&amp;gt;0,那么就将f(n+1)与对应的S(n)进行一元二次回归，得到一个模型，系数向量为p；&lt;/li&gt;
+&lt;li&gt;将S(n)全部代入模型中得到拟合值y；&lt;/li&gt;
+&lt;li&gt;将f与y进行比较，f&amp;gt;y的值就留下，f&amp;lt;y的值令其为0；&lt;/li&gt;
+&lt;li&gt;从左往右汇总f，如果某个值所在路径上它是第一个大于0的值，其值有效，否则无效。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;代码如下（&lt;strong&gt;由于上述步骤中有很多需要判断，这样写代码就会显得很乱而且很长，所以充分利用matlab矩阵运算和逻辑运算简化了代码&lt;/strong&gt;）：&lt;/p&gt;
+&lt;p&gt;代码如下（&lt;strong&gt;由于上述步骤中有很多需要判断，这样写代码就会显得很乱而且很长，所以充分利用matlab矩阵运算和逻辑运算简化了代码&lt;/strong&gt;）：  &lt;/p&gt;
 
 &lt;p&gt;ps：运行代码有彩蛋哦。。（我真无聊(￣、￣)）&lt;/p&gt;
-
-&lt;div class=&quot;language-matlab highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;regressionP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;regressionP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;sigma&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;S0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;90.44&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -110,13 +110,11 @@ where Yi ~U(1.1, 1.3) and N(t) is a Poisson process with lambda=4 per year.&lt;/
 &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;handel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;sound&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;blockquote&gt;
-  &lt;p&gt;由于蒙特卡洛采用的是正向求解的方法，我们无法计算在每个时刻继续持有期权的期望收益，从而无法比较在该时刻立即执行期权的收益与继续持有期权的期望收益，进而无法决定是立即执行期权还是继续持有期权。所以，直到几年前，人们还认为蒙特卡洛方法
+&lt;p&gt;由于蒙特卡洛采用的是正向求解的方法，我们无法计算在每个时刻继续持有期权的期望收益，从而无法比较在该时刻立即执行期权的收益与继续持有期权的期望收益，进而无法决定是立即执行期权还是继续持有期权。所以，直到几年前，人们还认为蒙特卡洛方法
 只适合为具有固定执行时间的欧式期权定价，而不适合为美式期权定价。近年来，随着数理金融学的发展，出现了一些运用蒙特卡洛方法模拟美式期权定价的算法。其中，影响最大的是由Longstaff和Schwartz提出的最小二乘蒙特卡洛(LSM)模拟方法，
-该方法已成为目前使用蒙特卡洛模拟美式期权定价的标准方法。&lt;/p&gt;
+该方法已成为目前使用蒙特卡洛模拟美式期权定价的标准方法。 &lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
    </entry>
@@ -126,89 +124,74 @@ where Yi ~U(1.1, 1.3) and N(t) is a Poisson process with lambda=4 per year.&lt;/
      <link href="/R-quantmod"/>
      <updated>2016-06-25T00:00:00+08:00</updated>
      <id>/R-quantmod</id>
-     <content type="html">&lt;h1 id=&quot;r-quantmod&quot;&gt;R-quantmod包&lt;/h1&gt;
-&lt;p&gt;## 1.获取股票数据
-1.1 获取上证指数&lt;/p&gt;
+     <content type="html">&lt;h1&gt;R-quantmod包&lt;/h1&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;getSymbols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^SSEC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;h2&gt;1.获取股票数据&lt;/h2&gt;
+
+&lt;p&gt;1.1 获取上证指数&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;getSymbols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;^SSEC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;1.2 获取三一重工数据
-&lt;code class=&quot;highlighter-rouge&quot;&gt;r
-setSymbolLookup(SANY.HEAVY=list(name=&quot;600030.ss&quot;,src=&quot;yahoo&quot;))
-getSymbols(&quot;SANY.HEAVY&quot;)
+&lt;code&gt;r
+setSymbolLookup(SANY.HEAVY=list(name=&amp;quot;600030.ss&amp;quot;,src=&amp;quot;yahoo&amp;quot;))
+getSymbols(&amp;quot;SANY.HEAVY&amp;quot;)
 &lt;/code&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;2.获取期权交易数据&lt;/h2&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;getSymbols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AAPL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;h2&gt;2.获取期权交易数据&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;getSymbols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AAPL&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options.expiry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AAPL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;futures.expiry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AAPL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AAPL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options.expiry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AAPL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;## 3.获取汇市数据&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;getFX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;USD/JPY&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;## 4.获取重金属交易数据&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;getFX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gold&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;XPD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;## 5.获取美联储经济数据&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;getSymbols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;CPIAUCNS&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;FRED&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;# 提取数据的函数&lt;/p&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;3.获取汇市数据&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;getFX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;USD/JPY&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;4.获取重金属交易数据&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;getFX&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;gold&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;XPD&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;5.获取美联储经济数据&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;getSymbols&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;CPIAUCNS&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;FRED&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;提取数据的函数&lt;/h1&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Op(x):提取开盘价&lt;/li&gt;
-  &lt;li&gt;Hi(x):提取最高价&lt;/li&gt;
-  &lt;li&gt;Lo(x):提取最低价&lt;/li&gt;
-  &lt;li&gt;Cl(x):提取收盘价&lt;/li&gt;
-  &lt;li&gt;Vo(x):提取交易量&lt;/li&gt;
-  &lt;li&gt;Ad(x):提取调整价格&lt;/li&gt;
-  &lt;li&gt;HLC(x):提取最高价、最低价和收盘价&lt;/li&gt;
-  &lt;li&gt;OHLC(x):提取开盘价、最高、最低和收盘价&lt;/li&gt;
+&lt;li&gt;Op(x):提取开盘价&lt;/li&gt;
+&lt;li&gt;Hi(x):提取最高价&lt;/li&gt;
+&lt;li&gt;Lo(x):提取最低价&lt;/li&gt;
+&lt;li&gt;Cl(x):提取收盘价&lt;/li&gt;
+&lt;li&gt;Vo(x):提取交易量&lt;/li&gt;
+&lt;li&gt;Ad(x):提取调整价格&lt;/li&gt;
+&lt;li&gt;HLC(x):提取最高价、最低价和收盘价&lt;/li&gt;
+&lt;li&gt;OHLC(x):提取开盘价、最高、最低和收盘价&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;section-1&quot;&gt;操作函数&lt;/h1&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Stock.Open&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;102.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;102.87&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;102.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100.87&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;103.44&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;103.87&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;103.00&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;h1&gt;操作函数&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;Stock.Open&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;102.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;102.87&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;102.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100.87&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;103.44&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;103.87&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;103.00&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stock.Close&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;102.12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;102.62&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100.12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;103.00&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;103.87&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;103.12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;105.12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#以开盘价计算收益率
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Delt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stock.Open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#计算开盘价和下一期收盘价的差
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Delt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stock.Open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stock.Close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-  &lt;li&gt;OpCl(x):等同于Delt(Op(x), Cl(x))&lt;/li&gt;
-  &lt;li&gt;ClCl(x):等同于Delt(Cl(x))&lt;/li&gt;
-  &lt;li&gt;HiCl(x):等同于Delt(Hi(x),Cl(x))&lt;/li&gt;
-  &lt;li&gt;LoCl(x):等同于Delt(Lo(x),Cl(x))&lt;/li&gt;
-  &lt;li&gt;LoHi(x):等同于Delt(Lo(x),Hi(x))&lt;/li&gt;
-  &lt;li&gt;OpHi(x):等同于Delt(Op(x),Hi(x))&lt;/li&gt;
-  &lt;li&gt;OpLo(x):等同于Delt(OP(x),Lo(x))&lt;/li&gt;
-  &lt;li&gt;OpOp(x):等同于Delt(Op(x))&lt;/li&gt;
+&lt;li&gt;OpCl(x):等同于Delt(Op(x), Cl(x))&lt;/li&gt;
+&lt;li&gt;ClCl(x):等同于Delt(Cl(x))&lt;/li&gt;
+&lt;li&gt;HiCl(x):等同于Delt(Hi(x),Cl(x))&lt;/li&gt;
+&lt;li&gt;LoCl(x):等同于Delt(Lo(x),Cl(x))&lt;/li&gt;
+&lt;li&gt;LoHi(x):等同于Delt(Lo(x),Hi(x))&lt;/li&gt;
+&lt;li&gt;OpHi(x):等同于Delt(Op(x),Hi(x))&lt;/li&gt;
+&lt;li&gt;OpLo(x):等同于Delt(OP(x),Lo(x))&lt;/li&gt;
+&lt;li&gt;OpOp(x):等同于Delt(Op(x))&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h1 id=&quot;section-2&quot;&gt;计算收益率&lt;/h1&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dailyReturn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;h1&gt;计算收益率&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;dailyReturn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;weeklyReturn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;monthlyReturn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quarterlyReturn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h1 id=&quot;section-3&quot;&gt;画图&lt;/h1&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#主图
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;画图&lt;/h1&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#主图
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chartSeries&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#条形图
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;barChart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CHL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -216,9 +199,7 @@ getSymbols(&quot;SANY.HEAVY&quot;)
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;candleChart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CHL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#线图
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lineChart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CHL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</content>
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
    </entry>
    
    <entry>
@@ -226,124 +207,122 @@ getSymbols(&quot;SANY.HEAVY&quot;)
      <link href="/few-methods-of-option-pricing"/>
      <updated>2016-06-25T00:00:00+08:00</updated>
      <id>/few-methods-of-option-pricing</id>
-     <content type="html">&lt;script type=&quot;text/javascript&quot; src=&quot;https://github.com/Liubj2016/Liubj2016.github.io/tree/master/extensions/MathJax.js&quot;&gt;&lt;/script&gt;
+     <content type="html">&lt;h2&gt;1.Black-Scholes期权定价公式的推导&lt;/h2&gt;
 
-&lt;h2 id=&quot;black-scholes&quot;&gt;1.Black-Scholes期权定价公式的推导&lt;/h2&gt;
 &lt;p&gt;保罗萨缪尔森在1965年提出来的股价模型：
-&lt;script type=&quot;math/tex&quot;&gt;dS=\mu S dt+\sigma S dB①&lt;/script&gt;&lt;br /&gt;
-其中\(\mu\,\sigma\)是常数,B是布朗运动。&lt;br /&gt;
-上述微分方程的解为：&lt;/p&gt;
+$$dS=\mu S dt+\sigma S dB①$$&lt;br&gt;
+其中\(\mu\,\sigma\)是常数,\(B\)是布朗运动。&lt;br&gt;
+上述微分方程的解为：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_{t}=S_{0}exp\left[\sigma B_{t}+\left( \mu -\sigma^{2}/2 \right)t \right]②&lt;/script&gt;
+&lt;p&gt;$$S_{t}=S_{0}exp\left[\sigma B_{t}+\left( \mu -\sigma^{2}/2 \right)t \right]②$$&lt;/p&gt;
 
-&lt;p&gt;对于欧式看涨期权，最终支付为\(\left(S_{T}-X \right)^{+}\)，所以有：&lt;/p&gt;
+&lt;p&gt;对于欧式看涨期权，最终支付为\(\left(S_{T}-X \right)^{+}\)，所以有：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;V=e^{-r T}E\left[\left(S_{T}-X\right)^{+}\right]③&lt;/script&gt;
+&lt;p&gt;$$V=e^{-r T}E\left[\left(S_{T}-X\right)^{+}\right]③$$    &lt;/p&gt;
 
-&lt;p&gt;我们用②的模型：&lt;/p&gt;
+&lt;p&gt;我们用②的模型：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_{T}=S_{0}exp\left[\sigma B_{T}+\left( \mu -\sigma^{2}/2 \right)t \right]④&lt;/script&gt;
+&lt;p&gt;$$S_{T}=S_{0}exp\left[\sigma B_{T}+\left( \mu -\sigma^{2}/2 \right)t \right]④$$  &lt;/p&gt;
 
-&lt;p&gt;由于\(B_{T}\)是服从均值为0，方差为T的正态分布，所以考虑用\(\sqrt{T} Z\)代替\(B_{T}\),Z是标准正态分布：&lt;/p&gt;
+&lt;p&gt;由于\(B_{T}\)是服从均值为0，方差为T的正态分布，所以考虑用\(\sqrt{T} Z\)代替\(B_{T}\),Z是标准正态分布：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_{T}=S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]⑤&lt;/script&gt;
+&lt;p&gt;$$S_{T}=S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]⑤$$  &lt;/p&gt;
 
-&lt;p&gt;则&lt;/p&gt;
+&lt;p&gt;则  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;V=e^{-r T}E\left[\left(S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)^{+}\right]⑥&lt;/script&gt;
+&lt;p&gt;$$V=e^{-r T}E\left[\left(S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)^{+}\right]⑥$$   &lt;/p&gt;
 
-&lt;p&gt;则有：&lt;/p&gt;
+&lt;p&gt;则有：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;V= \frac{e^{-r T}}{ \sqrt{2 \pi }} \int_{- \infty }^{ \infty }  \left \{ \left(S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)\right \}^{+}e^{-x^{2}/2}dx⑦&lt;/script&gt;
+&lt;p&gt;$$V= \frac{e^{-r T}}{ \sqrt{2 \pi }} \int_{- \infty }^{ \infty }  \left{ \left(S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)\right}^{+}e^{-x^{2}/2}dx⑦$$   &lt;/p&gt;
 
-&lt;p&gt;解方程\(S_{0} e x p \left [ \sigma  \sqrt{T} a+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right ]-x=0\)&lt;/p&gt;
+&lt;p&gt;解方程\(S_{0} e x p \left [ \sigma  \sqrt{T} a+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right ]-x=0\)  &lt;/p&gt;
 
-&lt;p&gt;得到：&lt;/p&gt;
+&lt;p&gt;得到：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a= \frac{ \ln \left( \frac{X}{S_{0}} \right)- \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}&lt;/script&gt;
+&lt;p&gt;$$a= \frac{ \ln \left( \frac{X}{S_{0}} \right)- \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}$$  &lt;/p&gt;
 
-&lt;p&gt;接下来将⑦分为两部分求解，第二部分：&lt;/p&gt;
+&lt;p&gt;接下来将⑦分为两部分求解，第二部分：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\frac{1}{ \sqrt{2 \pi }} \int_{a}^{ \infty } -X e^{-x^{2}/2} d x=-X N \left(-a \right)&lt;/script&gt;
+&lt;p&gt;$$\frac{1}{ \sqrt{2 \pi }} \int_{a}^{ \infty } -X e^{-x^{2}/2} d x=-X N \left(-a \right)$$  &lt;/p&gt;
 
-&lt;p&gt;第一部分：&lt;/p&gt;
+&lt;p&gt;第一部分：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\frac{1}{ \sqrt{2 \pi }} \int_{a}^{ \infty } S_{0} e x p \left [ \sigma  \sqrt{T} x+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right ] e^{-x^{2}/2} d x&lt;/script&gt;
+&lt;p&gt;$$ \frac{1}{ \sqrt{2 \pi }} \int_{a}^{ \infty } S_{0} e x p \left [ \sigma  \sqrt{T} x+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right ] e^{-x^{2}/2} d x$$  &lt;/p&gt;
 
-&lt;p&gt;它等于：&lt;/p&gt;
+&lt;p&gt;它等于：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_{0} e^{r T} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)&lt;/script&gt;
+&lt;p&gt;$$S_{0} e^{r T} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)$$  &lt;/p&gt;
 
-&lt;p&gt;因此：&lt;br /&gt;
-&lt;script type=&quot;math/tex&quot;&gt;V=S_{0} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)-X e^{-r T} N \left(-a \right)&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;因此：&lt;br&gt;
+$$V=S_{0} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)-X e^{-r T} N \left(-a \right)$$  &lt;/p&gt;
 
-&lt;p&gt;这时之前求得的a值就有用了：&lt;br /&gt;
-&lt;script type=&quot;math/tex&quot;&gt;a= \frac{ \ln \left( \frac{S_{0}}{X} \right)+ \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;这时之前求得的a值就有用了：&lt;br&gt;
+$$a= \frac{ \ln \left( \frac{S_{0}}{X} \right)+ \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}$$  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a= \frac{ \ln \left( \frac{S_{0}}{X} \right)+ \left(r+ \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}&lt;/script&gt;
+&lt;p&gt;$$a= \frac{ \ln \left( \frac{S_{0}}{X} \right)+ \left(r+ \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}$$  &lt;/p&gt;
 
-&lt;p&gt;令 \(-a=d_{2}\) and \(a- \sigma \sqrt{T}=d_{1}\),则有：&lt;/p&gt;
+&lt;p&gt;令 \(-a=d_{2}\) and \(a- \sigma \sqrt{T}=d_{1}\),则有：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;V=S_{0} N \left(d_{1} \right)-e^{-r T} X N \left(d_{2} \right)&lt;/script&gt;
+&lt;p&gt;$$V=S_{0} N \left(d_{1} \right)-e^{-r T} X N \left(d_{2} \right)$$  &lt;/p&gt;
 
-&lt;p&gt;以上求解均假设没有分红，交易费用等。&lt;br /&gt;
+&lt;p&gt;以上求解均假设没有分红，交易费用等。&lt;br&gt;
 对于欧式期权，BS公式有精确的定价公式，但对于美式期权，BS公式不可能求出解的表达式。&lt;/p&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;2.二叉树期权定价&lt;/h2&gt;
+&lt;h2&gt;2.二叉树期权定价&lt;/h2&gt;
 
 &lt;script type=&quot;text/javascript&quot; src=&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&quot;&gt;&lt;/script&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;二叉树也称为二项式定价模型，二项期权定价模型由考克斯（J.C.Cox）、罗斯（S.A.Ross）、鲁宾斯坦（M.Rubinstein）和夏普（Sharpe）等人提出的一种期权定价模型，主要用于计算美式期权的价值。其优点在于比较直观简单，不需要太多数学知识就可以加以应用。&lt;/p&gt;
+&lt;p&gt;二叉树也称为二项式定价模型，二项期权定价模型由考克斯（J.C.Cox）、罗斯（S.A.Ross）、鲁宾斯坦（M.Rubinstein）和夏普（Sharpe）等人提出的一种期权定价模型，主要用于计算美式期权的价值。其优点在于比较直观简单，不需要太多数学知识就可以加以应用。  &lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/learn/images/BT1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/learn/images/BT1.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;在很小的一段时间内假设股价会向上运动到\(S_{0}u\),也可能向下运动到\(S_{0}d\)。&lt;br /&gt;
-为了确定u，d，p，我们假设市场为风险中性，即股票预期收益率等于无风险利率，接着我们构造资产组合：&lt;br /&gt;
-&lt;strong&gt;Portfolio&lt;/strong&gt;：买\(\Delta\)单位的标的资产，卖出1单位的衍生品（期权）。&lt;br /&gt;
-&lt;strong&gt;上涨情形&lt;/strong&gt;：资产组合的价值为：&lt;/p&gt;
+&lt;p&gt;在很小的一段时间内假设股价会向上运动到\(S_{0}u\),也可能向下运动到\(S_{0}d\)。&lt;br&gt;
+为了确定u，d，p，我们假设市场为风险中性，即股票预期收益率等于无风险利率，接着我们构造资产组合：&lt;br&gt;
+&lt;strong&gt;Portfolio&lt;/strong&gt;：买\(\Delta\)单位的标的资产，卖出1单位的衍生品（期权）。&lt;br&gt;
+&lt;strong&gt;上涨情形&lt;/strong&gt;：资产组合的价值为：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_{0}u\Delta - f_{u}&lt;/script&gt;
+&lt;p&gt;$$S_{0}u\Delta - f_{u}$$  &lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;下跌情形&lt;/strong&gt;：资产组合的价值为：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;下跌情形&lt;/strong&gt;：资产组合的价值为：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_{0}d\Delta - f_{d}&lt;/script&gt;
+&lt;p&gt;$$S_{0}d\Delta - f_{d}$$  &lt;/p&gt;
 
-&lt;p&gt;复制无风险资产，上述两式相等，可以解出：&lt;/p&gt;
+&lt;p&gt;复制无风险资产，上述两式相等，可以解出：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Delta = \frac{f_{u}-fsbtd}{S_{0} u-S_{0} d}&lt;/script&gt;
+&lt;p&gt;$$ \Delta = \frac{f_{u}-fsbtd}{S_{0} u-S_{0} d}$$  &lt;/p&gt;
 
-&lt;p&gt;再根据&lt;/p&gt;
+&lt;p&gt;再根据  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;S_{0} \Delta -f_{0}= \left(S_{0} u-f_{u} \right) e^{-r T}&lt;/script&gt;
+&lt;p&gt;$$S_{0} \Delta -f_{0}= \left(S_{0} u-f_{u} \right) e^{-r T}$$  &lt;/p&gt;
 
-&lt;p&gt;求出&lt;/p&gt;
+&lt;p&gt;求出  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f_{0}=S_{0} \Delta - \left(S_{0} u \Delta -f_{u} \right) e^{-r T}&lt;/script&gt;
+&lt;p&gt;$$f_{0}=S_{0} \Delta - \left(S_{0} u \Delta -f_{u} \right) e^{-r T}$$  &lt;/p&gt;
 
-&lt;p&gt;将\(\Delta\)代入得到&lt;/p&gt;
+&lt;p&gt;将\(\Delta\)代入得到  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;f_{0}=e^{-r T} \left [p f_{u}+ \left(1-p \right) f_{d} \right ]&lt;/script&gt;
+&lt;p&gt;$$f_{0}=e^{-r T} \left [p f_{u}+ \left(1-p \right) f_{d} \right ]$$  &lt;/p&gt;
 
-&lt;p&gt;其中：&lt;br /&gt;
-&lt;script type=&quot;math/tex&quot;&gt;p= \frac{e^{-r T}-d}{u-d}&lt;/script&gt;&lt;/p&gt;
+&lt;p&gt;其中：&lt;br&gt;
+$$p= \frac{e^{-r T}-d}{u-d}$$  &lt;/p&gt;
 
-&lt;p&gt;根据风险中性的假设，我们有如下方程组(均值和方差)：&lt;/p&gt;
+&lt;p&gt;根据风险中性的假设，我们有如下方程组(均值和方差)：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p u+ \left(1-p \right) d=e^{r\Delta t}&lt;/script&gt;
+&lt;p&gt;$$p u+ \left(1-p \right) d=e^{r\Delta t}$$  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;p u^{2}+ \left(1-p \right) d^{2}-e^{2 r \Delta t}= \sigma^{2} \Delta t&lt;/script&gt;
+&lt;p&gt;$$p u^{2}+ \left(1-p \right) d^{2}-e^{2 r \Delta t}= \sigma^{2} \Delta t$$  &lt;/p&gt;
 
-&lt;p&gt;再假设u=1/d，那么便可以解出p，u，d：&lt;/p&gt;
+&lt;p&gt;再假设u=1/d，那么便可以解出p，u，d：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;u=e^{\sigma \sqrt \Delta t}&lt;/script&gt;
+&lt;p&gt;$$u=e^{\sigma \sqrt \Delta t}$$  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;d=e^{- \sigma \sqrt \Delta t}&lt;/script&gt;
+&lt;p&gt;$$d=e^{- \sigma \sqrt \Delta t}$$&lt;/p&gt;
 
 &lt;p&gt;以下是在matlab中实现的欧式期权二叉树定价，假设没有红利支付。可以用N来调节需要的二叉树的期数。&lt;/p&gt;
-
-&lt;div class=&quot;language-matlab highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;%s0: stock price&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;%k: strik price&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;%sigma: volatility of stock&lt;/span&gt;
@@ -374,28 +353,25 @@ getSymbols(&quot;SANY.HEAVY&quot;)
 
 &lt;span class=&quot;n&quot;&gt;c1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;p1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;bs&quot;&gt;二叉树和BS公式定价的比较&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3&gt;二叉树和BS公式定价的比较&lt;/h3&gt;
 
 &lt;p&gt;可以证明，随着期数的增加，二叉树的结果收敛于BS公式的结果。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/learn/images/BT2.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/learn/images/BT2.png&quot; alt=&quot;image&quot;&gt;  &lt;/p&gt;
 
 &lt;p&gt;当然，二叉树也可以为美式期权定价，方法与欧式期权类似，只不过需要算出每个节点的价格，代码就不贴了，有兴趣可以自己实现以下。&lt;/p&gt;
 
-&lt;h2 id=&quot;regression-based-methods&quot;&gt;3.蒙特卡洛模拟美式看跌期权定价——Regression-Based Methods&lt;/h2&gt;
+&lt;h2&gt;3.蒙特卡洛模拟美式看跌期权定价——Regression-Based Methods&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;蒙特卡洛模拟可以轻松实现路径依赖期权（障碍期权、亚式齐全）的定价。近年来，由Longstaff和Schwartz提出的最小二乘蒙特卡洛(LSM)模拟方法， 该方法已成为目前使用蒙特卡洛模拟美式期权定价的标准方法。LSM有这样一些假定：不支付交易费和税收、无套利机会、不支付红利、无风险利率是常数、标的资产价格演化遵循几何布朗运动。&lt;/p&gt;
+&lt;p&gt;蒙特卡洛模拟可以轻松实现路径依赖期权（障碍期权、亚式齐全）的定价。近年来，由Longstaff和Schwartz提出的最小二乘蒙特卡洛(LSM)模拟方法， 该方法已成为目前使用蒙特卡洛模拟美式期权定价的标准方法。LSM有这样一些假定：不支付交易费和税收、无套利机会、不支付红利、无风险利率是常数、标的资产价格演化遵循几何布朗运动。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;基本思想：
-&lt;script type=&quot;math/tex&quot;&gt;V_{ \imath } \left(s \right)=m a x \left \{h_{ \imath } \left(s \right) , E \left [V_{ \imath +1} \left(S_{ \imath +1} \right) | S_{ \imath }=s \right ] \right \}&lt;/script&gt;
+$$V_{ \imath } \left(s \right)=max \left{h_{ \imath } \left(s \right) , E \left [V_{ \imath +1} \left(S_{ \imath +1} \right) | S_{ \imath }=s \right ] \right}$$
 max里第一项是现在执行获得的payoff，第二项是选择等待所能获得的payoff的期望，这个期望用多项式回归的方法获得，即建立当期股价与下期payoff的模型。&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;regressionP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#lam: poisson分布的均值&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#S：模拟的股价矩阵&lt;/span&gt;
@@ -411,7 +387,7 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
     &lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S0&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros_like&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;\&lt;span class=&quot;n&quot;&gt;_like&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
 
     &lt;span class=&quot;c&quot;&gt;#这里模拟股价矩阵用到了跳跃扩散过程，也可以试一下其它的&lt;/span&gt;
@@ -422,14 +398,14 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
             &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prod&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sigma&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sigma&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    
+
     &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#期权价格&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#最小二乘拟合的payoff&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#用于计数，之后判断f矩阵中的值是不是每行第一个大于0的&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#a，b是临时储存向量的变量（想不出什么好名字。。）&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;S&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-        
+
         &lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
         &lt;span class=&quot;c&quot;&gt;#W是回归模型的因变量&lt;/span&gt;
@@ -440,24 +416,21 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
             &lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;polyfit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;W&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#这里建立的是二次多项式模型，试了下更高次的，结果区别不大&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;poly1d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;z&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        
+
             &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        
-        
+
+
             &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;c&quot;&gt;#这个地方的reshape折腾的死去活来。。&lt;/span&gt;
-    
+
     &lt;span class=&quot;c&quot;&gt;#由于最后一列的f没有在上述循环里面，需要单独写出来&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;M&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;warnings&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;warnings&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filterwarnings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ignore&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
@@ -482,128 +455,125 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
 &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;strike price&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;best&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;images/output_14_0.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;images/output_14_0.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;这里我选择苹果公司的股票和期权来进行定价。一般来讲，做模拟的话，深度实值或者深度虚值期权定价与实际价格的差距较大，越接近平值越准确。可是上图却好像是相反的，这是怎么回事，我也还没有想清楚，还请大神赐教。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;4.有限差分&lt;/h2&gt;
+&lt;h2&gt;4.有限差分&lt;/h2&gt;
 
-&lt;h3 id=&quot;b-s-partial-differential-equation&quot;&gt;B-S partial differential equation&lt;/h3&gt;
+&lt;h3&gt;B-S partial differential equation&lt;/h3&gt;
 
-&lt;p&gt;先来看一下BS偏微分方程（这个东西很让人头大啊。。）：&lt;/p&gt;
+&lt;p&gt;先来看一下BS偏微分方程（这个东西很让人头大啊。。）：  &lt;/p&gt;
 
-&lt;p&gt;之前提过，股票的价格遵循几何布朗运动：&lt;/p&gt;
+&lt;p&gt;之前提过，股票的价格遵循几何布朗运动：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;dS=\mu S dt+\sigma S dB①&lt;/script&gt;
+&lt;p&gt;$$dS=\mu S dt+\sigma S dB①$$  &lt;/p&gt;
 
-&lt;p&gt;\(\mu\)和\(\sigma\)表示股票价格的预期收益率和波动率。&lt;/p&gt;
+&lt;p&gt;\(\mu\)和\(\sigma\)表示股票价格的预期收益率和波动率。  &lt;/p&gt;
 
-&lt;p&gt;\(V \left(S , t \right)\)表示某股票期权的价格，我们对它做泰勒展开(直接省略了大于2阶的项)：&lt;/p&gt;
+&lt;p&gt;\(V \left(S , t \right)\)表示某股票期权的价格，我们对它做泰勒展开(直接省略了大于2阶的项)：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;d V= \frac{ \partial V}{ \partial S} d S+ \frac{ \partial V}{ \partial t} d t+ \frac{1}{2       ^{ }            } \frac{ \partial^{2} V}{ \partial S^{2}} \left( d S \right)^{2}+ \frac{ \partial^{2} V}{ \partial S \partial t} \left( d S d t \right)+ \frac{1}{2} \frac{ \partial^{2} V}{ \partial t^{2}} \left( d t \right)^{2}②&lt;/script&gt;
+&lt;p&gt;$$ d V= \frac{ \partial V}{ \partial S} d S+ \frac{ \partial V}{ \partial t} d t+ \frac{1}{2       ^{ }            } \frac{ \partial^{2} V}{ \partial S^{2}} \left( d S \right)^{2}+ \frac{ \partial^{2} V}{ \partial S \partial t} \left( d S d t \right)+ \frac{1}{2} \frac{ \partial^{2} V}{ \partial t^{2}} \left( d t \right)^{2}②$$  &lt;/p&gt;
 
-&lt;p&gt;将①代入②中，并只保留\(dt\)的一阶项：&lt;/p&gt;
+&lt;p&gt;将①代入②中，并只保留\(dt\)的一阶项：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;d V= \frac{ \partial V}{ \partial S} \left( \mu S d t+ \sigma S d B \right)+ \frac{ \partial V}{ \partial t} d t+ \frac{1}{2}       ^{ }            \frac{ \partial^{2} V}{ \partial S^{2}} \left( \mu S d t+ \sigma S d B \right)^{2}+ \frac{ \partial^{2} V}{ \partial S \partial t} \left( \mu S d t+ \sigma S d B \right) \left( d t \right)&lt;/script&gt;
+&lt;p&gt;$$ d V= \frac{ \partial V}{ \partial S} \left( \mu S d t+ \sigma S d B \right)+ \frac{ \partial V}{ \partial t} d t+ \frac{1}{2}       ^{ }            \frac{ \partial^{2} V}{ \partial S^{2}} \left( \mu S d t+ \sigma S d B \right)^{2}+ \frac{ \partial^{2} V}{ \partial S \partial t} \left( \mu S d t+ \sigma S d B \right) \left( d t \right)$$  &lt;/p&gt;
 
-&lt;p&gt;用\(\sqrt{T} Z\)代替\(dB\),Z是标准正态分布，还是只保留一阶项：&lt;/p&gt;
+&lt;p&gt;用\(\sqrt{T} Z\)代替\(dB\),Z是标准正态分布，还是只保留一阶项：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;d V= \left( \frac{ \partial V}{ \partial t}+ \mu S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \left( \sigma^{2} S^{2} Z^{2} \right) \frac{ \partial^{2} V}{ \partial S^{2}} \right) d t+ \sigma S \frac{ \partial V}{ \partial S} d B③&lt;/script&gt;
+&lt;p&gt;$$ d V= \left( \frac{ \partial V}{ \partial t}+ \mu S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \left( \sigma^{2} S^{2} Z^{2} \right) \frac{ \partial^{2} V}{ \partial S^{2}} \right) d t+ \sigma S \frac{ \partial V}{ \partial S} d B③$$  &lt;/p&gt;
 
-&lt;p&gt;为了简化上式，用\(Z^{2}\)的期望值代替它，\(E \left(Z^{2} \right)=V a r \left(Z \right)=1\)，进一步得到：&lt;/p&gt;
+&lt;p&gt;为了简化上式，用\(Z^{2}\)的期望值代替它，\(E \left(Z^{2} \right)=V a r \left(Z \right)=1\)，进一步得到：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;d V= \left( \frac{ \partial V}{ \partial t}+ \mu S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \left( \sigma^{2} S^{2} \right) \frac{ \partial^{2} V}{ \partial S^{2}} \right) d t+ \sigma S \frac{ \partial V}{ \partial S} d B④&lt;/script&gt;
+&lt;p&gt;$$ d V= \left( \frac{ \partial V}{ \partial t}+ \mu S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \left( \sigma^{2} S^{2} \right) \frac{ \partial^{2} V}{ \partial S^{2}} \right) d t+ \sigma S \frac{ \partial V}{ \partial S} d B④$$  &lt;/p&gt;
 
-&lt;p&gt;接下来考虑①式和③式离散的形式：&lt;/p&gt;
+&lt;p&gt;接下来考虑①式和③式离散的形式：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Delta S= \mu S \Delta t+ \sigma S \Delta B&lt;/script&gt;
+&lt;p&gt;$$ \Delta S= \mu S \Delta t+ \sigma S \Delta B$$  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Delta V= \left( \frac{ \partial V}{ \partial t}+ \mu S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \left( \sigma^{2} S^{2} \right) \frac{ \partial^{2} V}{ \partial S^{2}} \right) \Delta t+ \sigma S \frac{ \partial V}{ \partial S} \Delta B&lt;/script&gt;
+&lt;p&gt;$$ \Delta V= \left( \frac{ \partial V}{ \partial t}+ \mu S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \left( \sigma^{2} S^{2} \right) \frac{ \partial^{2} V}{ \partial S^{2}} \right) \Delta t+ \sigma S \frac{ \partial V}{ \partial S} \Delta B$$  &lt;/p&gt;
 
-&lt;p&gt;为了消除\(\Delta B\)，我们构建一个包含一单位衍生证券空头和\( \frac{ \partial V}{ \partial S}\)，单位标的证券多头的投资组合，令\(\Pi\)为该组合的价值，则：&lt;/p&gt;
+&lt;p&gt;为了消除\(\Delta B\)，我们构建一个包含一单位衍生证券空头和\( \frac{ \partial V}{ \partial S}\)，单位标的证券多头的投资组合，令\(\Pi\)为该组合的价值，则：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Pi =-V+ \frac{ \partial V}{ \partial S} S&lt;/script&gt;
+&lt;p&gt;$$ \Pi =-V+ \frac{ \partial V}{ \partial S} S$$  &lt;/p&gt;
 
-&lt;p&gt;在经过\(\Delta t\)时间后，该资产组合的价值变化量为：&lt;/p&gt;
+&lt;p&gt;在经过\(\Delta t\)时间后，该资产组合的价值变化量为：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Delta  \Pi =- \Delta V+ \frac{ \partial V}{ \partial S} \Delta S⑤&lt;/script&gt;
+&lt;p&gt;$$ \Delta  \Pi =- \Delta V+ \frac{ \partial V}{ \partial S} \Delta S⑤$$  &lt;/p&gt;
 
-&lt;p&gt;将\(Delta S\)和\(\Delta V\)代入⑤式：&lt;/p&gt;
+&lt;p&gt;将\(Delta S\)和\(\Delta V\)代入⑤式：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\Delta  \Pi =- \left( \frac{ \partial V}{ \partial t}+ \frac{1}{2} \frac{ \partial^{2} V}{ \partial S^{2}} \sigma^{2} S^{2} \right) \Delta t ⑥&lt;/script&gt;
+&lt;p&gt;$$ \Delta  \Pi =- \left( \frac{ \partial V}{ \partial t}+ \frac{1}{2} \frac{ \partial^{2} V}{ \partial S^{2}} \sigma^{2} S^{2} \right) \Delta t ⑥$$  &lt;/p&gt;
 
-&lt;p&gt;⑥式中不含\(\Delta B\)，因此在时间间隔\(\Delta t\)后该组合的价值必定无风险，其在\(\Delta t\)后的瞬时收益率一定等于无风险收益率，所以就有：\( \Delta  \Pi =r \Pi  \Delta t\)，与⑥式联立整理后得到：&lt;/p&gt;
+&lt;p&gt;⑥式中不含\(\Delta B\)，因此在时间间隔\(\Delta t\)后该组合的价值必定无风险，其在\(\Delta t\)后的瞬时收益率一定等于无风险收益率，所以就有：\( \Delta  \Pi =r \Pi  \Delta t\)，与⑥式联立整理后得到：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\frac{ \partial V}{ \partial t}+r S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \frac{ \partial^{2} V}{ \partial S^{2}} \sigma^{2} S^{2}=r V⑦&lt;/script&gt;
+&lt;p&gt;$$ \frac{ \partial V}{ \partial t}+r S \frac{ \partial V}{ \partial S}+ \frac{1}{2} \frac{ \partial^{2} V}{ \partial S^{2}} \sigma^{2} S^{2}=r V⑦$$  &lt;/p&gt;
 
 &lt;p&gt;这就是著名的BS偏微分方程，可以应用于价格取决于标的资产价格S的所有衍生证券定价。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;用差分估计参数&lt;/h3&gt;
+&lt;h3&gt;用差分估计参数&lt;/h3&gt;
 
-&lt;p&gt;终于搞定了PDE，现在就是要估计\(\frac{ \partial V}{ \partial t}\)，\(\frac{ \partial V}{ \partial S}\)  ，和\(\frac{ \partial^{2} V}{ \partial S^{2}}\)，于是就要用到差分的方法了：&lt;/p&gt;
+&lt;p&gt;终于搞定了PDE，现在就是要估计\(\frac{ \partial V}{ \partial t}\)，\(\frac{ \partial V}{ \partial S}\)  ，和\(\frac{ \partial^{2} V}{ \partial S^{2}}\)，于是就要用到差分的方法了：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;V_{ \imath , j}=V \left( \imath  \Delta t , j \Delta S \right) , \imath =0 , 1 , \dotsi , N , j=0 , 1 , \dotsi , M&lt;/script&gt;
+&lt;p&gt;$$V_{ \imath , j}=V \left( \imath  \Delta t , j \Delta S \right) , \imath =0 , 1 , \dotsi , N , j=0 , 1 , \dotsi , M$$&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/learn/images/BSPDE1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;对于一阶项：&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;forward approximation：  \( \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j+1}-V_{ \imath , j}}{ \Delta S}\)，\( \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath +1 , j}-V_{ \imath , j}}{ \Delta t}\)&lt;/p&gt;
-
-&lt;p&gt;backward approximation：\( \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j}-V_{ \imath , j-1}}{ \Delta S}\)，\( \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath , j}-V_{ \imath -1 , j}}{ \Delta t}\)&lt;/p&gt;
-
-&lt;p&gt;center approximation： \( \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j+1}-V_{ \imath , j-1}}{2 \Delta S}\)，\( \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath +1 , j}-V_{ \imath -1 , j}}{2 \Delta t}\)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/learn/images/BSPDE1.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;二阶项：&lt;/li&gt;
+&lt;li&gt;对于一阶项：&lt;br&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\frac{ \partial^{2} V}{ \partial S^{2}} \cong  \frac{V_{ \imath , j+1}+V_{ \imath , j-1}-2 V_{ \imath , j}}{ \Delta S^{2}}&lt;/script&gt;
+&lt;p&gt;forward approximation：  \( \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j+1}-V_{ \imath , j}}{ \Delta S}\)，\( \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath +1 , j}-V_{ \imath , j}}{ \Delta t}\)  &lt;/p&gt;
 
-&lt;h3 id=&quot;section-3&quot;&gt;隐性差分&lt;/h3&gt;
+&lt;p&gt;backward approximation：\( \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j}-V_{ \imath , j-1}}{ \Delta S}\)，\( \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath , j}-V_{ \imath -1 , j}}{ \Delta t}\)  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\frac{ \partial V}{ \partial t} =  \frac{V_{ \imath +1 , j}-V_{ \imath , j}}{ \Delta t}&lt;/script&gt;
+&lt;p&gt;center approximation： \( \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j+1}-V_{ \imath , j-1}}{2 \Delta S}\)，\( \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath +1 , j}-V_{ \imath -1 , j}}{2 \Delta t}\)  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\frac{ \partial V}{ \partial S} =  \frac{V_{ \imath , j}-V_{ \imath , j-1}}{ \Delta S}&lt;/script&gt;
+&lt;ul&gt;
+&lt;li&gt;二阶项：&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\frac{ \partial^{2} V}{ \partial S^{2}} =  \frac{V_{ \imath , j+1}+V_{ \imath , j-1}-2 V_{ \imath , j}}{ \Delta S^{2}}&lt;/script&gt;
+&lt;p&gt;$$ \frac{ \partial^{2} V}{ \partial S^{2}} \cong  \frac{V_{ \imath , j+1}+V_{ \imath , j-1}-2 V_{ \imath , j}}{ \Delta S^{2}}$$  &lt;/p&gt;
+
+&lt;h3&gt;隐性差分&lt;/h3&gt;
+
+&lt;p&gt;$$ \frac{ \partial V}{ \partial t} =  \frac{V_{ \imath +1 , j}-V_{ \imath , j}}{ \Delta t}$$  &lt;/p&gt;
+
+&lt;p&gt;$$\frac{ \partial V}{ \partial S} =  \frac{V_{ \imath , j}-V_{ \imath , j-1}}{ \Delta S}$$  &lt;/p&gt;
+
+&lt;p&gt;$$\frac{ \partial^{2} V}{ \partial S^{2}} =  \frac{V_{ \imath , j+1}+V_{ \imath , j-1}-2 V_{ \imath , j}}{ \Delta S^{2}}$$  &lt;/p&gt;
 
 &lt;p&gt;有了以上3个式子，再加上PDE，就可以得到下面的：&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a_{j} f_{ \imath , j-1}+b_{j} f_{ \imath , j}+c_{j} f_{ \imath , j+1}=f_{ \imath +1 , j}&lt;/script&gt;
+&lt;p&gt;$$a_{j} f_{ \imath , j-1}+b_{j} f_{ \imath , j}+c_{j} f_{ \imath , j+1}=f_{ \imath +1 , j}$$  &lt;/p&gt;
 
-&lt;p&gt;可以得到\(a_{j}\)，\(b_{j}\)，\(c_{j}\)的通式(其中\( \frac{S}{ \Delta S}=j\))：&lt;/p&gt;
+&lt;p&gt;可以得到\(a_{j}\)，\(b_{j}\)，\(c_{j}\)的通式(其中\( \frac{S}{ \Delta S}=j\))：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a_{j}= \frac{1}{2} \Delta t \left(r j- \sigma^{2} j^{2} \right)&lt;/script&gt;
+&lt;p&gt;$$a_{j}= \frac{1}{2} \Delta t \left(r j- \sigma^{2} j^{2} \right)$$  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;b_{j}=1+ \Delta t \left( \sigma^{2} j^{2}+r \right)&lt;/script&gt;
+&lt;p&gt;$$b_{j}=1+ \Delta t \left( \sigma^{2} j^{2}+r \right)$$  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;c_{j}= \frac{-1}{2} \Delta t \left( \sigma^{2} j^{2}+r j \right)&lt;/script&gt;
+&lt;p&gt;$$c_{j}= \frac{-1}{2} \Delta t \left( \sigma^{2} j^{2}+r j \right)$$  &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/learn/images/BSPDE2.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/learn/images/BSPDE2.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;回想上面的网格图，以欧式看跌期权为例，算法如下：&lt;br /&gt;
-1.初始化一些值，\(f_{ \imath , 0}=K , f_{ \imath , M}=0 , f_{N , j}=m a x \left(K-j \Delta S , 0 \right)\)，还有\(a_{j}\)，\(b_{j}\)，\(c_{j}\)。&lt;/p&gt;
+&lt;p&gt;回想上面的网格图，以欧式看跌期权为例，算法如下：&lt;br&gt;
+1.初始化一些值，\(f_{ \imath , 0}=K , f_{ \imath , M}=0 , f_{N , j}=m a x \left(K-j \Delta S , 0 \right)\)，还有\(a_{j}\)，\(b_{j}\)，\(c_{j}\)。  &lt;/p&gt;
 
-&lt;p&gt;2.for i =N:0，解方程组：&lt;/p&gt;
+&lt;p&gt;2.for i =N:0，解方程组：  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a_{1} f_{ \imath -1, 0}+b_{1} f_{ \imath -1, 1}+c_{1} f_{ \imath -1, 2}=f_{ \imath  , 1}&lt;/script&gt;
+&lt;p&gt;$$a_{1} f_{ \imath -1, 0}+b_{1} f_{ \imath -1, 1}+c_{1} f_{ \imath -1, 2}=f_{ \imath  , 1}$$  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a_{2} f_{ \imath -1, 1}+b_{2} f_{ \imath -1, 2}+c_{2} f_{ \imath -1, 3}=f_{ \imath  , 2}&lt;/script&gt;
+&lt;p&gt;$$a_{2} f_{ \imath -1, 1}+b_{2} f_{ \imath -1, 2}+c_{2} f_{ \imath -1, 3}=f_{ \imath  , 2}$$  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\dotsi&lt;/script&gt;
+&lt;p&gt;$$ \dotsi $$  &lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a_{M-1} f_{ \imath -1, M-2}+b_{M-1} f_{ \imath -1, M-1}+c_{M-1} f_{ \imath -1, M}=f_{ \imath  , M}&lt;/script&gt;
+&lt;p&gt;$$a_{M-1} f_{ \imath -1, M-2}+b_{M-1} f_{ \imath -1, M-1}+c_{M-1} f_{ \imath -1, M}=f_{ \imath  , M}$$   &lt;/p&gt;
 
 &lt;p&gt;3.找到离S0最近的点，输出期权价格。&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;mpl_toolkits.mplot3d&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Axes3D&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;mpl&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;_toolkits.mplot3d&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Axes3D&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;seaborn&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sns&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;plt&lt;/span&gt;
 
@@ -644,28 +614,22 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
 &lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;plt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;figure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fig&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gca&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;projection&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;3d&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;meshgrid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;151&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;surf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot_surface&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;summer&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cstride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rstride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Time&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Stock price&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_zlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Option price&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c:\python27\lib\site-packages\ipykernel\__main__.py:17: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-c:\python27\lib\site-packages\ipykernel\__main__.py:22: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-c:\python27\lib\site-packages\ipykernel\__main__.py:36: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-c:\python27\lib\site-packages\ipykernel\__main__.py:37: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+&lt;span class=&quot;n&quot;&gt;surf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;\&lt;span class=&quot;n&quot;&gt;_surface&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;summer&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cstride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rstride&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;\&lt;span class=&quot;n&quot;&gt;_xlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Time&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;\&lt;span class=&quot;n&quot;&gt;_ylabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Stock price&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ax&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;\&lt;span class=&quot;n&quot;&gt;_zlabel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Option price&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:17: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:22: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:36: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:37: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
 
 
 
 
 
 &amp;lt;matplotlib.text.Text at 0x125a26b0&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;images/output_23_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;images/output_23_2.png&quot; alt=&quot;png&quot;&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -674,7 +638,7 @@ c:\python27\lib\site-packages\ipykernel\__main__.py:37: VisibleDeprecationWarnin
      <link href="/history"/>
      <updated>2016-06-23T00:00:00+08:00</updated>
      <id>/history</id>
-     <content type="html">&lt;h1 id=&quot;section&quot;&gt;每一步都是历史！&lt;/h1&gt;
+     <content type="html">&lt;h1&gt;每一步都是历史！&lt;/h1&gt;
 
 &lt;p&gt;看到老詹跪地长泣的那一刻，我才晃过神来，我就这么见证了一个梦幻的赛季，梦幻的系列赛。&lt;/p&gt;
 
@@ -688,7 +652,7 @@ c:\python27\lib\site-packages\ipykernel\__main__.py:37: VisibleDeprecationWarnin
 
 &lt;p&gt;说实话，在骑士1：3落后的时候，我并不觉得骑士能拿到总冠军，他们的对手勇士打出了一个如此梦幻的赛季——73胜，汤普森甚至放话“下一场将在甲骨文庆祝总冠军。”历史上从来没有球队在总决赛以1：3翻盘，“但是历史是人创造的”。我以前一直觉得这句话有点唯心，现在我得重新认识这句话了。历史会让你陷入悲观，甚至连克利夫兰以为70多岁的老球迷都不觉得骑士能赢，因为历史告诉他：“God hate Cleveland.”但他忘记了老詹是“The Choosen one”，是天选之子，它可以让God改变想法，在今天“God love Cleveland!”我想我们很难想象老詹所经受的压力，对于他的家乡，赢了便是英雄，输了便是罪人。一个钢铁般的男人在结束后伏地痛哭，也许之前老詹确实亏欠了克利夫兰，但在今天，这里便没有的怨恨终于有了家乡的味道，克利夫兰，以后请温柔地对待老詹。老詹，谢谢你。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/life/images/nba.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/life/images/nba.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -697,31 +661,32 @@ c:\python27\lib\site-packages\ipykernel\__main__.py:37: VisibleDeprecationWarnin
      <link href="/last-class"/>
      <updated>2016-06-22T00:00:00+08:00</updated>
      <id>/last-class</id>
-     <content type="html">&lt;h1 id=&quot;section&quot;&gt;最后一课&lt;/h1&gt;
-&lt;p&gt;今天有可能是我大学生涯上的最后一节课了，有幸能听到李志生老师跟我们讲了这样一番话：&lt;/p&gt;
+     <content type="html">&lt;h1&gt;最后一课&lt;/h1&gt;
+
+&lt;p&gt;今天有可能是我大学生涯上的最后一节课了，有幸能听到李志生老师跟我们讲了这样一番话：   &lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;大家的作业做得都还不错，但是我感觉有人是有一种敷衍在里面的，可能你们会觉得做这个没用，但我想说的是，你们还这么年轻，有很多事情还没有经历过，如果你们现在做事之前先考虑的是这件事对你有没有用，那我想你以后的道路肯定不会平坦。等你到了40、50岁，我想你可以这么考虑，但不是现在，因为你们现在还是学习阶段，需要积累。我想你们应该服从长辈的安排给你们的任务，特别是老师的作业，你在做事的时候首先想到的应该是如何把这件事尽可能做到最好，而不是去考虑这事有没有用。&lt;br /&gt;
+&lt;p&gt;大家的作业做得都还不错，但是我感觉有人是有一种敷衍在里面的，可能你们会觉得做这个没用，但我想说的是，你们还这么年轻，有很多事情还没有经历过，如果你们现在做事之前先考虑的是这件事对你有没有用，那我想你以后的道路肯定不会平坦。等你到了40、50岁，我想你可以这么考虑，但不是现在，因为你们现在还是学习阶段，需要积累。我想你们应该服从长辈的安排给你们的任务，特别是老师的作业，你在做事的时候首先想到的应该是如何把这件事尽可能做到最好，而不是去考虑这事有没有用。&lt;br&gt;
 这是我在美国留学时候的体会，美国的学生们对待任何一个project都很认真，我觉得我在美国那几年学到的最重要的不是知识，而是那种做事的态度。我希望你们以后不管是继续深造还是去到工作中，都能用这种态度对待你的任务。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;听到这番话我思考了很久，感到有些羞愧，我曾经敷衍过很多门课的作业、曾经睡过很多选修课、曾经对那些“没用”的课满不在乎……因为我觉得那些东西———都没用！真是可笑啊，我tm究竟是以什么标准来判断它们有没有用啊。&lt;br /&gt;
-之前，通过一个契机，我窝在家里一个暑假练字，每天练很久，练到拇指起茧，我也不知道为什么要练，我也没有问自己：你练好了字有什么用？就只是练，看着自己字慢慢改变，慢慢能写出行书的样子，我很开心。然后我明白，把一件事做得比常人好那么一点，会得到很多快乐，虽然好像这件事并没有什么卵用。&lt;br /&gt;
-然后，我开始学日语，每天中午一个多小时听课，晚上一个小时做练习、背单词，雷打不动。室友问我学日语干嘛，我也不知道，答玩儿呗。这段时间里，我也没有问自己，学日语有什么用，只是每天坚持着，后来慢慢的我可以听懂一些歌、再后来我可以躺在床上听完一集动漫，我感到很快乐。接着我又打开了编程的大门，每天敲很多代码，而且认认真真，恨不得没行都要写comment。&lt;/p&gt;
+&lt;p&gt;听到这番话我思考了很久，感到有些羞愧，我曾经敷衍过很多门课的作业、曾经睡过很多选修课、曾经对那些“没用”的课满不在乎……因为我觉得那些东西———都没用！真是可笑啊，我tm究竟是以什么标准来判断它们有没有用啊。&lt;br&gt;
+之前，通过一个契机，我窝在家里一个暑假练字，每天练很久，练到拇指起茧，我也不知道为什么要练，我也没有问自己：你练好了字有什么用？就只是练，看着自己字慢慢改变，慢慢能写出行书的样子，我很开心。然后我明白，把一件事做得比常人好那么一点，会得到很多快乐，虽然好像这件事并没有什么卵用。&lt;br&gt;
+然后，我开始学日语，每天中午一个多小时听课，晚上一个小时做练习、背单词，雷打不动。室友问我学日语干嘛，我也不知道，答玩儿呗。这段时间里，我也没有问自己，学日语有什么用，只是每天坚持着，后来慢慢的我可以听懂一些歌、再后来我可以躺在床上听完一集动漫，我感到很快乐。接着我又打开了编程的大门，每天敲很多代码，而且认认真真，恨不得没行都要写comment。  &lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
 
-&lt;p&gt;虽然我做到了以上那些，但我依旧会敷衍一些作业，像这学期的证投、产经，因为我又觉得那些作业大家都是抄的，做了没什么用。人真是种矛盾的生物。&lt;br /&gt;
-到今天我终于明白了，我的那些所谓的认真和坚持只是对待那些我喜爱的事物，因为我在干那些事的时候很快乐，不会去想这玩意有没有用。&lt;br /&gt;
-认真做自己喜欢做的事情不算什么本事，把自己不那么喜欢也不知道为什么要做的事情都一丝不苟做好才值得尊敬。不管怎么说，把一件事情尽全力做好终究没有坏处。&lt;/p&gt;
+&lt;p&gt;虽然我做到了以上那些，但我依旧会敷衍一些作业，像这学期的证投、产经，因为我又觉得那些作业大家都是抄的，做了没什么用。人真是种矛盾的生物。&lt;br&gt;
+到今天我终于明白了，我的那些所谓的认真和坚持只是对待那些我喜爱的事物，因为我在干那些事的时候很快乐，不会去想这玩意有没有用。&lt;br&gt;
+认真做自己喜欢做的事情不算什么本事，把自己不那么喜欢也不知道为什么要做的事情都一丝不苟做好才值得尊敬。不管怎么说，把一件事情尽全力做好终究没有坏处。  &lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;我们孤单地活着，终将孤单地死去。人生不过一场虚无。&lt;/p&gt;
+&lt;p&gt;我们孤单地活着，终将孤单地死去。人生不过一场虚无。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;这句看上去颓废的话总能给我一种奇妙的力量，让我充满动力。对啊，既然人生不过一场虚无，那我们何必去问眼前的事情有什么意义，尽管去做就好了，万一我们能从中发掘出一些意想不到的快乐呢，就好像找到了意义一样，真是赚到了呀。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/rensheng.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/rensheng.jpg&quot; alt=&quot;image&quot;&gt;  &lt;/p&gt;
 
 &lt;p&gt;2016-6-22&lt;/p&gt;
 </content>
@@ -732,39 +697,29 @@ c:\python27\lib\site-packages\ipykernel\__main__.py:37: VisibleDeprecationWarnin
      <link href="/shiny-app"/>
      <updated>2016-06-15T00:00:00+08:00</updated>
      <id>/shiny-app</id>
-     <content type="html">&lt;h1 id=&quot;shiny-app&quot;&gt;shiny app的网页分享&lt;/h1&gt;
+     <content type="html">&lt;h1&gt;shiny app的网页分享&lt;/h1&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;A web application framework for R&lt;br /&gt;
-Turn your analyses into interactive web applications&lt;br /&gt;
+&lt;p&gt;A web application framework for R&lt;br&gt;
+Turn your analyses into interactive web applications&lt;br&gt;
 No HTML, CSS, or JavaScript knowledge required&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;在这之前，需要先知道&lt;code class=&quot;highlighter-rouge&quot;&gt;shiny&lt;/code&gt;是什么，以上是官网介绍，你不需要Html,css和js的知识也能够实现强大的交互式数据可视化。那么如何将自己制作的app分享给电脑上没有R的人呢？请看：&lt;/p&gt;
+&lt;p&gt;在这之前，需要先知道&lt;code&gt;shiny&lt;/code&gt;是什么，以上是官网介绍，你不需要Html,css和js的知识也能够实现强大的交互式数据可视化。那么如何将自己制作的app分享给电脑上没有R的人呢？请看：&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Share as a web page&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Share as a web page&lt;/strong&gt;  &lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;All of the above methods share the same limitation. They require your user to have R and Shiny installed on their computer.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;All of the above methods share the same limitation. They require your user to have R and Shiny installed on their computer.  &lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;However, Shiny creates the perfect opportunity to share output with people who do not have R (and have no intention of getting it). Your Shiny app happens to be one of the most widely used communication tools in the world: a web page. If you host the app at its own URL, users can visit the app (and not need to worry about code).&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;However, Shiny creates the perfect opportunity to share output with people who do not have R (and have no intention of getting it). Your Shiny app happens to be one of the most widely used communication tools in the world: a web page. If you host the app at its own URL, users can visit the app (and not need to worry about code).&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;If you are familiar with web hosting or have access to an IT department, you can host your Shiny apps yourself.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;If you are familiar with web hosting or have access to an IT department, you can host your Shiny apps yourself.&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;If you’d prefer an easier experience or need support, RStudio offers three ways to host your Shiny app as a web page:&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;If you’d prefer an easier experience or need support, RStudio offers three ways to host your Shiny app as a web page:&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;1.Shinyapps.io.&lt;br /&gt;
-2.Shiny Server, and&lt;br /&gt;
+&lt;p&gt;1.Shinyapps.io.&lt;br&gt;
+2.Shiny Server, and&lt;br&gt;
 3.Shiny Server Pro&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -773,47 +728,42 @@ No HTML, CSS, or JavaScript knowledge required&lt;/p&gt;
 &lt;p&gt;注册网站后登陆（我用的是github账号登陆），就进入了教程页面。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;STEP 1 – INSTALL RSCONNECT&lt;br /&gt;
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;rsconnect&lt;/code&gt; package can be installed directly from CRAN. To make sure you have the latest version run following code in your R console:&lt;/p&gt;
+&lt;p&gt;STEP 1 – INSTALL RSCONNECT&lt;br&gt;
+The &lt;code&gt;rsconnect&lt;/code&gt; package can be installed directly from CRAN. To make sure you have the latest version run following code in your R console:&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;install.packages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;rsconnect&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;install.packages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;rsconnect&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;首先是安装这个包，不多说。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;STEP 2 – AUTHORIZE ACCOUNT&lt;br /&gt;
-The &lt;code class=&quot;highlighter-rouge&quot;&gt;rsconnect&lt;/code&gt; package must be authorized to your account using a token and secret. To do this, click the copy button below and we’ll copy the whole command you need to your clipboard. Just paste it into your console to authorize your account. Once you’ve entered the command successfully in R, that computer is now authorized to deploy applications to your shinyapps.io account.
-&lt;code class=&quot;highlighter-rouge&quot;&gt;r
-rsconnect::setAccountInfo(name=&#39;akuan&#39;,
-			  token=&#39;**************&#39;,
-			  secret=&#39;&amp;lt;SECRET&amp;gt;&#39;)
+&lt;p&gt;STEP 2 – AUTHORIZE ACCOUNT&lt;br&gt;
+The &lt;code&gt;rsconnect&lt;/code&gt; package must be authorized to your account using a token and secret. To do this, click the copy button below and we&amp;#39;ll copy the whole command you need to your clipboard. Just paste it into your console to authorize your account. Once you&amp;#39;ve entered the command successfully in R, that computer is now authorized to deploy applications to your shinyapps.io account.
+&lt;code&gt;r
+rsconnect::setAccountInfo(name=&amp;#39;akuan&amp;#39;,
+              token=&amp;#39;**************&amp;#39;,
+              secret=&amp;#39;&amp;lt;SECRET&amp;gt;&amp;#39;)
 &lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;安装完包之后就是配置账户，非常简单，只要将网页上的代码粘贴到R命令行回车运行就可以了。&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;STEP 3 – DEPLOY&lt;br /&gt;
-Once the &lt;code class=&quot;highlighter-rouge&quot;&gt;rsconnect&lt;/code&gt; package has been configured, you’re ready to deploy your first application. If you haven’t written any applications yet, you can also checkout the Getting Started Guide for instructions on how to deploy our demo application. Run the following code in your R console.&lt;/p&gt;
+&lt;p&gt;STEP 3 – DEPLOY&lt;br&gt;
+Once the &lt;code&gt;rsconnect&lt;/code&gt; package has been configured, you&amp;#39;re ready to deploy your first application. If you haven&amp;#39;t written any applications yet, you can also checkout the Getting Started Guide for instructions on how to deploy our demo application. Run the following code in your R console.&lt;/p&gt;
 &lt;/blockquote&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rsconnect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rsconnect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rsconnect&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deployApp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;path/to/your/app&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;如果上一步没有报错，就可以用上面的代码来发布自己的app了。&lt;/p&gt;
 
 &lt;p&gt;我自己试了一下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/555.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/555.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;成功！
 &lt;a href=&quot;https://akuan.shinyapps.io/stockVis/&quot;&gt;点这里&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;当然在这之前你需要先会用&lt;code class=&quot;highlighter-rouge&quot;&gt;shiny&lt;/code&gt;，这里是&lt;a href=&quot;http://shiny.rstudio.com/tutorial/&quot;&gt;官方教程。&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;当然在这之前你需要先会用&lt;code&gt;shiny&lt;/code&gt;，这里是&lt;a href=&quot;http://shiny.rstudio.com/tutorial/&quot;&gt;官方教程。&lt;/a&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -822,20 +772,20 @@ Once the &lt;code class=&quot;highlighter-rouge&quot;&gt;rsconnect&lt;/code&gt; 
      <link href="/analysis-of-finance-data4"/>
      <updated>2016-05-23T00:00:00+08:00</updated>
      <id>/analysis-of-finance-data4</id>
-     <content type="html">&lt;h1 id=&quot;section&quot;&gt;资产波动率及其模型&lt;/h1&gt;
+     <content type="html">&lt;h1&gt;资产波动率及其模型&lt;/h1&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;资产波动率是金融中最常用的风险度量。本章的目的是理解波动率的特点，学习波动率模型，并获取波动率建模和应用资产波动率的经验。&lt;br /&gt;
+&lt;p&gt;资产波动率是金融中最常用的风险度量。本章的目的是理解波动率的特点，学习波动率模型，并获取波动率建模和应用资产波动率的经验。&lt;br&gt;
 波动率在金融中有许多重要的应用。它是期权定价和资产分配中的一个关键因素。波动率在计算风险管理中的风险值（Value at Risk, VaR）试有重要作用。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;4.1波动率的特征&lt;/h2&gt;
+&lt;h2&gt;4.1波动率的特征&lt;/h2&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;存在&lt;strong&gt;波动率聚集(Volatility cluster)&lt;/strong&gt;（即在某个特定时间段上波动率高，其他时间段上波动率较小）。&lt;/li&gt;
-  &lt;li&gt;波动率随着时间的变化是&lt;strong&gt;连续&lt;/strong&gt;的———波动率的跳跃式罕见的。&lt;/li&gt;
-  &lt;li&gt;波动率不会散发到无穷———在一个固定的范围内变化。&lt;/li&gt;
-  &lt;li&gt;存在&lt;strong&gt;杠杆效应(Leverage effect)&lt;/strong&gt;，波动率一般对价格的大幅下降比上升更敏感。&lt;/li&gt;
+&lt;li&gt;存在&lt;strong&gt;波动率聚集(Volatility cluster)&lt;/strong&gt;（即在某个特定时间段上波动率高，其他时间段上波动率较小）。&lt;/li&gt;
+&lt;li&gt;波动率随着时间的变化是&lt;strong&gt;连续&lt;/strong&gt;的———波动率的跳跃式罕见的。&lt;/li&gt;
+&lt;li&gt;波动率不会散发到无穷———在一个固定的范围内变化。&lt;/li&gt;
+&lt;li&gt;存在&lt;strong&gt;杠杆效应(Leverage effect)&lt;/strong&gt;，波动率一般对价格的大幅下降比上升更敏感。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;一般有三种类型的波动率度量：
@@ -843,11 +793,10 @@ Once the &lt;code class=&quot;highlighter-rouge&quot;&gt;rsconnect&lt;/code&gt; 
 - &lt;strong&gt;隐含波动率&lt;/strong&gt;：根据期权的价格用一个公式，如BS公式来推导出股票价格的波动率。
 - &lt;strong&gt;实际波动率&lt;/strong&gt;：应用一天之内的高频数据来估计得到的日波动率。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;4.2模型的结构&lt;/h2&gt;
+&lt;h2&gt;4.2模型的结构&lt;/h2&gt;
 
 &lt;p&gt;用rt表示某项资产在t时刻的对数收益率。波动率的基本思想是，序列{rt}是前后不相关或者低阶前后相关的，&lt;strong&gt;但序列不是独立的。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;da&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read.table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;m-intcsp7309.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;da&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read.table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;m-intcsp7309.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;da&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;+1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rtn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frequency&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1973&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -860,89 +809,84 @@ Once the &lt;code class=&quot;highlighter-rouge&quot;&gt;rsconnect&lt;/code&gt; 
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# ACF plots
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Box.test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;abs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Ljung&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#拒绝原假设——序列相关
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;images/ARCH1.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/ARCH1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/ARCH2.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/ARCH2.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;h2&gt;4.3模型的建立&lt;/h2&gt;
 
-&lt;h2 id=&quot;section-3&quot;&gt;4.3模型的建立&lt;/h2&gt;
 &lt;p&gt;对波动率建立方程需要如下4个步骤：
 1. 通过检验序列的前后相关性来简历一个均值方程，消除线性依赖；
 2. 对均值方程的残差进行ARCH效应检验；
 3. 如果ARCH效应显著，制定一个波动率模型，并对均值方程和波动率方程进行联合估计；
 4. 检查模型并改进。&lt;/p&gt;
 
-&lt;h2 id=&quot;arch&quot;&gt;4.4ARCH效应的检验&lt;/h2&gt;
-&lt;p&gt;所谓ARCH效应，简单说就是用均值方程的残差的平方来近似波动率，看其自相关函数是否显著，若显著不为0则可以认为其存在ARCH效应。&lt;/p&gt;
+&lt;h2&gt;4.4ARCH效应的检验&lt;/h2&gt;
 
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;p&gt;所谓ARCH效应，简单说就是用均值方程的残差的平方来近似波动率，看其自相关函数是否显著，若显著不为0则可以认为其存在ARCH效应。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Box.test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;Ljung&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$output
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$output
 Box-Ljung test
 
 data:  y^2
 X-squared = 92.939, df = 12, p-value = 1.332e-14
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;可以看到P值非常显著，即显著不为0，则认为这个序列有ARCH效应。&lt;/p&gt;
 
-&lt;p&gt;可以看到P值非常显著，即显著不为0，则认为这个序列有ARCH效应。
-## 4.5ARCH模型
-ARCH模型的基本思想：&lt;/p&gt;
+&lt;h2&gt;4.5ARCH模型&lt;/h2&gt;
+
+&lt;p&gt;ARCH模型的基本思想：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;资产收益率的扰动序列yt是前后不相关的，但不独立；&lt;/li&gt;
-  &lt;li&gt;yt的不独立性可以用其滞后值的简单二次函数来描述。&lt;/li&gt;
+&lt;li&gt;资产收益率的扰动序列yt是前后不相关的，但不独立；&lt;/li&gt;
+&lt;li&gt;yt的不独立性可以用其滞后值的简单二次函数来描述。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;arch-1&quot;&gt;4.5.1ARCH模型的性质&lt;/h3&gt;
+&lt;h3&gt;4.5.1ARCH模型的性质&lt;/h3&gt;
+
 &lt;p&gt;下面是一个ARCH(1)模型：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/ARCH3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/ARCH3.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;性质：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;yt的无条件均值仍然是0，&lt;img src=&quot;images/ARCH4.png&quot; alt=&quot;image&quot; /&gt;&lt;/li&gt;
-  &lt;li&gt;yt的无条件方差：&lt;img src=&quot;images/ARCH5.png&quot; alt=&quot;image&quot; /&gt;&lt;/li&gt;
+&lt;li&gt;yt的无条件均值仍然是0，&lt;img src=&quot;images/ARCH4.png&quot; alt=&quot;image&quot;&gt;&lt;/li&gt;
+&lt;li&gt;yt的无条件方差：&lt;img src=&quot;images/ARCH5.png&quot; alt=&quot;image&quot;&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;arch-2&quot;&gt;4.5.2ARCH模型的优点和缺点&lt;/h3&gt;
+&lt;h3&gt;4.5.2ARCH模型的优点和缺点&lt;/h3&gt;
+
 &lt;p&gt;&lt;strong&gt;优点&lt;/strong&gt;：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;该模型可以产生波动率聚集；&lt;/li&gt;
-  &lt;li&gt;模型的扰动yt有厚尾部。&lt;/li&gt;
+&lt;li&gt;该模型可以产生波动率聚集；&lt;/li&gt;
+&lt;li&gt;模型的扰动yt有厚尾部。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;strong&gt;缺点&lt;/strong&gt;：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;无法产生波动率聚集；&lt;/li&gt;
-  &lt;li&gt;对参数的限制相当强；&lt;/li&gt;
-  &lt;li&gt;波动率的预报值会偏高。&lt;/li&gt;
+&lt;li&gt;无法产生波动率聚集；&lt;/li&gt;
+&lt;li&gt;对参数的限制相当强；&lt;/li&gt;
+&lt;li&gt;波动率的预报值会偏高。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;intel&quot;&gt;4.5.3Intel股票月对数收益率的例子&lt;/h3&gt;
+&lt;h3&gt;4.5.3Intel股票月对数收益率的例子&lt;/h3&gt;
 
-&lt;p&gt;通过yt^2的PACF定阶，先建立一个ARCH(3)模型&lt;br /&gt;
-&lt;span title=&quot;MathGene HTML&quot; style=&quot;font-family:Times,Serif;font-size:100%&quot;&gt;&lt;i&gt;r&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt; = μ+&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;br /&gt;
-&lt;span title=&quot;MathGene HTML&quot; style=&quot;font-family:Times,Serif;font-size:100%&quot;&gt;&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt; = σ&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;ε&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;br /&gt;
-&lt;span title=&quot;MathGene HTML&quot; style=&quot;font-family:Times,Serif;font-size:100%&quot;&gt;σ&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; = ω+α&lt;sub&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;−1&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;+α&lt;sub&gt;&lt;sub&gt;2&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;−2&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;+α&lt;sub&gt;&lt;sub&gt;3&lt;/sub&gt;&lt;/sub&gt;+&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;−3&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fGarch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Load package 
+&lt;p&gt;通过yt^2的PACF定阶，先建立一个ARCH(3)模型&lt;br&gt;
+&lt;span title=&#39;MathGene HTML&#39; style=&#39;font-family:Times,Serif;font-size:100%&#39;&gt;&lt;i&gt;r&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt; = &amp;#956;+&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;br&gt;
+&lt;span title=&#39;MathGene HTML&#39; style=&#39;font-family:Times,Serif;font-size:100%&#39;&gt;&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt; = &amp;#963;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&amp;#949;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;br&gt;
+&lt;span title=&#39;MathGene HTML&#39; style=&#39;font-family:Times,Serif;font-size:100%&#39;&gt;&amp;#963;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; = &amp;#969;+&amp;#945;&lt;sub&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&amp;minus;1&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;+&amp;#945;&lt;sub&gt;&lt;sub&gt;2&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&amp;minus;2&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;+&amp;#945;&lt;sub&gt;&lt;sub&gt;3&lt;/sub&gt;&lt;/sub&gt;+&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&amp;minus;3&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/span&gt;  &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fGarch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Load package 
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;da&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read.table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;m-intcsp7309.txt&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;da&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;+1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;garchFit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;garch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#fit model
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$output
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$output
 Title:
  GARCH Modelling 
 
@@ -973,17 +917,11 @@ alpha2  0.075069    0.047305    1.587   0.1125
 alpha3  0.051994    0.045139    1.152   0.2494    
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;可以看到alpha2和alpha3的系数不显著，所以重新拟合一个ARCH(1)模型：&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;garchFit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;garch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;garchFit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;garch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$output
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$output
 Title:
  GARCH Modelling 
 
@@ -1012,22 +950,21 @@ omega   0.011046    0.001196    9.238  &amp;lt; 2e-16 ***
 alpha1  0.374976    0.112620    3.330  0.00087 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;现在模型的系数全部显著。&lt;/p&gt;
 
-&lt;h2 id=&quot;garch&quot;&gt;4.6GARCH模型&lt;/h2&gt;
+&lt;h2&gt;4.6GARCH模型&lt;/h2&gt;
 
-&lt;p&gt;GARCH(1,1)=ARCH(oo)&lt;br /&gt;
-GACH(1,1)模型等价于无穷阶的ARCH模型，其形式如下：&lt;br /&gt;
-&lt;span title=&quot;MathGene HTML&quot; style=&quot;font-family:Times,Serif;font-size:100%&quot;&gt;&lt;i&gt;r&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt; = μ+&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;br /&gt;
-&lt;span title=&quot;MathGene HTML&quot; style=&quot;font-family:Times,Serif;font-size:100%&quot;&gt;&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt; = σ&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;ε&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;br /&gt;
-&lt;span title=&quot;MathGene HTML&quot; style=&quot;font-family:Times,Serif;font-size:100%&quot;&gt;σ&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; = ω+α&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;−1&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;+βσ&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;−1&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;GARCH(1,1)=ARCH(oo)&lt;br&gt;
+GACH(1,1)模型等价于无穷阶的ARCH模型，其形式如下：&lt;br&gt;
+&lt;span title=&#39;MathGene HTML&#39; style=&#39;font-family:Times,Serif;font-size:100%&#39;&gt;&lt;i&gt;r&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt; = μ+&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;br&gt;
+&lt;span title=&#39;MathGene HTML&#39; style=&#39;font-family:Times,Serif;font-size:100%&#39;&gt;&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt; = σ&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;ε&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;br&gt;
+&lt;span title=&#39;MathGene HTML&#39; style=&#39;font-family:Times,Serif;font-size:100%&#39;&gt;&amp;#963;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; = &amp;#969;+&amp;#945;&lt;i&gt;y&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&amp;minus;1&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;+&amp;#946;&amp;#963;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;t&lt;/i&gt;&amp;minus;1&lt;/sub&gt;&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/span&gt;  &lt;/p&gt;
 
-&lt;h3 id=&quot;section-4&quot;&gt;4.6.1实例说明&lt;/h3&gt;
+&lt;h3&gt;4.6.1实例说明&lt;/h3&gt;
+
 &lt;p&gt;ARCH模型的建模过程也适用于GARCH模型。一般GARCH(1,1)就够用了。&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fGarch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fGarch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;garchFit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;garch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;intc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;trace&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 
@@ -1038,10 +975,7 @@ GACH(1,1)模型等价于无穷阶的ARCH模型，其形式如下：&lt;br /&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mfcol&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Show volatility and residuals
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vol&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlab&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;year&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylab&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;volatility&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;l&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;plot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xlab&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;year&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ylab&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;st. resi&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;l&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$output
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$output
 Coefficient(s):
         mu       omega      alpha1       beta1  
 0.01126568  0.00091902  0.08643831  0.85258554  
@@ -1055,29 +989,26 @@ mu     0.0112657   0.0053931    2.089  0.03672 *
 omega  0.0009190   0.0003888    2.364  0.01808 *  
 alpha1 0.0864383   0.0265439    3.256  0.00113 ** 
 beta1  0.8525855   0.0394322   21.622  &amp;lt; 2e-16 ***
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;可以看到系数都显著，下面是波动率序列和残差序列：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/GARCH1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mfcol&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Obtain ACF &amp;amp; PACF
+&lt;p&gt;&lt;img src=&quot;images/GARCH1.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;par&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mfcol&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Obtain ACF &amp;amp; PACF
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pacf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pacf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lag&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
 &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#绘制at和at^2的ACF和PACF
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;images/GARCH2.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;images/GARCH2.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;这些ACF和PACF确认了拟合模型充分刻画了对数收益率序列的条件均值和方差。&lt;/p&gt;
 
-&lt;h2 id=&quot;garch-1&quot;&gt;4.7指数GARCH模型&lt;/h2&gt;
+&lt;h2&gt;4.7指数GARCH模型&lt;/h2&gt;
+
 &lt;p&gt;Nelson(1991)提出了指数GARCH模型(EGARCH)模型。具体地，为了允许在模型中体现正的和负的资产收益率的非对称效应，形式如下：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/GARCH3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/GARCH3.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;能体现杠杆效应的还有TGARCH、APGARCH等。&lt;/p&gt;
 </content>
@@ -1088,72 +1019,66 @@ beta1  0.8525855   0.0394322   21.622  &amp;lt; 2e-16 ***
      <link href="/PCA"/>
      <updated>2016-05-23T00:00:00+08:00</updated>
      <id>/PCA</id>
-     <content type="html">&lt;h1 id=&quot;pca&quot;&gt;主成分分析（PCA）&lt;/h1&gt;
+     <content type="html">&lt;h1&gt;主成分分析（PCA）&lt;/h1&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;主成分分析（PCA）是一种数据降维技巧，它能将大量相关变量转化为一组很少的不相关变
+&lt;p&gt;主成分分析（PCA）是一种数据降维技巧，它能将大量相关变量转化为一组很少的不相关变
 量，这些无关变量称为主成分。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/PCA1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/PCA1.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;PCA和EFA最常见的步骤如下：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;数据预处理&lt;/strong&gt;。可以输入原始数据矩阵或者相关系数矩阵到&lt;code class=&quot;highlighter-rouge&quot;&gt;principal()&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;fa()&lt;/code&gt;函数中。输入初始数据，相关系数矩阵将会被自动计算，需要确保数据中没有缺失值。&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;选择因子模型&lt;/strong&gt;。判断&lt;strong&gt;PCA(数据降维)&lt;/strong&gt;还是&lt;strong&gt;EFA(发现潜在结构)&lt;/strong&gt;更符合你的研究目的。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据预处理&lt;/strong&gt;。可以输入原始数据矩阵或者相关系数矩阵到&lt;code&gt;principal()&lt;/code&gt;和&lt;code&gt;fa()&lt;/code&gt;函数中。输入初始数据，相关系数矩阵将会被自动计算，需要确保数据中没有缺失值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;选择因子模型&lt;/strong&gt;。判断&lt;strong&gt;PCA(数据降维)&lt;/strong&gt;还是&lt;strong&gt;EFA(发现潜在结构)&lt;/strong&gt;更符合你的研究目的。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;strong&gt;PCA&lt;/strong&gt;的目标是用一组较少的不相关变量代替大量相关变量，同时尽可能保留初始变量的信息。如第一主成分为：&lt;/p&gt;
 
-&lt;p&gt;&lt;span title=&quot;MathGene HTML&quot; style=&quot;font-family:Times,Serif;font-size:100%&quot;&gt;&lt;i&gt;P&lt;/i&gt;&lt;i&gt;C&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/sub&gt; = &lt;i&gt;a&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;X&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/sub&gt;+&lt;i&gt;a&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;2&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;X&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;2&lt;/sub&gt;&lt;/sub&gt;+…+&lt;i&gt;a&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;k&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;X&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;k&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span title=&#39;MathGene HTML&#39; style=&#39;font-family:Times,Serif;font-size:100%&#39;&gt;&lt;i&gt;P&lt;/i&gt;&lt;i&gt;C&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/sub&gt; = &lt;i&gt;a&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;X&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/sub&gt;+&lt;i&gt;a&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;2&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;X&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;2&lt;/sub&gt;&lt;/sub&gt;+&amp;#8230;+&lt;i&gt;a&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;k&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;i&gt;X&lt;/i&gt;&lt;sub&gt;&lt;sub&gt;&lt;i&gt;k&lt;/i&gt;&lt;/sub&gt;&lt;/sub&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;它是k个观测变量的加权组合，对初始变量集的方差解释性&lt;strong&gt;最大&lt;/strong&gt;。第二主成分也是初始变量的线性组合，对方差的解释性排&lt;strong&gt;第二&lt;/strong&gt;，同时与第一主成分&lt;strong&gt;正交&lt;/strong&gt;（不相关）。&lt;/p&gt;
 
 &lt;p&gt;PCA的目标是找到一个满足如下性质的数据变换：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;每对(不同的)新属性的协方差为0；&lt;/li&gt;
-  &lt;li&gt;属性按照每个属性捕获的方差多少来排序；&lt;/li&gt;
-  &lt;li&gt;每一个属性捕获尽可能多的数据方差。&lt;/li&gt;
-  &lt;li&gt;在满足正交的前提下，每个后继属性捕获尽可能多的剩余方差。&lt;/li&gt;
+&lt;li&gt;每对(不同的)新属性的协方差为0；&lt;/li&gt;
+&lt;li&gt;属性按照每个属性捕获的方差多少来排序；&lt;/li&gt;
+&lt;li&gt;每一个属性捕获尽可能多的数据方差。&lt;/li&gt;
+&lt;li&gt;在满足正交的前提下，每个后继属性捕获尽可能多的剩余方差。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;假设存在数据集D，令其协方差矩阵为S，将S的特征值排序，U是S的特征向量矩阵，最后假设已经对数据矩阵D进行过预处理，使得每个属性(列)的均值为0，则有：&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;数据矩阵D’=DU是变换后的数据集，满足以上条件。&lt;/li&gt;
-  &lt;li&gt;每个新属性都是原属性的线性组合。&lt;/li&gt;
-  &lt;li&gt;第i个新属性的方差就是S的第i个特征值。&lt;/li&gt;
-  &lt;li&gt;原属性的方差和等于新属性的方差和。&lt;/li&gt;
+&lt;li&gt;数据矩阵D&amp;#39;=DU是变换后的数据集，满足以上条件。&lt;/li&gt;
+&lt;li&gt;每个新属性都是原属性的线性组合。&lt;/li&gt;
+&lt;li&gt;第i个新属性的方差就是S的第i个特征值。&lt;/li&gt;
+&lt;li&gt;原属性的方差和等于新属性的方差和。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;判断主成分的个数&lt;/h2&gt;
+&lt;h2&gt;判断主成分的个数&lt;/h2&gt;
 
 &lt;p&gt;一些准则：
 - 根据先验经验和理论知识判断主成分数；
 - 根据要解释变量方差的积累值的阈值来判断需要的主成分数；
 - 通过检查变量间k × k的相关系数矩阵来判断保留的主成分数。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/PCA2.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psych&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;images/PCA2.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psych&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fa.parallel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;USJudgeRatings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fa&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;pc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n.iter&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;show.legend&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Scree plot with parallel analysis&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;表明选择一个主成分即可保留数据集的大部分信息。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;提取主成分&lt;/h2&gt;
+&lt;h2&gt;提取主成分&lt;/h2&gt;
 
 &lt;p&gt;美国法官评分的主成分分析的例子：&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psych&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psych&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;principal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;USJudgeRatings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nfactors&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$output
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$output
 Principal Components Analysis
 Call: principal(r = USJudgeRatings[, -1], nfactors = 1)
 Standardized loadings (pattern matrix) based upon correlation matrix
@@ -1173,24 +1098,19 @@ RTEN 0.99 0.97 0.0275   1
                  PC1
 SS loadings    10.13
 Proportion Var  0.92
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;此处可以看到，第一主成分（PC1）与每个变量都高度相关，也就是说，它是一个可以用来进行一般性评价的难度。&lt;br /&gt;
-h2栏指成分&lt;strong&gt;公因子方差&lt;/strong&gt;——主成分对每个变量方差的解释度。u2是成分&lt;strong&gt;唯一性&lt;/strong&gt;——方差无法被主成分解释的比例（1-h2）。例如，体能（PHYS）80%的方差都能由第一主成分来解释，20%不能。&lt;br /&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;此处可以看到，第一主成分（PC1）与每个变量都高度相关，也就是说，它是一个可以用来进行一般性评价的难度。&lt;br&gt;
+h2栏指成分&lt;strong&gt;公因子方差&lt;/strong&gt;——主成分对每个变量方差的解释度。u2是成分&lt;strong&gt;唯一性&lt;/strong&gt;——方差无法被主成分解释的比例（1-h2）。例如，体能（PHYS）80%的方差都能由第一主成分来解释，20%不能。&lt;br&gt;
 Proportion Var行表示的是每个主成分对整个数据集的解释程度。此处可以看到，第一主成分解释了11个变量92%的方差。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-2&quot;&gt;主成分旋转&lt;/h2&gt;
+&lt;h2&gt;主成分旋转&lt;/h2&gt;
+
 &lt;p&gt;旋转可以用来&lt;strong&gt;去噪&lt;/strong&gt;。旋转方法有两种：使选择的成分保持不变（&lt;strong&gt;正交旋转&lt;/strong&gt;），和让他们变得相关（&lt;strong&gt;斜交旋转&lt;/strong&gt;）。最流行的正交旋转是&lt;strong&gt;方差极大&lt;/strong&gt;旋转。&lt;/p&gt;
 
 &lt;p&gt;例子：&lt;/p&gt;
-
-&lt;div class=&quot;language-r highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;rc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;principal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Harman23.cor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cov&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nfactors&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rotate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;varimax&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;rc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;principal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Harman23.cor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cov&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nfactors&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rotate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;varimax&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rc&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$output
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-&quot; data-lang=&quot;&quot;&gt;$output
 Principal Components Analysis
 Call: principal(r = Harman23.cor$cov, nfactors = 2, rotate = &quot;varimax&quot;)
 Standardized loadings (pattern matrix) based upon correlation matrix
@@ -1208,8 +1128,7 @@ chest.width    0.26 0.75 0.62 0.375 1.2
 SS loadings           3.52 2.92
 Proportion Var        0.44 0.37
 Cumulative Var        0.44 0.81
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;观察输出，发现第一主成分主要由前四个变量来解释，第二个主成分则由后四个变量来解释。两个主成分仍然不相关，对变量的解释性不变。&lt;/p&gt;
 </content>
    </entry>
@@ -1219,21 +1138,20 @@ Cumulative Var        0.44 0.81
      <link href="/matlab-project"/>
      <updated>2016-05-15T00:00:00+08:00</updated>
      <id>/matlab-project</id>
-     <content type="html">&lt;h1 id=&quot;project-1&quot;&gt;Project 1&lt;/h1&gt;
-&lt;p&gt;## &lt;strong&gt;a&lt;/strong&gt;
-计算苹果股票1980年至今的平均年收益率和年波动率，收益率为 &lt;strong&gt;0.1534&lt;/strong&gt;，波动率为 &lt;strong&gt;0.4782&lt;/strong&gt; 。代码如下：&lt;/p&gt;
+     <content type="html">&lt;h1&gt;Project 1&lt;/h1&gt;
 
-&lt;div class=&quot;language-matlab highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;P1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;%P是调整后的股票价格，P1是对数价格&lt;/span&gt;
+&lt;h2&gt;&lt;strong&gt;a&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;计算苹果股票1980年至今的平均年收益率和年波动率，收益率为 &lt;strong&gt;0.1534&lt;/strong&gt;，波动率为 &lt;strong&gt;0.4782&lt;/strong&gt; 。代码如下：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;n&quot;&gt;P1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;%P是调整后的股票价格，P1是对数价格&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=-&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;diff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;aR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;252&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;sigma&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;252&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;strong&gt;b&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;h2 id=&quot;b&quot;&gt;&lt;strong&gt;b&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;用三叉树计算欧式期权的价格，代码如下：&lt;/p&gt;
-
-&lt;div class=&quot;language-matlab highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Etrimi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Etrimi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;s0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;99.62&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;sigma&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.4782&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -1262,31 +1180,31 @@ Cumulative Var        0.44 0.81
 &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;## &lt;strong&gt;c&lt;/strong&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;strong&gt;c&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/5.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;精确度&lt;/strong&gt;：由上表可知，三叉树在N=40的时候，得到的结果与bls公式的结果相比，误差仅为0.01左右。&lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;精确度&lt;/strong&gt;：由上表可知，三叉树在N=40的时候，得到的结果与bls公式的结果相比，误差仅为0.01左右。&lt;br&gt;
 &lt;strong&gt;效率&lt;/strong&gt;：通过多次运行程序，观察得，当N小于100时，运行效率较高；N大于100时，程序效率明显下降。&lt;/p&gt;
 
-&lt;h2 id=&quot;d&quot;&gt;&lt;strong&gt;d&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;strong&gt;d&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/5.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/5.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;精确度&lt;/strong&gt;：由上表可知，在N较小的情况下，三叉树的精确度更高，但随着N的增大，两者精确度变得很接近。                                                         &lt;br /&gt;
+&lt;p&gt;&lt;strong&gt;精确度&lt;/strong&gt;：由上表可知，在N较小的情况下，三叉树的精确度更高，但随着N的增大，两者精确度变得很接近。&lt;br&gt;
 &lt;strong&gt;效率&lt;/strong&gt;：当N较小的时候，运行时间二叉树与三叉树的差距不大；但N大于100时，二叉树快许多。&lt;/p&gt;
 
-&lt;h2 id=&quot;e&quot;&gt;&lt;strong&gt;e&lt;/strong&gt;&lt;/h2&gt;
+&lt;h2&gt;&lt;strong&gt;e&lt;/strong&gt;&lt;/h2&gt;
+
 &lt;p&gt;期权（看涨）的市场价格为4.50，而程序运行结果为9.16左右。同时B-S公式计算价格也与三叉树计算价格相近，而这两种方式计算的都是期权的真实价值，并不是计算的整个路径。市场期权价格在任一时刻是随机的，但最终期权的市场价值会回归真实价值。
-   对于如何提升价格的准确性，&lt;strong&gt;一&lt;/strong&gt;、标的资产市场价格可能不服从对数正态分布，为了针对尖峰厚尾性，很多文献中采用的是Beta分布；&lt;br /&gt;
+   对于如何提升价格的准确性，&lt;strong&gt;一&lt;/strong&gt;、标的资产市场价格可能不服从对数正态分布，为了针对尖峰厚尾性，很多文献中采用的是Beta分布；&lt;br&gt;
    &lt;strong&gt;二&lt;/strong&gt;、该三叉树模型基于二叉树模型，模型的不准确性可能是由于u、d设置的不合理导致的。&lt;/p&gt;
 
-&lt;h2 id=&quot;f&quot;&gt;&lt;strong&gt;f&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;三叉树计算美式期权，代码如下：&lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;f&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;div class=&quot;language-matlab highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AmericanTT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;p&gt;三叉树计算美式期权，代码如下：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AmericanTT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;S0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;K&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -1335,13 +1253,11 @@ Cumulative Var        0.44 0.81
 
 &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F_C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;F_P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;&lt;strong&gt;g&lt;/strong&gt;&lt;/h2&gt;
 
-&lt;h2 id=&quot;g&quot;&gt;&lt;strong&gt;g&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;用二叉树计算障碍期权，代码如下：&lt;/p&gt;
-
-&lt;div class=&quot;language-matlab highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;barrier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-matlab&quot; data-lang=&quot;matlab&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;barrier&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;N&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;s0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;sigma&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -1392,9 +1308,7 @@ Cumulative Var        0.44 0.81
 
 &lt;span class=&quot;n&quot;&gt;C&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
    </entry>
    
    <entry>
@@ -1402,28 +1316,30 @@ Cumulative Var        0.44 0.81
      <link href="/a-python-screw"/>
      <updated>2016-05-14T00:00:00+08:00</updated>
      <id>/a-python-screw</id>
-     <content type="html">&lt;p&gt;写论文需要数据，但是和讯网并没有提供数据的下载，所以就想着自己写个爬虫，一来看看自己能不能搞定这个爬虫，二来可以拿到数据。&lt;br /&gt;
-话不多说，先来理下思路：
-## 思路
-&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/python&amp;amp;R/images/1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+     <content type="html">&lt;p&gt;写论文需要数据，但是和讯网并没有提供数据的下载，所以就想着自己写个爬虫，一来看看自己能不能搞定这个爬虫，二来可以拿到数据。&lt;br&gt;
+话不多说，先来理下思路：&lt;/p&gt;
+
+&lt;h2&gt;思路&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/python&amp;amp;R/images/1.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;这里面有261只债券，总共6页。最开始我是准备就爬这个页面的，但是发现提供的数据不够，点进去一只：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/python&amp;amp;R/images/2.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/python&amp;amp;R/images/2.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;这才是我想要的。&lt;br /&gt;
-所以现在就有了一个大致的思路：&lt;br /&gt;
+&lt;p&gt;这才是我想要的。&lt;br&gt;
+所以现在就有了一个大致的思路：&lt;br&gt;
 1. 先爬第一个网页，取得所有城投债的链接；
 2. 再解析每个网页，取得数据。&lt;/p&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;获得链接&lt;/h2&gt;
+&lt;h2&gt;获得链接&lt;/h2&gt;
+
 &lt;p&gt;打开网页，右键&amp;gt;检查：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/python&amp;amp;R/images/3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/python&amp;amp;R/images/3.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;链接就藏在a标签里面了，下面是代码：&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_lianjie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_lianjie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;c&quot;&gt;#定义一个函数&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;page_source&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;bs_source&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;lxml&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -1437,14 +1353,12 @@ Cumulative Var        0.44 0.81
     &lt;span class=&quot;n&quot;&gt;lianjie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lianjie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
     &lt;span class=&quot;c&quot;&gt;#去掉重复的&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lianjie&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;获取表&lt;/h2&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;获取表&lt;/h2&gt;
-&lt;p&gt;接下来就是要获取每个链接里的数据了，还是要先分析网页，找到需要的数据在哪里，&lt;br /&gt;
+&lt;p&gt;接下来就是要获取每个链接里的数据了，还是要先分析网页，找到需要的数据在哪里，&lt;br&gt;
 代码如下：&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_biao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_biao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urllib3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PoolManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
     &lt;span class=&quot;c&quot;&gt;#不用这个好像网页会加载不完全，具体什么意思我也不懂。。&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;page_source&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;GET&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;
@@ -1465,23 +1379,18 @@ Cumulative Var        0.44 0.81
 
     &lt;span class=&quot;n&quot;&gt;biao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iterm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;biao&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;p&gt;## 合并数据&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;合并数据&lt;/h2&gt;
 
 &lt;p&gt;到这一步就很简单了，因为表都是DataFrame格式，代码如下：&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;biao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;biao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;data.csv&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encoding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;gbk&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#注意编码，不然会乱码&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;至此这个爬虫就差不多完成了，但是有个问题，就是：很！慢！&lt;br /&gt;
-我点击运行，过了十几分钟才出结果，所以得用多线程优化一下，&lt;br /&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;至此这个爬虫就差不多完成了，但是有个问题，就是：很！慢！&lt;br&gt;
+我点击运行，过了十几分钟才出结果，所以得用多线程优化一下，&lt;br&gt;
 下面是完整代码：&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;requests&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;bs4&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib3&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;
@@ -1500,7 +1409,7 @@ Cumulative Var        0.44 0.81
 
     &lt;span class=&quot;n&quot;&gt;lianjie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lianjie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lianjie&lt;/span&gt;
-    
+
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_biao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urllib3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PoolManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;page_source&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;GET&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;
@@ -1519,21 +1428,21 @@ Cumulative Var        0.44 0.81
 
     &lt;span class=&quot;n&quot;&gt;biao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iterm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;biao&lt;/span&gt;
-    
+
 &lt;span class=&quot;c&quot;&gt;#获取全部261个链接&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;lianjie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;http://so.hexun.com/list.do?type=ALL&amp;amp;stype=BOND&amp;amp;key=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;B3&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;C7&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;CD&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;B6&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;D5&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;AE&amp;amp;page={0:d}&#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;page_lianjie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_lianjie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;lianjie&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;extend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_lianjie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    
+
 &lt;span class=&quot;c&quot;&gt;#获取所有的表&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;biao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;page_biao&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_biao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;biao&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page_biao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;
-    
+
 &lt;span class=&quot;c&quot;&gt;#多线程    &lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;threadlist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lianjie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
@@ -1542,16 +1451,15 @@ Cumulative Var        0.44 0.81
     &lt;span class=&quot;n&quot;&gt;threadlist&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;threadlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-    
+
 &lt;span class=&quot;c&quot;&gt;#最后导出数据&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;concat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;biao&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;data.csv&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encoding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;gbk&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;最终效果：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/python&amp;amp;R/images/4.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://liubj2016.github.io/Akuan/group/python&amp;amp;R/images/4.png&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
 </content>
    </entry>
    
@@ -1560,5 +1468,6 @@ Cumulative Var        0.44 0.81
 
 
 </body>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
 </html>

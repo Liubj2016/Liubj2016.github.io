@@ -48,39 +48,29 @@
     </p>
 
 
-    <h1 id="shiny-app">shiny app的网页分享</h1>
+    <h1>shiny app的网页分享</h1>
 
 <blockquote>
-  <p>A web application framework for R<br />
-Turn your analyses into interactive web applications<br />
+<p>A web application framework for R<br>
+Turn your analyses into interactive web applications<br>
 No HTML, CSS, or JavaScript knowledge required</p>
 </blockquote>
 
-<p>在这之前，需要先知道<code class="highlighter-rouge">shiny</code>是什么，以上是官网介绍，你不需要Html,css和js的知识也能够实现强大的交互式数据可视化。那么如何将自己制作的app分享给电脑上没有R的人呢？请看：</p>
+<p>在这之前，需要先知道<code>shiny</code>是什么，以上是官网介绍，你不需要Html,css和js的知识也能够实现强大的交互式数据可视化。那么如何将自己制作的app分享给电脑上没有R的人呢？请看：</p>
 
 <blockquote>
-  <p><strong>Share as a web page</strong></p>
-</blockquote>
+<p><strong>Share as a web page</strong>  </p>
 
-<blockquote>
-  <p>All of the above methods share the same limitation. They require your user to have R and Shiny installed on their computer.</p>
-</blockquote>
+<p>All of the above methods share the same limitation. They require your user to have R and Shiny installed on their computer.  </p>
 
-<blockquote>
-  <p>However, Shiny creates the perfect opportunity to share output with people who do not have R (and have no intention of getting it). Your Shiny app happens to be one of the most widely used communication tools in the world: a web page. If you host the app at its own URL, users can visit the app (and not need to worry about code).</p>
-</blockquote>
+<p>However, Shiny creates the perfect opportunity to share output with people who do not have R (and have no intention of getting it). Your Shiny app happens to be one of the most widely used communication tools in the world: a web page. If you host the app at its own URL, users can visit the app (and not need to worry about code).</p>
 
-<blockquote>
-  <p>If you are familiar with web hosting or have access to an IT department, you can host your Shiny apps yourself.</p>
-</blockquote>
+<p>If you are familiar with web hosting or have access to an IT department, you can host your Shiny apps yourself.</p>
 
-<blockquote>
-  <p>If you’d prefer an easier experience or need support, RStudio offers three ways to host your Shiny app as a web page:</p>
-</blockquote>
+<p>If you’d prefer an easier experience or need support, RStudio offers three ways to host your Shiny app as a web page:</p>
 
-<blockquote>
-  <p>1.Shinyapps.io.<br />
-2.Shiny Server, and<br />
+<p>1.Shinyapps.io.<br>
+2.Shiny Server, and<br>
 3.Shiny Server Pro</p>
 </blockquote>
 
@@ -89,47 +79,42 @@ No HTML, CSS, or JavaScript knowledge required</p>
 <p>注册网站后登陆（我用的是github账号登陆），就进入了教程页面。</p>
 
 <blockquote>
-  <p>STEP 1 – INSTALL RSCONNECT<br />
-The <code class="highlighter-rouge">rsconnect</code> package can be installed directly from CRAN. To make sure you have the latest version run following code in your R console:</p>
+<p>STEP 1 – INSTALL RSCONNECT<br>
+The <code>rsconnect</code> package can be installed directly from CRAN. To make sure you have the latest version run following code in your R console:</p>
 </blockquote>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">install.packages</span><span class="p">(</span><span class="s1">'rsconnect'</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="s1">'rsconnect'</span><span class="p">)</span><span class="w">
+</span></code></pre></div>
 <p>首先是安装这个包，不多说。</p>
 
 <blockquote>
-  <p>STEP 2 – AUTHORIZE ACCOUNT<br />
-The <code class="highlighter-rouge">rsconnect</code> package must be authorized to your account using a token and secret. To do this, click the copy button below and we’ll copy the whole command you need to your clipboard. Just paste it into your console to authorize your account. Once you’ve entered the command successfully in R, that computer is now authorized to deploy applications to your shinyapps.io account.
-<code class="highlighter-rouge">r
-rsconnect::setAccountInfo(name='akuan',
-			  token='**************',
-			  secret='&lt;SECRET&gt;')
+<p>STEP 2 – AUTHORIZE ACCOUNT<br>
+The <code>rsconnect</code> package must be authorized to your account using a token and secret. To do this, click the copy button below and we&#39;ll copy the whole command you need to your clipboard. Just paste it into your console to authorize your account. Once you&#39;ve entered the command successfully in R, that computer is now authorized to deploy applications to your shinyapps.io account.
+<code>r
+rsconnect::setAccountInfo(name=&#39;akuan&#39;,
+              token=&#39;**************&#39;,
+              secret=&#39;&lt;SECRET&gt;&#39;)
 </code></p>
 </blockquote>
 
 <p>安装完包之后就是配置账户，非常简单，只要将网页上的代码粘贴到R命令行回车运行就可以了。</p>
 
 <blockquote>
-  <p>STEP 3 – DEPLOY<br />
-Once the <code class="highlighter-rouge">rsconnect</code> package has been configured, you’re ready to deploy your first application. If you haven’t written any applications yet, you can also checkout the Getting Started Guide for instructions on how to deploy our demo application. Run the following code in your R console.</p>
+<p>STEP 3 – DEPLOY<br>
+Once the <code>rsconnect</code> package has been configured, you&#39;re ready to deploy your first application. If you haven&#39;t written any applications yet, you can also checkout the Getting Started Guide for instructions on how to deploy our demo application. Run the following code in your R console.</p>
 </blockquote>
-
-<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">rsconnect</span><span class="p">)</span><span class="w">
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">rsconnect</span><span class="p">)</span><span class="w">
 </span><span class="n">rsconnect</span><span class="o">::</span><span class="n">deployApp</span><span class="p">(</span><span class="s1">'path/to/your/app'</span><span class="p">)</span><span class="w">
-</span></code></pre>
-</div>
-
+</span></code></pre></div>
 <p>如果上一步没有报错，就可以用上面的代码来发布自己的app了。</p>
 
 <p>我自己试了一下：</p>
 
-<p><img src="images/555.png" alt="image" /></p>
+<p><img src="images/555.png" alt="image"></p>
 
 <p>成功！
 <a href="https://akuan.shinyapps.io/stockVis/">点这里</a></p>
 
-<p>当然在这之前你需要先会用<code class="highlighter-rouge">shiny</code>，这里是<a href="http://shiny.rstudio.com/tutorial/">官方教程。</a></p>
+<p>当然在这之前你需要先会用<code>shiny</code>，这里是<a href="http://shiny.rstudio.com/tutorial/">官方教程。</a></p>
 
 
 
@@ -151,5 +136,6 @@ Once the <code class="highlighter-rouge">rsconnect</code> package has been confi
 <script src="/js/post.js" type="text/javascript"></script>
 
 </body>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
 </html>

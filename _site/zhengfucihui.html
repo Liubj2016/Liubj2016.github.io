@@ -48,13 +48,12 @@
     </p>
 
 
-    <h1 id="section">政府工作报告的高频词汇</h1>
+    <h1>政府工作报告的高频词汇</h1>
 
 <p>今天学了一招，找一下政府工作报告里高频出现的词汇，说不定能帮助炒股呢！（肯定是错觉。。）</p>
 
 <p>其实就是一个简单的爬虫。首先，先把工作报告的内容抓下来：</p>
-
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">jieba</span>
 <span class="kn">import</span> <span class="nn">requests</span>
@@ -73,11 +72,9 @@
         <span class="n">text</span><span class="o">+=</span><span class="s">'</span><span class="se">\n</span><span class="s">'</span>
     <span class="k">return</span> <span class="n">text</span>
 <span class="c">#这个函数返回的就是政府工作报告的内容了。</span>
-</code></pre>
-</div>
-<p>然后就是统计词频，排名后输出前十了（需要用到<code class="highlighter-rouge">Counter</code>函数）：</p>
-
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">def</span> <span class="nf">word_frequency</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+</code></pre></div>
+<p>然后就是统计词频，排名后输出前十了（需要用到<code>Counter</code>函数）：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">word_frequency</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
     <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
     <span class="n">word</span><span class="o">=</span><span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">jieba</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="n">cut_all</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="o">&gt;=</span><span class="mi">2</span><span class="p">]</span>
     <span class="c">#找到长度大于等于2的词</span>
@@ -90,18 +87,12 @@
     <span class="k">for</span> <span class="n">word_freq</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
         <span class="n">word</span><span class="p">,</span><span class="n">freq</span><span class="o">=</span><span class="n">word_freq</span>
         <span class="k">print</span> <span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span>
-</code></pre>
-</div>
-
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">url_2016</span><span class="o">=</span><span class="s">'http://www.gov.cn/flfg/2010-06/21/content_1632796.htm'</span>
+</code></pre></div><div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">url_2016</span><span class="o">=</span><span class="s">'http://www.gov.cn/flfg/2010-06/21/content_1632796.htm'</span>
 <span class="n">text_2016</span><span class="o">=</span><span class="n">extract_text</span><span class="p">(</span><span class="n">url_2016</span><span class="p">)</span>
 <span class="n">word_frequency</span><span class="p">(</span><span class="n">text_2016</span><span class="p">)</span>
-</code></pre>
-</div>
-
+</code></pre></div>
 <p>这样就能看到结果，不过可以再处理一下：</p>
-
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c">#-*- coding: utf-8 -*-</span>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#-*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="n">f</span><span class="o">=</span><span class="nb">file</span><span class="p">(</span><span class="s">'shuju.txt'</span><span class="p">,</span><span class="s">'r'</span><span class="p">)</span>
@@ -114,9 +105,8 @@
 <span class="n">data2</span><span class="p">[</span><span class="s">'热词'</span><span class="p">]</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
 <span class="n">data2</span><span class="p">[</span><span class="s">'次数'</span><span class="p">]</span><span class="o">=</span><span class="n">data2</span><span class="p">[</span><span class="s">'次数'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">data2</span>
-</code></pre>
-</div>
-<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/hh.png" alt="image" /></p>
+</code></pre></div>
+<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/hh.png" alt="image"></p>
 
 
 
@@ -138,5 +128,6 @@
 <script src="/js/post.js" type="text/javascript"></script>
 
 </body>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
 </html>

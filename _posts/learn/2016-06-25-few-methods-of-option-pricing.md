@@ -10,64 +10,64 @@ description: 总结了课上学过的集中方法。
 
 
 
-<script type="text/javascript" src="https://github.com/Liubj2016/Liubj2016.github.io/tree/master/extensions/MathJax.js"></script>
+
 ## 1.Black-Scholes期权定价公式的推导  
 保罗萨缪尔森在1965年提出来的股价模型：
 $$dS=\mu S dt+\sigma S dB①$$  
-其中\\(\mu\,\sigma\\)是常数,B是布朗运动。  
+其中\\(\mu\,\sigma\\)是常数,\\(B\\)是布朗运动。  
 上述微分方程的解为：  
 
-$$S_{t}=S_{0}exp\left[\sigma B_{t}+\left( \mu -\sigma^{2}/2 \right)t \right]②$$
+$$S\_{t}=S\_{0}exp\left[\sigma B\_{t}+\left( \mu -\sigma^{2}/2 \right)t \right]②$$
 
-对于欧式看涨期权，最终支付为\\(\left(S_{T}-X \right)^{+}\\)，所以有：  
+对于欧式看涨期权，最终支付为\\(\left(S\_{T}-X \right)^{+}\\)，所以有：  
 
-$$V=e^{-r T}E\left[\left(S_{T}-X\right)^{+}\right]③$$    
+$$V=e^{-r T}E\left[\left(S\_{T}-X\right)^{+}\right]③$$    
 
 我们用②的模型：  
 
-$$S_{T}=S_{0}exp\left[\sigma B_{T}+\left( \mu -\sigma^{2}/2 \right)t \right]④$$  
+$$S\_{T}=S\_{0}exp\left[\sigma B\_{T}+\left( \mu -\sigma^{2}/2 \right)t \right]④$$  
 
-由于\\(B_{T}\\)是服从均值为0，方差为T的正态分布，所以考虑用\\(\sqrt{T} Z\\)代替\\(B_{T}\\),Z是标准正态分布：  
+由于\\(B\_{T}\\)是服从均值为0，方差为T的正态分布，所以考虑用\\(\sqrt{T} Z\\)代替\\(B\_{T}\\),Z是标准正态分布：  
 
-$$S_{T}=S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]⑤$$  
+$$S\_{T}=S\_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]⑤$$  
 
 则  
 
-$$V=e^{-r T}E\left[\left(S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)^{+}\right]⑥$$   
+$$V=e^{-r T}E\left[\left(S\_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)^{+}\right]⑥$$   
 
 则有：  
 
-$$V= \frac{e^{-r T}}{ \sqrt{2 \pi }} \int_{- \infty }^{ \infty }  \left \{ \left(S_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)\right \}^{+}e^{-x^{2}/2}dx⑦$$   
+$$V= \frac{e^{-r T}}{ \sqrt{2 \pi }} \int\_{- \infty }^{ \infty }  \left{ \left(S\_{0}exp\left[+\left(\sqrt{T} Z \mu -\sigma^{2}/2 \right)t \right]-X\right)\right}^{+}e^{-x^{2}/2}dx⑦$$   
 
-解方程\\(S_{0} e x p \left \[ \sigma  \sqrt{T} a+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right \]-x=0\\)  
+解方程\\(S\_{0} e x p \left \[ \sigma  \sqrt{T} a+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right \]-x=0\\)  
 
 得到：  
 
-$$a= \frac{ \ln \left( \frac{X}{S_{0}} \right)- \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}$$  
+$$a= \frac{ \ln \left( \frac{X}{S\_{0}} \right)- \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}$$  
 
 接下来将⑦分为两部分求解，第二部分：  
 
-$$\frac{1}{ \sqrt{2 \pi }} \int_{a}^{ \infty } -X e^{-x^{2}/2} d x=-X N \left(-a \right)$$  
+$$\frac{1}{ \sqrt{2 \pi }} \int\_{a}^{ \infty } -X e^{-x^{2}/2} d x=-X N \left(-a \right)$$  
 
 第一部分：  
 
-$$ \frac{1}{ \sqrt{2 \pi }} \int_{a}^{ \infty } S_{0} e x p \left [ \sigma  \sqrt{T} x+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right ] e^{-x^{2}/2} d x$$  
+$$ \frac{1}{ \sqrt{2 \pi }} \int\_{a}^{ \infty } S\_{0} e x p \left [ \sigma  \sqrt{T} x+ \left(r- \frac{ \sigma^{2}}{2} \right) T \right ] e^{-x^{2}/2} d x$$  
 
 它等于：  
 
-$$S_{0} e^{r T} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)$$  
+$$S\_{0} e^{r T} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)$$  
 
 因此：  
-$$V=S_{0} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)-X e^{-r T} N \left(-a \right)$$  
+$$V=S\_{0} N \left(- \left(a- \sigma  \sqrt{T} \right) \right)-X e^{-r T} N \left(-a \right)$$  
 
 这时之前求得的a值就有用了：  
-$$a= \frac{ \ln \left( \frac{S_{0}}{X} \right)+ \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}$$  
+$$a= \frac{ \ln \left( \frac{S\_{0}}{X} \right)+ \left(r- \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}$$  
 
-$$a= \frac{ \ln \left( \frac{S_{0}}{X} \right)+ \left(r+ \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}$$  
+$$a= \frac{ \ln \left( \frac{S\_{0}}{X} \right)+ \left(r+ \frac{ \sigma^{2}}{2} \right) T}{ \sigma  \sqrt{T}}$$  
 
-令 \\(-a=d_{2}\\) and \\(a- \sigma \sqrt{T}=d_{1}\\),则有：  
+令 \\(-a=d\_{2}\\) and \\(a- \sigma \sqrt{T}=d\_{1}\\),则有：  
 
-$$V=S_{0} N \left(d_{1} \right)-e^{-r T} X N \left(d_{2} \right)$$  
+$$V=S\_{0} N \left(d\_{1} \right)-e^{-r T} X N \left(d\_{2} \right)$$  
 
 
 以上求解均假设没有分红，交易费用等。  
@@ -81,32 +81,32 @@ $$V=S_{0} N \left(d_{1} \right)-e^{-r T} X N \left(d_{2} \right)$$
 ![image](http://liubj2016.github.io/Akuan/group/learn/images/BT1.png)
 
 
-在很小的一段时间内假设股价会向上运动到\\(S_{0}u\\),也可能向下运动到\\(S_{0}d\\)。  
+在很小的一段时间内假设股价会向上运动到\\(S\_{0}u\\),也可能向下运动到\\(S\_{0}d\\)。  
 为了确定u，d，p，我们假设市场为风险中性，即股票预期收益率等于无风险利率，接着我们构造资产组合：  
 **Portfolio**：买\\(\Delta\\)单位的标的资产，卖出1单位的衍生品（期权）。  
 **上涨情形**：资产组合的价值为：  
 
-$$S_{0}u\Delta - f_{u}$$  
+$$S\_{0}u\Delta - f\_{u}$$  
 
 **下跌情形**：资产组合的价值为：  
 
-$$S_{0}d\Delta - f_{d}$$  
+$$S\_{0}d\Delta - f\_{d}$$  
 
 复制无风险资产，上述两式相等，可以解出：  
 
-$$ \Delta = \frac{f_{u}-fsbtd}{S_{0} u-S_{0} d}$$  
+$$ \Delta = \frac{f\_{u}-fsbtd}{S\_{0} u-S\_{0} d}$$  
 
 再根据  
 
-$$S_{0} \Delta -f_{0}= \left(S_{0} u-f_{u} \right) e^{-r T}$$  
+$$S\_{0} \Delta -f\_{0}= \left(S\_{0} u-f\_{u} \right) e^{-r T}$$  
 
 求出  
 
-$$f_{0}=S_{0} \Delta - \left(S_{0} u \Delta -f_{u} \right) e^{-r T}$$  
+$$f\_{0}=S\_{0} \Delta - \left(S\_{0} u \Delta -f\_{u} \right) e^{-r T}$$  
 
 将\\(\Delta\\)代入得到  
 
-$$f_{0}=e^{-r T} \left [p f_{u}+ \left(1-p \right) f_{d} \right ]$$  
+$$f\_{0}=e^{-r T} \left [p f\_{u}+ \left(1-p \right) f\_{d} \right ]$$  
 
 其中：  
 $$p= \frac{e^{-r T}-d}{u-d}$$  
@@ -174,7 +174,7 @@ p1=p*exp(-r*T);
 >蒙特卡洛模拟可以轻松实现路径依赖期权（障碍期权、亚式齐全）的定价。近年来，由Longstaff和Schwartz提出的最小二乘蒙特卡洛(LSM)模拟方法， 该方法已成为目前使用蒙特卡洛模拟美式期权定价的标准方法。LSM有这样一些假定：不支付交易费和税收、无套利机会、不支付红利、无风险利率是常数、标的资产价格演化遵循几何布朗运动。
 
 基本思想：
-$$V_{ \imath } \left(s \right)=m a x \left \{h_{ \imath } \left(s \right) , E \left [V_{ \imath +1} \left(S_{ \imath +1} \right) | S_{ \imath }=s \right ] \right \}$$
+$$V\_{ \imath } \left(s \right)=max \left{h\_{ \imath } \left(s \right) , E \left [V\_{ \imath +1} \left(S\_{ \imath +1} \right) | S\_{ \imath }=s \right ] \right}$$
 max里第一项是现在执行获得的payoff，第二项是选择等待所能获得的payoff的期望，这个期望用多项式回归的方法获得，即建立当期股价与下期payoff的模型。
 
 
@@ -195,7 +195,7 @@ def regressionP(K,M=1000,N=50):
     dt=T/N
     S=np.zeros((M,N+1))
     S[:,0]=S0
-    f=np.zeros_like(S)
+    f=np.zeros\_like(S)
     f[:,0]=0
 
     #这里模拟股价矩阵用到了跳跃扩散过程，也可以试一下其它的
@@ -270,7 +270,7 @@ plt.show()
 ```
 
 
-![image](images/output_14_0.png)
+![image](images/output\_14\_0.png)
 
 
 这里我选择苹果公司的股票和期权来进行定价。一般来讲，做模拟的话，深度实值或者深度虚值期权定价与实际价格的差距较大，越接近平值越准确。可是上图却好像是相反的，这是怎么回事，我也还没有想清楚，还请大神赐教。
@@ -331,65 +331,65 @@ $$ \frac{ \partial V}{ \partial t}+r S \frac{ \partial V}{ \partial S}+ \frac{1}
 
 终于搞定了PDE，现在就是要估计\\(\frac{ \partial V}{ \partial t}\\)，\\(\frac{ \partial V}{ \partial S}\\)  ，和\\(\frac{ \partial^{2} V}{ \partial S^{2}}\\)，于是就要用到差分的方法了：  
 
-$$V_{ \imath , j}=V \left( \imath  \Delta t , j \Delta S \right) , \imath =0 , 1 , \dotsi , N , j=0 , 1 , \dotsi , M$$
+$$V\_{ \imath , j}=V \left( \imath  \Delta t , j \Delta S \right) , \imath =0 , 1 , \dotsi , N , j=0 , 1 , \dotsi , M$$
 
 ![image](http://liubj2016.github.io/Akuan/group/learn/images/BSPDE1.png)
 
 - 对于一阶项：  
 
-forward approximation：  \\( \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j+1}-V_{ \imath , j}}{ \Delta S}\\)，\\( \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath +1 , j}-V_{ \imath , j}}{ \Delta t}\\)  
+forward approximation：  \\( \frac{ \partial V}{ \partial S} \cong  \frac{V\_{ \imath , j+1}-V\_{ \imath , j}}{ \Delta S}\\)，\\( \frac{ \partial V}{ \partial t} \cong  \frac{V\_{ \imath +1 , j}-V\_{ \imath , j}}{ \Delta t}\\)  
 
-backward approximation：\\( \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j}-V_{ \imath , j-1}}{ \Delta S}\\)，\\( \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath , j}-V_{ \imath -1 , j}}{ \Delta t}\\)  
+backward approximation：\\( \frac{ \partial V}{ \partial S} \cong  \frac{V\_{ \imath , j}-V\_{ \imath , j-1}}{ \Delta S}\\)，\\( \frac{ \partial V}{ \partial t} \cong  \frac{V\_{ \imath , j}-V\_{ \imath -1 , j}}{ \Delta t}\\)  
 
-center approximation： \\( \frac{ \partial V}{ \partial S} \cong  \frac{V_{ \imath , j+1}-V_{ \imath , j-1}}{2 \Delta S}\\)，\\( \frac{ \partial V}{ \partial t} \cong  \frac{V_{ \imath +1 , j}-V_{ \imath -1 , j}}{2 \Delta t}\\)  
+center approximation： \\( \frac{ \partial V}{ \partial S} \cong  \frac{V\_{ \imath , j+1}-V\_{ \imath , j-1}}{2 \Delta S}\\)，\\( \frac{ \partial V}{ \partial t} \cong  \frac{V\_{ \imath +1 , j}-V\_{ \imath -1 , j}}{2 \Delta t}\\)  
 
 - 二阶项：
 
-$$ \frac{ \partial^{2} V}{ \partial S^{2}} \cong  \frac{V_{ \imath , j+1}+V_{ \imath , j-1}-2 V_{ \imath , j}}{ \Delta S^{2}}$$  
+$$ \frac{ \partial^{2} V}{ \partial S^{2}} \cong  \frac{V\_{ \imath , j+1}+V\_{ \imath , j-1}-2 V\_{ \imath , j}}{ \Delta S^{2}}$$  
 
 
 
 ### 隐性差分  
 
-$$ \frac{ \partial V}{ \partial t} =  \frac{V_{ \imath +1 , j}-V_{ \imath , j}}{ \Delta t}$$  
+$$ \frac{ \partial V}{ \partial t} =  \frac{V\_{ \imath +1 , j}-V\_{ \imath , j}}{ \Delta t}$$  
 
-$$\frac{ \partial V}{ \partial S} =  \frac{V_{ \imath , j}-V_{ \imath , j-1}}{ \Delta S}$$  
+$$\frac{ \partial V}{ \partial S} =  \frac{V\_{ \imath , j}-V\_{ \imath , j-1}}{ \Delta S}$$  
 
-$$\frac{ \partial^{2} V}{ \partial S^{2}} =  \frac{V_{ \imath , j+1}+V_{ \imath , j-1}-2 V_{ \imath , j}}{ \Delta S^{2}}$$  
+$$\frac{ \partial^{2} V}{ \partial S^{2}} =  \frac{V\_{ \imath , j+1}+V\_{ \imath , j-1}-2 V\_{ \imath , j}}{ \Delta S^{2}}$$  
 
 有了以上3个式子，再加上PDE，就可以得到下面的：
 
-$$a_{j} f_{ \imath , j-1}+b_{j} f_{ \imath , j}+c_{j} f_{ \imath , j+1}=f_{ \imath +1 , j}$$  
+$$a\_{j} f\_{ \imath , j-1}+b\_{j} f\_{ \imath , j}+c\_{j} f\_{ \imath , j+1}=f\_{ \imath +1 , j}$$  
 
-可以得到\\(a_{j}\\)，\\(b_{j}\\)，\\(c_{j}\\)的通式(其中\\( \frac{S}{ \Delta S}=j\\))：  
+可以得到\\(a\_{j}\\)，\\(b\_{j}\\)，\\(c\_{j}\\)的通式(其中\\( \frac{S}{ \Delta S}=j\\))：  
 
-$$a_{j}= \frac{1}{2} \Delta t \left(r j- \sigma^{2} j^{2} \right)$$  
+$$a\_{j}= \frac{1}{2} \Delta t \left(r j- \sigma^{2} j^{2} \right)$$  
 
-$$b_{j}=1+ \Delta t \left( \sigma^{2} j^{2}+r \right)$$  
+$$b\_{j}=1+ \Delta t \left( \sigma^{2} j^{2}+r \right)$$  
 
-$$c_{j}= \frac{-1}{2} \Delta t \left( \sigma^{2} j^{2}+r j \right)$$  
+$$c\_{j}= \frac{-1}{2} \Delta t \left( \sigma^{2} j^{2}+r j \right)$$  
 
 ![image](http://liubj2016.github.io/Akuan/group/learn/images/BSPDE2.png)
 
 回想上面的网格图，以欧式看跌期权为例，算法如下：  
-1.初始化一些值，\\(f_{ \imath , 0}=K , f_{ \imath , M}=0 , f_{N , j}=m a x \left(K-j \Delta S , 0 \right)\\)，还有\\(a_{j}\\)，\\(b_{j}\\)，\\(c_{j}\\)。  
+1.初始化一些值，\\(f\_{ \imath , 0}=K , f\_{ \imath , M}=0 , f\_{N , j}=m a x \left(K-j \Delta S , 0 \right)\\)，还有\\(a\_{j}\\)，\\(b\_{j}\\)，\\(c\_{j}\\)。  
 
 2.for i =N:0，解方程组：  
 
-$$a_{1} f_{ \imath -1, 0}+b_{1} f_{ \imath -1, 1}+c_{1} f_{ \imath -1, 2}=f_{ \imath  , 1}$$  
+$$a\_{1} f\_{ \imath -1, 0}+b\_{1} f\_{ \imath -1, 1}+c\_{1} f\_{ \imath -1, 2}=f\_{ \imath  , 1}$$  
 
-$$a_{2} f_{ \imath -1, 1}+b_{2} f_{ \imath -1, 2}+c_{2} f_{ \imath -1, 3}=f_{ \imath  , 2}$$  
+$$a\_{2} f\_{ \imath -1, 1}+b\_{2} f\_{ \imath -1, 2}+c\_{2} f\_{ \imath -1, 3}=f\_{ \imath  , 2}$$  
 
 $$ \dotsi $$  
 
-$$a_{M-1} f_{ \imath -1, M-2}+b_{M-1} f_{ \imath -1, M-1}+c_{M-1} f_{ \imath -1, M}=f_{ \imath  , M}$$   
+$$a\_{M-1} f\_{ \imath -1, M-2}+b\_{M-1} f\_{ \imath -1, M-1}+c\_{M-1} f\_{ \imath -1, M}=f\_{ \imath  , M}$$   
 
 3.找到离S0最近的点，输出期权价格。
 
 
 ```python
 import numpy as np
-from mpl_toolkits.mplot3d import Axes3D
+from mpl\_toolkits.mplot3d import Axes3D
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -430,16 +430,16 @@ for i in np.arange(N,0,-1):
 fig = plt.figure()
 ax = fig.gca(projection='3d')
 X,Y=np.meshgrid(np.arange(0,11,1),np.arange(0,151,1))
-surf = ax.plot_surface(X,Y,f, cmap='summer', cstride=2, rstride=2)
-ax.set_xlabel("Time")
-ax.set_ylabel("Stock price")
-ax.set_zlabel("Option price")
+surf = ax.plot\_surface(X,Y,f, cmap='summer', cstride=2, rstride=2)
+ax.set\_xlabel("Time")
+ax.set\_ylabel("Stock price")
+ax.set\_zlabel("Option price")
 ```
 
-    c:\python27\lib\site-packages\ipykernel\__main__.py:17: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-    c:\python27\lib\site-packages\ipykernel\__main__.py:22: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-    c:\python27\lib\site-packages\ipykernel\__main__.py:36: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-    c:\python27\lib\site-packages\ipykernel\__main__.py:37: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+    c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:17: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+    c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:22: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+    c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:36: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+    c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:37: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
     
 
 
@@ -450,5 +450,5 @@ ax.set_zlabel("Option price")
 
 
 
-![png](images/output_23_2.png)
+![png](images/output\_23\_2.png)
 

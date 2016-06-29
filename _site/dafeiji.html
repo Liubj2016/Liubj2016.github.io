@@ -48,10 +48,10 @@
     </p>
 
 
-    <h1 id="section">打飞机丧心病狂版</h1>
-<p>这是在打飞机正常版上修改的结果（我是有多桑心病狂。。。）。</p>
+    <h1>打飞机丧心病狂版</h1>
 
-<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="c"># -*- coding: utf-8 -*-</span>
+<p>这是在打飞机正常版上修改的结果（我是有多桑心病狂。。。）。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># -*- coding: utf-8 -*-</span>
 <span class="kn">import</span> <span class="nn">pygame</span>
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="c">#导入pygame库</span>
@@ -254,20 +254,19 @@
         <span class="n">text</span><span class="o">=</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">'Highscore: </span><span class="si">%</span><span class="s">d'</span><span class="o">%</span><span class="n">hscore</span><span class="p">,</span><span class="mi">1</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
         <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">text</span><span class="p">,(</span><span class="mi">155</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">score</span><span class="o">&gt;</span><span class="n">hscore</span><span class="p">:</span>
-			<span class="n">hscore</span><span class="o">=</span><span class="n">score</span>
-			<span class="n">highscore</span><span class="o">=</span><span class="s">'</span><span class="si">%</span><span class="s">d'</span><span class="o">%</span><span class="n">hscore</span>
-			<span class="n">out</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">'highscore.txt'</span><span class="p">,</span><span class="s">'w'</span><span class="p">)</span>
-			<span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">highscore</span><span class="p">)</span>
-			<span class="n">out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">hscore</span><span class="o">=</span><span class="n">score</span>
+            <span class="n">highscore</span><span class="o">=</span><span class="s">'</span><span class="si">%</span><span class="s">d'</span><span class="o">%</span><span class="n">hscore</span>
+            <span class="n">out</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">'highscore.txt'</span><span class="p">,</span><span class="s">'w'</span><span class="p">)</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">highscore</span><span class="p">)</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">test</span><span class="o">=</span><span class="n">font</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="s">'Score: </span><span class="si">%</span><span class="s">d'</span><span class="o">%</span><span class="n">score</span><span class="p">,</span><span class="mi">1</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
         <span class="n">screen</span><span class="o">.</span><span class="n">blit</span><span class="p">(</span><span class="n">test</span><span class="p">,(</span><span class="mi">110</span><span class="p">,</span><span class="mi">250</span><span class="p">))</span>
         <span class="k">pass</span>
     <span class="n">pygame</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
     <span class="c">#刷新画面</span>
-</code></pre>
-</div>
-<p><img src="images/dafeiji.png" alt="image" /></p>
+</code></pre></div>
+<p><img src="images/dafeiji.png" alt="image"></p>
 
 
 
@@ -289,5 +288,6 @@
 <script src="/js/post.js" type="text/javascript"></script>
 
 </body>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+
 </html>
