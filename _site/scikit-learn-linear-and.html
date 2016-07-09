@@ -48,13 +48,13 @@
     </p>
 
 
-    <h1>scikit-learn线性和二次判别分析</h1>
-
-<p>线性判别分析和二次判别分析是两个经典的分类器，就像他们的名字所表示的一样，一个是用线划分，另一个是二次判别面来划分。<br>
+    <h1 id="scikit-learn">scikit-learn线性和二次判别分析</h1>
+<p>线性判别分析和二次判别分析是两个经典的分类器，就像他们的名字所表示的一样，一个是用线划分，另一个是二次判别面来划分。<br />
 这些分类器很好用，因为他们的封闭解法很容易计算，并且他们天生就可以用于多个类。他们在实践中表现得很好并且没有要调整的超参数。</p>
 
-<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/1.png" alt="image"></p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">__doc__</span><span class="p">)</span>
+<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/1.png" alt="image" /></p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">__doc__</span><span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -185,19 +185,22 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">'Linear Discriminant Analysis vs Quadratic Discriminant Analysis'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-</code></pre></div>
+</code></pre>
+</div>
+
 <p>图上展示了线性判别和二次判别的分类边界，最下面的一行图显示，线性判别只能找到线性的分界线，而二次判别可以找到两条分界线，因此更为灵活。</p>
 
-<h2>用线性判别分析来降维</h2>
+<h2 id="section">用线性判别分析来降维</h2>
 
-<p>线性判别分析可用于监督学习的降维，通过将数据映射到一个能最大限度分类的有方向的子空间来实现。输出的维度必然比类别数目小，因此这是一个一般意义上相当强悍的降维方法，并且只有在存在多个类时有用。  </p>
+<p>线性判别分析可用于监督学习的降维，通过将数据映射到一个能最大限度分类的有方向的子空间来实现。输出的维度必然比类别数目小，因此这是一个一般意义上相当强悍的降维方法，并且只有在存在多个类时有用。</p>
 
 <p>下面是比较线性判别分析和主成分分析的降维作用的例子。</p>
 
-<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/2.png" alt="image"></p>
+<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/2.png" alt="image" /></p>
 
-<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/3.png" alt="image"></p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">__doc__</span><span class="p">)</span>
+<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/3.png" alt="image" /></p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">__doc__</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 
@@ -236,32 +239,34 @@
 
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-</code></pre></div>
+</code></pre>
+</div>
 <p>LDA和QDA都可以由简单的概率模型衍生出来，对于每个k都满足条件概率分布 P(X|y=k) 。可以通过贝叶斯公式来得到预测。
 P(y=k | X) = P(X | y=k) P(y=k)}/P(X) = P(X | y=k) P(y = k)/ P(X | y=l)/P(y=l)}并且我们选择能最大化这个条件概率的k。
     特别的，在线性和二次判别分析中， P(X|y)是服从多远高斯分布的，概率密度如下：
-<code>math
+<code class="highlighter-rouge">math
 p(X | y=k) = \frac{1}{(2\pi)^n |\Sigma_k|^{1/2}}\exp\left(-\frac{1}{2} (X-\mu_k)^t \Sigma_k^{-1} (X-\mu_k)\right)
 </code>
 为了将这个模型用于分类器，我们只需要从训练数据集中估计出类的优先级 P(y=k)（k出现的比例），和类的均值 （由经验样本法），和协方差矩阵（即不是通过经验样本法，也不是正则估计法，看下一节的缩减）。
        在LDA的情形下，假定每个类都满足相同的协方差矩阵，这导致了线性的决策面，通过比较 log-probability比率可以看出来。
        而在QDA的情形下，没有这个假设，使得出现二次的决策面。</p>
 
-<h2>LDA降维的数学公式</h2>
-
+<h2 id="lda">LDA降维的数学公式</h2>
 <p>从上面讲到的LDA分类规则的几何重构来开始有助于理解LDA降维。我们用K表示类的个数，因为我们假定所有的类有相同的协方差矩阵，我们可以调整数据使其协方差为定值。</p>
-<div class="highlight"><pre><code class="language-math" data-lang="math">X^* = D^{-1/2}U^t X\text{ with }\Sigma = UDU^t
-</code></pre></div>
-<p>然后我们可以证明，在降维之后分类，相当于找到欧式距离离数据点最近的均值。但是这个结果同样也可以在讲数据映射到有所有类均值构建的子空间H<em>K上得到。这说明，在LDA分类器的内部，可以通过将数据映射到K-1维的子空间上来降维。
-    我们可以选择一个L通过将数据映射到 线性子空间H</em>L 来更进一步的降维，这个子空间使得所有类均值的方差最大。</p>
 
-<h2>缩减</h2>
+<pre><code class="language-math">X^* = D^{-1/2}U^t X\text{ with }\Sigma = UDU^t
+</code></pre>
+<p>然后我们可以证明，在降维之后分类，相当于找到欧式距离离数据点最近的均值。但是这个结果同样也可以在讲数据映射到有所有类均值构建的子空间H_K上得到。这说明，在LDA分类器的内部，可以通过将数据映射到K-1维的子空间上来降维。
+    我们可以选择一个L通过将数据映射到 线性子空间H_L 来更进一步的降维，这个子空间使得所有类均值的方差最大。</p>
+
+<h2 id="section-1">缩减</h2>
 
 <p>当数据的个数比特征还要少的时候，缩减就是可以用来提升协方差矩阵估计的工具。这种情形下，经验样本估计是不好的估计值。
 shrinkage参数也可以手动设置在0到1之间，特别的，0表示不缩减，1表示完全缩减。将值设定在这两个极端值之间将会得到一个缩减之后的协方差矩阵。</p>
 
-<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/4.png" alt="image"></p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<p><img src="http://liubj2016.github.io/Akuan/group/learn/images/4.png" alt="image" /></p>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
@@ -325,8 +330,9 @@ shrinkage参数也可以手动设置在0到1之间，特别的，0表示不缩�
 <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">'Linear Discriminant Analysis vs. </span><span class="se">\
 </span><span class="s">shrinkage Linear Discriminant Analysis (1 discriminative feature)'</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div>
-<h2>估计算法</h2>
+</code></pre>
+</div>
+<p>## 估计算法</p>
 
 <p>默认求解是‘svd’，它可以用来分类和转换，并且不依赖与协方差矩阵的计算，这在特征很多的情况下是一个优点，但是，‘svd’解法并不能用于缩减。
 ‘lsqr’解法是只能用于分类的高效算法，它支持缩减。

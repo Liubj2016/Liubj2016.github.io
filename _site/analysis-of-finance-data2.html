@@ -48,171 +48,174 @@
     </p>
 
 
-    <h1>金融时间序列的线性模型</h1>
-
-<h2>2.1平稳性</h2>
+    <h1 id="section">金融时间序列的线性模型</h1>
+<p>## 2.1平稳性</p>
 
 <p>如果一个时间序列满足：
 - 均值是常数
 - 方差存在且为常数
-- 协方差只与时间间隔有关，与时间无关  </p>
+- 协方差只与时间间隔有关，与时间无关</p>
 
 <p>则它是弱平稳的。</p>
 
-<h2>2.2相关系数和自相关函数</h2>
-
+<h2 id="section-1">2.2相关系数和自相关函数</h2>
 <p><strong>皮尔逊相关系数</strong>：</p>
 
-<p><img src="images/AFDR1.png" alt="image"></p>
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">da</span><span class="o">=</span><span class="n">read.table</span><span class="p">(</span><span class="s2">"m-ibmsp6709.txt"</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
+<p><img src="images/AFDR1.png" alt="image" /></p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">da</span><span class="o">=</span><span class="n">read.table</span><span class="p">(</span><span class="s2">"m-ibmsp6709.txt"</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
 </span><span class="n">head</span><span class="p">(</span><span class="n">da</span><span class="p">)</span><span class="w">
 </span><span class="n">ibm</span><span class="o">=</span><span class="n">da</span><span class="o">$</span><span class="n">ibm</span><span class="w">
 </span><span class="n">sp5</span><span class="o">=</span><span class="n">da</span><span class="o">$</span><span class="n">sp</span><span class="w">
 </span><span class="n">cor</span><span class="p">(</span><span class="n">sp5</span><span class="p">,</span><span class="n">ibm</span><span class="p">)</span><span class="w">
 </span><span class="n">cor</span><span class="p">(</span><span class="n">sp5</span><span class="p">,</span><span class="n">ibm</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">'spearman'</span><span class="p">)</span><span class="w">
 </span><span class="n">cor</span><span class="p">(</span><span class="n">sp5</span><span class="p">,</span><span class="n">ibm</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">'kendall'</span><span class="p">)</span><span class="w">
-</span></code></pre></div>
+</span></code></pre>
+</div>
+
 <p><strong>自相关函数</strong>：</p>
 
-<p><img src="images/AFDR2.png" alt="image"></p>
+<p><img src="images/AFDR2.png" alt="image" /></p>
 
-<p>一个弱平稳时间序列<span title='MathGene HTML' style='font-family:Times,Serif;font-size:100%'><i>x</i><sub><sub><i>t</i></sub></sub></span>是序列自身前后不相关的。
-<code>r
-da=read.table(&quot;m-dec12910.txt&quot;,header=T)
+<p>一个弱平稳时间序列<span title="MathGene HTML" style="font-family:Times,Serif;font-size:100%"><i>x</i><sub><sub><i>t</i></sub></sub></span>是序列自身前后不相关的。
+<code class="highlighter-rouge">r
+da=read.table("m-dec12910.txt",header=T)
 d10=da$dec10  # select the Decile 10 returns
 dec10=ts(d10,frequency=12,start=c(1967,1))
 par(mfcol=c(2,1))
-plot(dec10,xlab=&#39;year&#39;,ylab=&#39;returns&#39;)
-title(main=&#39;(a): Simple returns&#39;)
+plot(dec10,xlab='year',ylab='returns')
+title(main='(a): Simple returns')
 acf(d10,lag=24) # command to obtain sample ACF of the data
 </code>
-<img src="images/rplot1.png" alt="image"></p>
+<img src="images/rplot1.png" alt="image" /></p>
 
 <p><strong>混成检验</strong></p>
 
-<p>一个线性时间序列模型可以完全由其ACF来刻画，我们经常需要联合检验<span title='MathGene HTML' style='font-family:Times,Serif;font-size:100%'><i>x</i><sub><sub><i>t</i></sub></sub></span>的多个自相关系数是否同时为0，Box和Pierce提出了混成统计量，R里用<code>Box.test</code>来实现：</p>
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">da</span><span class="o">=</span><span class="n">read.table</span><span class="p">(</span><span class="s2">"m-ibmsp6709.txt"</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
+<p>一个线性时间序列模型可以完全由其ACF来刻画，我们经常需要联合检验<span title="MathGene HTML" style="font-family:Times,Serif;font-size:100%"><i>x</i><sub><sub><i>t</i></sub></sub></span>的多个自相关系数是否同时为0，Box和Pierce提出了混成统计量，R里用<code class="highlighter-rouge">Box.test</code>来实现：</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">da</span><span class="o">=</span><span class="n">read.table</span><span class="p">(</span><span class="s2">"m-ibmsp6709.txt"</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
 </span><span class="n">ibm</span><span class="o">=</span><span class="n">da</span><span class="o">$</span><span class="n">ibm</span><span class="w">
 </span><span class="n">lnibm</span><span class="o">=</span><span class="nf">log</span><span class="p">(</span><span class="n">ibm</span><span class="m">+1</span><span class="p">)</span><span class="w"> </span><span class="c1"># Transfer to log returns
 </span><span class="n">Box.test</span><span class="p">(</span><span class="n">ibm</span><span class="p">,</span><span class="n">lag</span><span class="o">=</span><span class="m">12</span><span class="p">,</span><span class="n">type</span><span class="o">=</span><span class="s1">'Ljung'</span><span class="p">)</span><span class="w">
 </span><span class="n">Box.test</span><span class="p">(</span><span class="n">lnibm</span><span class="p">,</span><span class="n">lag</span><span class="o">=</span><span class="m">12</span><span class="p">,</span><span class="n">type</span><span class="o">=</span><span class="s1">'Ljung'</span><span class="p">)</span><span class="w">
-</span></code></pre></div>
-<p><img src="images/r3.png" alt="image"></p>
+</span></code></pre>
+</div>
+<p><img src="images/r3.png" alt="image" /></p>
 
 <p>可以看到P值不显著，则接受原假设，即自相关函数为0.</p>
 
-<h2>2.3白噪声</h2>
+<h2 id="section-2">2.3白噪声</h2>
 
 <ul>
-<li><strong>白噪声</strong>：具有有限均值和有限方差的独立同分布的时间序列。</li>
-<li><strong>高斯白噪声</strong>：一个服从均值为0、方差有限的白噪声序列。</li>
+  <li><strong>白噪声</strong>：具有有限均值和有限方差的独立同分布的时间序列。</li>
+  <li><strong>高斯白噪声</strong>：一个服从均值为0、方差有限的白噪声序列。</li>
 </ul>
 
-<h2>2.4简单自回归模型（AR）</h2>
+<h2 id="ar">2.4简单自回归模型（AR）</h2>
 
-<p><img src="images/ar1.png" alt="image"></p>
+<p><img src="images/ar1.png" alt="image" /></p>
 
-<h3>2.4.1AR模型的性质</h3>
+<h3 id="ar-1">2.4.1AR模型的性质</h3>
 
 <ul>
-<li><strong>均值</strong>：<img src="images/ar2.png" alt="image"></li>
-<li><strong>方差</strong>：<img src="images/ar3.png" alt="image"></li>
-<li><strong>平稳的充要条件</strong>：<img src="images/ar4.png" alt="image"></li>
-<li><strong>自相关系数</strong>：呈现漂亮的指数衰减。</li>
+  <li><strong>均值</strong>：<img src="images/ar2.png" alt="image" /></li>
+  <li><strong>方差</strong>：<img src="images/ar3.png" alt="image" /></li>
+  <li><strong>平稳的充要条件</strong>：<img src="images/ar4.png" alt="image" /></li>
+  <li><strong>自相关系数</strong>：呈现漂亮的指数衰减。</li>
 </ul>
 
-<h3>2.4.2实践中AR模型的识别</h3>
+<h3 id="ar-2">2.4.2实践中AR模型的识别</h3>
 
 <p>AR(p)序列的的样本偏自相关函数是p步截尾的。</p>
 
-<h2>2.5简单移动平均模型（MA）</h2>
+<h2 id="ma">2.5简单移动平均模型（MA）</h2>
 
 <p>MA(1)模型的一般形式为：</p>
 
-<p><img src="images/MA1.png" alt="image"></p>
+<p><img src="images/MA1.png" alt="image" /></p>
 
-<h3>2.5.1MA模型的性质</h3>
+<h3 id="ma-1">2.5.1MA模型的性质</h3>
 
 <ul>
-<li>MA模型的常数项就是序列的的均值</li>
-<li>MA(q)模型的方差为<img src="images/MA2.png" alt="image"></li>
-<li>自相关函数（ACF）<img src="images/MA3.png" alt="image"></li>
-<li>MA(q)序列只与其前q个滞后值线性相关，是一个“有限记忆”模型。</li>
+  <li>MA模型的常数项就是序列的的均值</li>
+  <li>MA(q)模型的方差为<img src="images/MA2.png" alt="image" /></li>
+  <li>自相关函数（ACF）<img src="images/MA3.png" alt="image" /></li>
+  <li>MA(q)序列只与其前q个滞后值线性相关，是一个“有限记忆”模型。</li>
 </ul>
 
-<h3>2.5.2MA模型定阶</h3>
+<h3 id="ma-2">2.5.2MA模型定阶</h3>
 
 <p>简单的说，<strong>MA(q)</strong>模型的ACF是<strong>q</strong>阶截尾的。</p>
 
-<h2>2.6简单ARMA模型</h2>
+<h2 id="arma">2.6简单ARMA模型</h2>
 
 <p>ARMA(1,1)模型的形式：</p>
 
-<p><img src="images/ARMA1.png" alt="image"></p>
+<p><img src="images/ARMA1.png" alt="image" /></p>
 
-<h3>2.6.1ARMA(1,1)模型的性质</h3>
+<h3 id="arma11">2.6.1ARMA(1,1)模型的性质</h3>
 
 <ul>
-<li>均值：<img src="images/ARMA2.png" alt="image"></li>
-<li>方差：<img src="images/ARMA3.png" alt="image"></li>
-<li>ACF和PACF都不能在任意有限间隔后截尾</li>
-<li>ACF与AR(1)模型很相似，只是指数衰减从间隔2开始。</li>
-<li>PACF与MA(1)模型很相似，只是指数衰减从间隔2开始。</li>
+  <li>均值：<img src="images/ARMA2.png" alt="image" /></li>
+  <li>方差：<img src="images/ARMA3.png" alt="image" /></li>
+  <li>ACF和PACF都不能在任意有限间隔后截尾</li>
+  <li>ACF与AR(1)模型很相似，只是指数衰减从间隔2开始。</li>
+  <li>PACF与MA(1)模型很相似，只是指数衰减从间隔2开始。</li>
 </ul>
 
-<h3>2.6.2ARMA模型的识别</h3>
+<h3 id="arma-1">2.6.2ARMA模型的识别</h3>
 
 <p>ACF和PACF都无法提供足够的信息来识别ARMA模型，这时可以用到推广的自相关函数（<strong>EACF</strong>）。</p>
 
-<h2>2.7单位根非平稳型</h2>
+<h2 id="section-3">2.7单位根非平稳型</h2>
 
 <p>利率、汇率、资产的价格序列往往都是非平稳的，这样的非平稳序列叫做<strong>单位根非平稳时间序列（unit-root nonstationary time series）</strong>。</p>
 
-<h3>2.7.1随机游走</h3>
+<h3 id="section-4">2.7.1随机游走</h3>
+<p><img src="images/RW1.png" alt="image" /></p>
 
-<p><img src="images/RW1.png" alt="image"></p>
+<p>它可以被看作一个特殊的AR(1)模型，那么<span title="MathGene HTML" style="font-family:Times,Serif;font-size:100%"><i>p</i><sub><sub><i>t-1</i></sub></sub></span>的系数是1，这不满足AR(1)的平稳性条件。从而随机游走不是弱平稳的。</p>
 
-<p>它可以被看作一个特殊的AR(1)模型，那么<span title='MathGene HTML' style='font-family:Times,Serif;font-size:100%'><i>p</i><sub><sub><i>t-1</i></sub></sub></span>的系数是1，这不满足AR(1)的平稳性条件。从而随机游走不是弱平稳的。</p>
-
-<h3>2.7.2带漂移的随机游走</h3>
-
-<p><img src="images/RW2.png" alt="image"></p>
+<h3 id="section-5">2.7.2带漂移的随机游走</h3>
+<p><img src="images/RW2.png" alt="image" /></p>
 
 <p>常数项表示价格的时间趋势，通常称为模型的<strong>漂移（drift）</strong>。</p>
 
 <p>常数项的解释：</p>
 
 <ol>
-<li>对于MA(q)模型，常数项就是序列的均值；</li>
-<li>对于AR(p)和ARMA(p,q)模型，常数项与均值有关；</li>
-<li>对带漂移的随机游走，常数项变为序列的时间斜率。</li>
+  <li>对于MA(q)模型，常数项就是序列的均值；</li>
+  <li>对于AR(p)和ARMA(p,q)模型，常数项与均值有关；</li>
+  <li>对带漂移的随机游走，常数项变为序列的时间斜率。</li>
 </ol>
 
-<h3>2.7.3单位根检验</h3>
+<h3 id="section-6">2.7.3单位根检验</h3>
 
-<p>原假设：有单位根<span title='MathGene HTML' style='font-family:Times,Serif;font-size:100%'><i>p</i><sub><sub><i>t-1</i></sub></sub></span>的系数为1；
+<p>原假设：有单位根<span title="MathGene HTML" style="font-family:Times,Serif;font-size:100%"><i>p</i><sub><sub><i>t-1</i></sub></sub></span>的系数为1；
 备择假设：其系数小于1.</p>
 
 <p>利用如下两个模型：</p>
 
-<p><img src="images/RW3.png" alt="image"></p>
+<p><img src="images/RW3.png" alt="image" /></p>
 
 <p>DF统计量为：</p>
 
-<p><img src="images/RW4.png" alt="image"></p>
+<p><img src="images/RW4.png" alt="image" /></p>
 
 <p>由于经常使用的是AR(p)模型，所以需要用到<strong>扩展DF单位根(Augmented Dickey-Fuller, ADF)检验</strong>。</p>
 
-<p><img src="images/RW5.png" alt="image"></p>
+<p><img src="images/RW5.png" alt="image" /></p>
 
-<p><img src="images/RW6.png" alt="image"></p>
-<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">fUnitRoots</span><span class="p">)</span><span class="w">
+<p><img src="images/RW6.png" alt="image" /></p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">library</span><span class="p">(</span><span class="n">fUnitRoots</span><span class="p">)</span><span class="w">
 </span><span class="n">da</span><span class="o">=</span><span class="n">read.table</span><span class="p">(</span><span class="s2">"q-gdp4708.txt"</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
 </span><span class="n">gdp</span><span class="o">=</span><span class="nf">log</span><span class="p">(</span><span class="n">da</span><span class="p">[,</span><span class="m">4</span><span class="p">])</span><span class="w">
 </span><span class="n">m</span><span class="m">1</span><span class="o">=</span><span class="n">ar</span><span class="p">(</span><span class="n">diff</span><span class="p">(</span><span class="n">gdp</span><span class="p">),</span><span class="n">method</span><span class="o">=</span><span class="s1">'mle'</span><span class="p">)</span><span class="w">
 </span><span class="n">adfTest</span><span class="p">(</span><span class="n">gdp</span><span class="p">,</span><span class="n">lags</span><span class="o">=</span><span class="m">10</span><span class="p">,</span><span class="n">type</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"c"</span><span class="p">))</span><span class="w">
-</span></code></pre></div>
-<p><img src="images/RW7.png" alt="image"></p>
+</span></code></pre>
+</div>
+<p><img src="images/RW7.png" alt="image" /></p>
 
 <p>p值可以看出接受原假设，即存在单位根。</p>
 

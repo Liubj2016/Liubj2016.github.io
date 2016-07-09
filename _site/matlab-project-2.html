@@ -48,34 +48,34 @@
     </p>
 
 
-    <h1>matlab project 2——蒙特卡洛模拟的美式期权</h1>
-
+    <h1 id="matlab-project-2">matlab project 2——蒙特卡洛模拟的美式期权</h1>
 <blockquote>
-<p>Stock prices sometimes change by large values in short periods of time, making a
+  <p>Stock prices sometimes change by large values in short periods of time, making a
 jump diffusion model be a more appropriate model to capture this characteristic than a
 plain diffusion model. We extend the Black-Scholes to include jumps, resulting in the
-following model in risk-neutral world,<br>
-<img src="images/project2.png" alt="image"><br>
+following model in risk-neutral world,<br />
+<img src="images/project2.png" alt="image" /><br />
 where Yi ~U(1.1, 1.3) and N(t) is a Poisson process with lambda=4 per year.</p>
 </blockquote>
 
 <p><em>其中Z服从标准正态分布。</em></p>
 
-<p>思路如下（这里只是简单思路，具体可以上网上看paper）：  </p>
+<p>思路如下（这里只是简单思路，具体可以上网上看paper）：</p>
 
 <ol>
-<li>先模拟出每个节点的股票价格S和在此点执行所能得到的收益f；</li>
-<li>总共模拟MxN个，M代表M条路径，N代表将一段时间分为N期。用S(n)代表股价的每一列。</li>
-<li>如果在S(n)选择执行，即f(n)&gt;0,那么就将f(n+1)与对应的S(n)进行一元二次回归，得到一个模型，系数向量为p；</li>
-<li>将S(n)全部代入模型中得到拟合值y；</li>
-<li>将f与y进行比较，f&gt;y的值就留下，f&lt;y的值令其为0；</li>
-<li>从左往右汇总f，如果某个值所在路径上它是第一个大于0的值，其值有效，否则无效。</li>
+  <li>先模拟出每个节点的股票价格S和在此点执行所能得到的收益f；</li>
+  <li>总共模拟MxN个，M代表M条路径，N代表将一段时间分为N期。用S(n)代表股价的每一列。</li>
+  <li>如果在S(n)选择执行，即f(n)&gt;0,那么就将f(n+1)与对应的S(n)进行一元二次回归，得到一个模型，系数向量为p；</li>
+  <li>将S(n)全部代入模型中得到拟合值y；</li>
+  <li>将f与y进行比较，f&gt;y的值就留下，f&lt;y的值令其为0；</li>
+  <li>从左往右汇总f，如果某个值所在路径上它是第一个大于0的值，其值有效，否则无效。</li>
 </ol>
 
-<p>代码如下（<strong>由于上述步骤中有很多需要判断，这样写代码就会显得很乱而且很长，所以充分利用matlab矩阵运算和逻辑运算简化了代码</strong>）：  </p>
+<p>代码如下（<strong>由于上述步骤中有很多需要判断，这样写代码就会显得很乱而且很长，所以充分利用matlab矩阵运算和逻辑运算简化了代码</strong>）：</p>
 
 <p>ps：运行代码有彩蛋哦。。（我真无聊(￣、￣)）</p>
-<div class="highlight"><pre><code class="language-matlab" data-lang="matlab"><span class="k">function</span> <span class="p">[</span><span class="n">P</span><span class="p">]</span><span class="o">=</span><span class="n">regressionP</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+
+<div class="language-matlab highlighter-rouge"><pre class="highlight"><code><span class="k">function</span> <span class="p">[</span><span class="n">P</span><span class="p">]</span><span class="o">=</span><span class="n">regressionP</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
 <span class="n">r</span><span class="o">=</span><span class="mf">0.1</span><span class="p">;</span>
 <span class="n">sigma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">;</span>
 <span class="n">S0</span><span class="o">=</span><span class="mf">90.44</span><span class="p">;</span>
@@ -119,11 +119,13 @@ where Yi ~U(1.1, 1.3) and N(t) is a Poisson process with lambda=4 per year.</p>
 <span class="n">P</span><span class="o">=</span><span class="p">(</span><span class="n">P</span><span class="o">+</span><span class="nb">sum</span><span class="p">(</span><span class="n">q</span><span class="p">(</span><span class="n">d</span><span class="o">==</span><span class="mi">1</span><span class="p">))</span><span class="o">*</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">r</span><span class="o">*</span><span class="n">T</span><span class="p">))/</span><span class="n">M</span><span class="p">;</span>
 <span class="nb">load</span> <span class="n">handel</span><span class="o">.</span><span class="n">mat</span><span class="p">;</span>
 <span class="nb">sound</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-</code></pre></div>
+</code></pre>
+</div>
+
 <blockquote>
-<p>由于蒙特卡洛采用的是正向求解的方法，我们无法计算在每个时刻继续持有期权的期望收益，从而无法比较在该时刻立即执行期权的收益与继续持有期权的期望收益，进而无法决定是立即执行期权还是继续持有期权。所以，直到几年前，人们还认为蒙特卡洛方法
+  <p>由于蒙特卡洛采用的是正向求解的方法，我们无法计算在每个时刻继续持有期权的期望收益，从而无法比较在该时刻立即执行期权的收益与继续持有期权的期望收益，进而无法决定是立即执行期权还是继续持有期权。所以，直到几年前，人们还认为蒙特卡洛方法
 只适合为具有固定执行时间的欧式期权定价，而不适合为美式期权定价。近年来，随着数理金融学的发展，出现了一些运用蒙特卡洛方法模拟美式期权定价的算法。其中，影响最大的是由Longstaff和Schwartz提出的最小二乘蒙特卡洛(LSM)模拟方法，
-该方法已成为目前使用蒙特卡洛模拟美式期权定价的标准方法。 </p>
+该方法已成为目前使用蒙特卡洛模拟美式期权定价的标准方法。</p>
 </blockquote>
 
 
