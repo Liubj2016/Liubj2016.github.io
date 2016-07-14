@@ -89,6 +89,7 @@ def buildStump(dataArr,classLabels,D):
 
 ## 7.4完整AdaBoost算法的实现
 之前构造了一个基于加权输入值来进行决策的分类器，现在将有了实现一个完整AdaBoost算法所需要的所有信息。实现的的伪代码如下：  
+
 ```
 对每次迭代：
     利用buildStump()函数找到最佳的单层决策树
@@ -153,6 +154,7 @@ def adaboostTrainDS(dataArr, classLabels, numIt=40):
 图中的ROC曲线中给了两条线，横轴是伪正例的比例（假阳率=FP/(FP+TN)），而纵轴是真阳例的比例（真阳率=TP/(TP+FN)）。虚线是随机猜测的结果曲线。   
 在理想情况下，最佳的分类器应该尽可能的位于左上角。   
 对于不同的ROC曲线比较的一个指标是ROC曲线下的面积（Area Under the Curve）。一个完美分类器的AUC是1.0，随机猜测的AUC是0.5。  
+
 ### 7.5.2基于代价函数分类器决策控制
 
 ![image](images/daijia.png)  
