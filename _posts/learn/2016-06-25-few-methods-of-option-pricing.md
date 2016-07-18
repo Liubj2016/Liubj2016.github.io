@@ -10,6 +10,8 @@ description: 总结了课上学过的集中方法。
 
 
 
+这里的公式显示有问题，请移步我在优矿上的帖子：[期权定价的几种方法](https://uqer.io/community/share/576e0df2228e5b747b9dd617)   
+
 
 ## 1.Black-Scholes期权定价公式的推导  
 保罗萨缪尔森在1965年提出来的股价模型：
@@ -274,7 +276,7 @@ plt.show()
 ```
 
 
-![image](images/output\_14\_0.png)
+![image](images/output_14_0.png)
 
 
 这里我选择苹果公司的股票和期权来进行定价。一般来讲，做模拟的话，深度实值或者深度虚值期权定价与实际价格的差距较大，越接近平值越准确。可是上图却好像是相反的，这是怎么回事，我也还没有想清楚，还请大神赐教。
@@ -440,19 +442,10 @@ ax.set\_ylabel("Stock price")
 ax.set\_zlabel("Option price")
 ```
 
-    c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:17: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-    c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:22: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-    c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:36: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-    c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:37: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-    
 
 
 
 
-    <matplotlib.text.Text at 0x125a26b0>
 
-
-
-
-![png](images/output\_23\_2.png)
+![png](images/output_23_2.png)
 

@@ -26,7 +26,7 @@
    <title>liubaojie's site</title>
    <link href="http://Liubj2016.github.io/atom.xml" rel="self" type="application/atom+xml"/>
    <link href="http://Liubj2016.github.io" rel="alternate" type="text/html" />
-   <updated>2016-07-14T21:41:46+08:00</updated>
+   <updated>2016-07-14T22:27:36+08:00</updated>
    <id>http://Liubj2016.github.io</id>
    <author>
      <name></name>
@@ -46,7 +46,7 @@
 
 &lt;ul&gt;
   &lt;li&gt;优点：泛化错误率低，易编码，可以应用在大部分分类器上。&lt;/li&gt;
-  &lt;li&gt;缺点：对离群点叫敏感。&lt;/li&gt;
+  &lt;li&gt;缺点：对离群点较敏感。&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;bagging&quot;&gt;7.1.1bagging：基于数据随机重抽样的分类器构建方法&lt;/h3&gt;
@@ -615,15 +615,16 @@ SMO算法的原理是：每次循环之中选择两个合适的alpha进行优化
 &lt;p&gt;程序在运行上比较慢，但只是为了了解下思路，毕竟是要成为调包侠的男人。&lt;/p&gt;
 
 &lt;h2 id=&quot;section-4&quot;&gt;6.5在复杂数据上应用核函数&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;images/SVMh.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/moshi.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;上图的数据集明显存在模式，但是很难用一条直线分割，这里就需要用到核函数（kernel）了。&lt;/p&gt;
 
 &lt;h3 id=&quot;section-5&quot;&gt;6.5.1利用核函数将数据集映射到高维空间&lt;/h3&gt;
 &lt;p&gt;核函数可以从某个很难处理的形式转换为另一个比较容易处理的形式。经过空间转换后我们可以在高维空间解决线性问题，相当于在低维空间解决非线性问题。&lt;br /&gt;
-SVM优化中一个很好的地方就是，所有的运算都可以写成内积的形式，我们可以把内积运算写成核函数，而不必做简化处理。将内积替换成核函数的方式成为&lt;strong&gt;核技巧（kernel trick）&lt;/strong&gt;，或者核“变电”（kernel substation）。&lt;br /&gt;
-### 6.5.2径向核函数
-径向核函数直接以向量作为自变量，能够基于向量的距离运算输出一个标量。这个距离可以是从&amp;lt;0,0&amp;gt;向量或者其他向量开始计算的距离。高斯版本的形式：&lt;/p&gt;
+SVM优化中一个很好的地方就是，所有的运算都可以写成内积的形式，我们可以把内积运算写成核函数，而不必做简化处理。将内积替换成核函数的方式成为&lt;strong&gt;核技巧（kernel trick）&lt;/strong&gt;，或者核“变电”（kernel substation）。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;6.5.2径向核函数&lt;/h3&gt;
+&lt;p&gt;径向核函数直接以向量作为自变量，能够基于向量的距离运算输出一个标量。这个距离可以是从&amp;lt;0,0&amp;gt;向量或者其他向量开始计算的距离。高斯版本的形式：&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;images/SVMk.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
@@ -824,7 +825,9 @@ getSymbols(&quot;SANY.HEAVY&quot;)
      <link href="/few-methods-of-option-pricing"/>
      <updated>2016-06-25T00:00:00+08:00</updated>
      <id>/few-methods-of-option-pricing</id>
-     <content type="html">&lt;h2 id=&quot;black-scholes&quot;&gt;1.Black-Scholes期权定价公式的推导&lt;/h2&gt;
+     <content type="html">&lt;p&gt;这里的公式显示有问题，请移步我在优矿上的帖子：&lt;a href=&quot;https://uqer.io/community/share/576e0df2228e5b747b9dd617&quot;&gt;期权定价的几种方法&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;black-scholes&quot;&gt;1.Black-Scholes期权定价公式的推导&lt;/h2&gt;
 &lt;p&gt;保罗萨缪尔森在1965年提出来的股价模型：&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;dS=\mu S dt+\sigma S dB①&lt;/script&gt;
@@ -1083,7 +1086,7 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/output\_14\_0.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/output_14_0.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;这里我选择苹果公司的股票和期权来进行定价。一般来讲，做模拟的话，深度实值或者深度虚值期权定价与实际价格的差距较大，越接近平值越准确。可是上图却好像是相反的，这是怎么回事，我也还没有想清楚，还请大神赐教。&lt;/p&gt;
 
@@ -1249,20 +1252,7 @@ max里第一项是现在执行获得的payoff，第二项是选择等待所能�
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:17: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:22: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:36: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-c:\python27\lib\site-packages\ipykernel\\_\_main\_\_.py:37: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-
-
-
-
-
-&amp;lt;matplotlib.text.Text at 0x125a26b0&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;&lt;img src=&quot;images/output\_23\_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;images/output_23_2.png&quot; alt=&quot;png&quot; /&gt;&lt;/p&gt;
 
 </content>
    </entry>
