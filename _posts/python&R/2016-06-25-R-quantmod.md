@@ -6,14 +6,17 @@ description: 每次都有新发现！
 ---
 
 
-# R-quantmod包
 ## 1.获取股票数据
+
 1.1 获取上证指数
+
 
 ```r
 getSymbols("^SSEC")
 ```
+
 1.2 获取三一重工数据
+
 ```r
 setSymbolLookup(SANY.HEAVY=list(name="600030.ss",src="yahoo"))
 getSymbols("SANY.HEAVY")
@@ -21,27 +24,34 @@ getSymbols("SANY.HEAVY")
 
 ## 2.获取期权交易数据
 
+
 ```r
 getSymbols("AAPL")
 options.expiry(AAPL)
 futures.expiry(AAPL)
 AAPL[options.expiry(AAPL)]
 ```
+
 ## 3.获取汇市数据
+
 
 ```r
 getFX("USD/JPY")
 ```
+
 ## 4.获取重金属交易数据
+
 
 ```r
 getFX(c("gold","XPD"))
 ```
+
 ## 5.获取美联储经济数据
 
 ```r
 getSymbols('CPIAUCNS',src='FRED')
 ```
+
 # 提取数据的函数
 
 - Op(x):提取开盘价
@@ -78,12 +88,14 @@ Delt(Stock.Open,Stock.Close,1)
 # 计算收益率
 
 
+
 ```r
 dailyReturn(x)
 weeklyReturn(x)
 monthlyReturn(x)
 quarterlyReturn(x)
 ```
+
 
 # 画图
 
