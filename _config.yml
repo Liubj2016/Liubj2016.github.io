@@ -6,6 +6,7 @@ paginate: 8
 permalink: /:title
 encoding: UTF-8
 gems: [jekyll-paginate]
+port: 4001
 
 title: liubaojie's site
 url: http://Liubj2016.github.io

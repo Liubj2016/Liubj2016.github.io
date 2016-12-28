@@ -48,20 +48,22 @@
     </p>
 
 
-    <h1 id="r-quantmod">R-quantmod包</h1>
-<p>## 1.获取股票数据
-1.1 获取上证指数</p>
+    <h2 id="section">1.获取股票数据</h2>
+
+<p>1.1 获取上证指数</p>
 
 <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">getSymbols</span><span class="p">(</span><span class="s2">"^SSEC"</span><span class="p">)</span><span class="w">
 </span></code></pre>
 </div>
-<p>1.2 获取三一重工数据
-<code class="highlighter-rouge">r
-setSymbolLookup(SANY.HEAVY=list(name="600030.ss",src="yahoo"))
-getSymbols("SANY.HEAVY")
-</code></p>
 
-<h2 id="section">2.获取期权交易数据</h2>
+<p>1.2 获取三一重工数据</p>
+
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">setSymbolLookup</span><span class="p">(</span><span class="n">SANY.HEAVY</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"600030.ss"</span><span class="p">,</span><span class="n">src</span><span class="o">=</span><span class="s2">"yahoo"</span><span class="p">))</span><span class="w">
+</span><span class="n">getSymbols</span><span class="p">(</span><span class="s2">"SANY.HEAVY"</span><span class="p">)</span><span class="w">
+</span></code></pre>
+</div>
+
+<h2 id="section-1">2.获取期权交易数据</h2>
 
 <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">getSymbols</span><span class="p">(</span><span class="s2">"AAPL"</span><span class="p">)</span><span class="w">
 </span><span class="n">options.expiry</span><span class="p">(</span><span class="n">AAPL</span><span class="p">)</span><span class="w">
@@ -69,22 +71,26 @@ getSymbols("SANY.HEAVY")
 </span><span class="n">AAPL</span><span class="p">[</span><span class="n">options.expiry</span><span class="p">(</span><span class="n">AAPL</span><span class="p">)]</span><span class="w">
 </span></code></pre>
 </div>
-<p>## 3.获取汇市数据</p>
+
+<h2 id="section-2">3.获取汇市数据</h2>
 
 <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">getFX</span><span class="p">(</span><span class="s2">"USD/JPY"</span><span class="p">)</span><span class="w">
 </span></code></pre>
 </div>
-<p>## 4.获取重金属交易数据</p>
+
+<h2 id="section-3">4.获取重金属交易数据</h2>
 
 <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">getFX</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s2">"gold"</span><span class="p">,</span><span class="s2">"XPD"</span><span class="p">))</span><span class="w">
 </span></code></pre>
 </div>
-<p>## 5.获取美联储经济数据</p>
+
+<h2 id="section-4">5.获取美联储经济数据</h2>
 
 <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">getSymbols</span><span class="p">(</span><span class="s1">'CPIAUCNS'</span><span class="p">,</span><span class="n">src</span><span class="o">=</span><span class="s1">'FRED'</span><span class="p">)</span><span class="w">
 </span></code></pre>
 </div>
-<p># 提取数据的函数</p>
+
+<h1 id="section-5">提取数据的函数</h1>
 
 <ul>
   <li>Op(x):提取开盘价</li>
@@ -97,7 +103,7 @@ getSymbols("SANY.HEAVY")
   <li>OHLC(x):提取开盘价、最高、最低和收盘价</li>
 </ul>
 
-<h1 id="section-1">操作函数</h1>
+<h1 id="section-6">操作函数</h1>
 
 <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">Stock.Open</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">102.25</span><span class="p">,</span><span class="m">102.87</span><span class="p">,</span><span class="m">102.25</span><span class="p">,</span><span class="m">100.87</span><span class="p">,</span><span class="m">103.44</span><span class="p">,</span><span class="m">103.87</span><span class="p">,</span><span class="m">103.00</span><span class="p">)</span><span class="w">
 </span><span class="n">Stock.Close</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">102.12</span><span class="p">,</span><span class="m">102.62</span><span class="p">,</span><span class="m">100.12</span><span class="p">,</span><span class="m">103.00</span><span class="p">,</span><span class="m">103.87</span><span class="p">,</span><span class="m">103.12</span><span class="p">,</span><span class="m">105.12</span><span class="p">)</span><span class="w">
@@ -119,7 +125,7 @@ getSymbols("SANY.HEAVY")
   <li>OpOp(x):等同于Delt(Op(x))</li>
 </ul>
 
-<h1 id="section-2">计算收益率</h1>
+<h1 id="section-7">计算收益率</h1>
 
 <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">dailyReturn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
 </span><span class="n">weeklyReturn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">
@@ -128,7 +134,7 @@ getSymbols("SANY.HEAVY")
 </span></code></pre>
 </div>
 
-<h1 id="section-3">画图</h1>
+<h1 id="section-8">画图</h1>
 
 <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="c1">#主图
 </span><span class="n">chartSeries</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w">

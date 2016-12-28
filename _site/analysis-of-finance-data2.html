@@ -49,16 +49,18 @@
 
 
     <h1 id="section">金融时间序列的线性模型</h1>
-<p>## 2.1平稳性</p>
+<h2 id="section-1">2.1平稳性</h2>
 
-<p>如果一个时间序列满足：
-- 均值是常数
-- 方差存在且为常数
-- 协方差只与时间间隔有关，与时间无关</p>
+<p>如果一个时间序列满足：</p>
+<ul>
+  <li>均值是常数</li>
+  <li>方差存在且为常数</li>
+  <li>协方差只与时间间隔有关，与时间无关</li>
+</ul>
 
 <p>则它是弱平稳的。</p>
 
-<h2 id="section-1">2.2相关系数和自相关函数</h2>
+<h2 id="section-2">2.2相关系数和自相关函数</h2>
 <p><strong>皮尔逊相关系数</strong>：</p>
 
 <p><img src="images/AFDR1.png" alt="image" /></p>
@@ -77,17 +79,17 @@
 
 <p><img src="images/AFDR2.png" alt="image" /></p>
 
-<p>一个弱平稳时间序列<span title="MathGene HTML" style="font-family:Times,Serif;font-size:100%"><i>x</i><sub><sub><i>t</i></sub></sub></span>是序列自身前后不相关的。
-<code class="highlighter-rouge">r
-da=read.table("m-dec12910.txt",header=T)
-d10=da$dec10  # select the Decile 10 returns
-dec10=ts(d10,frequency=12,start=c(1967,1))
-par(mfcol=c(2,1))
-plot(dec10,xlab='year',ylab='returns')
-title(main='(a): Simple returns')
-acf(d10,lag=24) # command to obtain sample ACF of the data
-</code>
-<img src="images/rplot1.png" alt="image" /></p>
+<p>一个弱平稳时间序列<span title="MathGene HTML" style="font-family:Times,Serif;font-size:100%"><i>x</i><sub><sub><i>t</i></sub></sub></span>是序列自身前后不相关的。</p>
+<div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">da</span><span class="o">=</span><span class="n">read.table</span><span class="p">(</span><span class="s2">"m-dec12910.txt"</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="nb">T</span><span class="p">)</span><span class="w">
+</span><span class="n">d</span><span class="m">10</span><span class="o">=</span><span class="n">da</span><span class="o">$</span><span class="n">dec10</span><span class="w">  </span><span class="c1"># select the Decile 10 returns
+</span><span class="n">dec10</span><span class="o">=</span><span class="n">ts</span><span class="p">(</span><span class="n">d</span><span class="m">10</span><span class="p">,</span><span class="n">frequency</span><span class="o">=</span><span class="m">12</span><span class="p">,</span><span class="n">start</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1967</span><span class="p">,</span><span class="m">1</span><span class="p">))</span><span class="w">
+</span><span class="n">par</span><span class="p">(</span><span class="n">mfcol</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">))</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">dec10</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s1">'year'</span><span class="p">,</span><span class="n">ylab</span><span class="o">=</span><span class="s1">'returns'</span><span class="p">)</span><span class="w">
+</span><span class="n">title</span><span class="p">(</span><span class="n">main</span><span class="o">=</span><span class="s1">'(a): Simple returns'</span><span class="p">)</span><span class="w">
+</span><span class="n">acf</span><span class="p">(</span><span class="n">d</span><span class="m">10</span><span class="p">,</span><span class="n">lag</span><span class="o">=</span><span class="m">24</span><span class="p">)</span><span class="w"> </span><span class="c1"># command to obtain sample ACF of the data
+</span></code></pre>
+</div>
+<p><img src="images/rplot1.png" alt="image" /></p>
 
 <p><strong>混成检验</strong></p>
 
@@ -104,7 +106,7 @@ acf(d10,lag=24) # command to obtain sample ACF of the data
 
 <p>可以看到P值不显著，则接受原假设，即自相关函数为0.</p>
 
-<h2 id="section-2">2.3白噪声</h2>
+<h2 id="section-3">2.3白噪声</h2>
 
 <ul>
   <li><strong>白噪声</strong>：具有有限均值和有限方差的独立同分布的时间序列。</li>
@@ -167,16 +169,16 @@ acf(d10,lag=24) # command to obtain sample ACF of the data
 
 <p>ACF和PACF都无法提供足够的信息来识别ARMA模型，这时可以用到推广的自相关函数（<strong>EACF</strong>）。</p>
 
-<h2 id="section-3">2.7单位根非平稳型</h2>
+<h2 id="section-4">2.7单位根非平稳型</h2>
 
 <p>利率、汇率、资产的价格序列往往都是非平稳的，这样的非平稳序列叫做<strong>单位根非平稳时间序列（unit-root nonstationary time series）</strong>。</p>
 
-<h3 id="section-4">2.7.1随机游走</h3>
+<h3 id="section-5">2.7.1随机游走</h3>
 <p><img src="images/RW1.png" alt="image" /></p>
 
 <p>它可以被看作一个特殊的AR(1)模型，那么<span title="MathGene HTML" style="font-family:Times,Serif;font-size:100%"><i>p</i><sub><sub><i>t-1</i></sub></sub></span>的系数是1，这不满足AR(1)的平稳性条件。从而随机游走不是弱平稳的。</p>
 
-<h3 id="section-5">2.7.2带漂移的随机游走</h3>
+<h3 id="section-6">2.7.2带漂移的随机游走</h3>
 <p><img src="images/RW2.png" alt="image" /></p>
 
 <p>常数项表示价格的时间趋势，通常称为模型的<strong>漂移（drift）</strong>。</p>
@@ -189,7 +191,7 @@ acf(d10,lag=24) # command to obtain sample ACF of the data
   <li>对带漂移的随机游走，常数项变为序列的时间斜率。</li>
 </ol>
 
-<h3 id="section-6">2.7.3单位根检验</h3>
+<h3 id="section-7">2.7.3单位根检验</h3>
 
 <p>原假设：有单位根<span title="MathGene HTML" style="font-family:Times,Serif;font-size:100%"><i>p</i><sub><sub><i>t-1</i></sub></sub></span>的系数为1；
 备择假设：其系数小于1.</p>

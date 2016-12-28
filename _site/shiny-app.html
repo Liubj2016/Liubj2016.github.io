@@ -100,12 +100,12 @@ The <code class="highlighter-rouge">rsconnect</code> package can be installed di
 
 <blockquote>
   <p>STEP 2 – AUTHORIZE ACCOUNT<br />
-The <code class="highlighter-rouge">rsconnect</code> package must be authorized to your account using a token and secret. To do this, click the copy button below and we’ll copy the whole command you need to your clipboard. Just paste it into your console to authorize your account. Once you’ve entered the command successfully in R, that computer is now authorized to deploy applications to your shinyapps.io account.
-<code class="highlighter-rouge">r
-rsconnect::setAccountInfo(name='akuan',
-			  token='**************',
-			  secret='&lt;SECRET&gt;')
-</code></p>
+The <code class="highlighter-rouge">rsconnect</code> package must be authorized to your account using a token and secret. To do this, click the copy button below and we’ll copy the whole command you need to your clipboard. Just paste it into your console to authorize your account. Once you’ve entered the command successfully in R, that computer is now authorized to deploy applications to your shinyapps.io account.</p>
+  <div class="language-r highlighter-rouge"><pre class="highlight"><code><span class="n">rsconnect</span><span class="o">::</span><span class="n">setAccountInfo</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'akuan'</span><span class="p">,</span><span class="w">
+			  </span><span class="n">token</span><span class="o">=</span><span class="s1">'**************'</span><span class="p">,</span><span class="w">
+			  </span><span class="n">secret</span><span class="o">=</span><span class="s1">'&lt;SECRET&gt;'</span><span class="p">)</span><span class="w">
+</span></code></pre>
+  </div>
 </blockquote>
 
 <p>安装完包之后就是配置账户，非常简单，只要将网页上的代码粘贴到R命令行回车运行就可以了。</p>

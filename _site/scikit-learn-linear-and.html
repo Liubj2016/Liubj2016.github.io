@@ -243,11 +243,10 @@
 </div>
 <p>LDA和QDA都可以由简单的概率模型衍生出来，对于每个k都满足条件概率分布 P(X|y=k) 。可以通过贝叶斯公式来得到预测。
 P(y=k | X) = P(X | y=k) P(y=k)}/P(X) = P(X | y=k) P(y = k)/ P(X | y=l)/P(y=l)}并且我们选择能最大化这个条件概率的k。
-    特别的，在线性和二次判别分析中， P(X|y)是服从多远高斯分布的，概率密度如下：
-<code class="highlighter-rouge">math
-p(X | y=k) = \frac{1}{(2\pi)^n |\Sigma_k|^{1/2}}\exp\left(-\frac{1}{2} (X-\mu_k)^t \Sigma_k^{-1} (X-\mu_k)\right)
-</code>
-为了将这个模型用于分类器，我们只需要从训练数据集中估计出类的优先级 P(y=k)（k出现的比例），和类的均值 （由经验样本法），和协方差矩阵（即不是通过经验样本法，也不是正则估计法，看下一节的缩减）。
+    特别的，在线性和二次判别分析中， P(X|y)是服从多远高斯分布的，概率密度如下：</p>
+<pre><code class="language-math">p(X | y=k) = \frac{1}{(2\pi)^n |\Sigma_k|^{1/2}}\exp\left(-\frac{1}{2} (X-\mu_k)^t \Sigma_k^{-1} (X-\mu_k)\right)
+</code></pre>
+<p>为了将这个模型用于分类器，我们只需要从训练数据集中估计出类的优先级 P(y=k)（k出现的比例），和类的均值 （由经验样本法），和协方差矩阵（即不是通过经验样本法，也不是正则估计法，看下一节的缩减）。
        在LDA的情形下，假定每个类都满足相同的协方差矩阵，这导致了线性的决策面，通过比较 log-probability比率可以看出来。
        而在QDA的情形下，没有这个假设，使得出现二次的决策面。</p>
 
@@ -332,11 +331,12 @@ shrinkage参数也可以手动设置在0到1之间，特别的，0表示不缩�
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre>
 </div>
-<p>## 估计算法</p>
 
-<p>默认求解是‘svd’，它可以用来分类和转换，并且不依赖与协方差矩阵的计算，这在特征很多的情况下是一个优点，但是，‘svd’解法并不能用于缩减。
-‘lsqr’解法是只能用于分类的高效算法，它支持缩减。
-‘eigen’基于类的分散与分散程度间的最优化，它能应用于分类和转换，并且支持缩减，但是它需要计算协方差矩阵，因此它可能不适合特征很多的情况。</p>
+<h2 id="section-2">估计算法</h2>
+
+<p>默认求解是<code class="highlighter-rouge">svd</code>，它可以用来分类和转换，并且不依赖与协方差矩阵的计算，这在特征很多的情况下是一个优点，但是，<code class="highlighter-rouge">svd</code>解法并不能用于缩减。
+<code class="highlighter-rouge">lsqr</code>解法是只能用于分类的高效算法，它支持缩减。
+<code class="highlighter-rouge">eigen</code>基于类的分散与分散程度间的最优化，它能应用于分类和转换，并且支持缩减，但是它需要计算协方差矩阵，因此它可能不适合特征很多的情况。</p>
 
 
 

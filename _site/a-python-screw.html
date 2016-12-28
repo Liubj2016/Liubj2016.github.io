@@ -49,20 +49,22 @@
 
 
     <p>写论文需要数据，但是和讯网并没有提供数据的下载，所以就想着自己写个爬虫，一来看看自己能不能搞定这个爬虫，二来可以拿到数据。<br />
-话不多说，先来理下思路：
-## 思路
-<img src="http://liubj2016.github.io/Akuan/group/python&amp;R/images/1.png" alt="image" /></p>
+话不多说，先来理下思路：</p>
+<h2 id="section">思路</h2>
+<p><img src="http://liubj2016.github.io/Akuan/group/python&amp;R/images/1.png" alt="image" /></p>
 
 <p>这里面有261只债券，总共6页。最开始我是准备就爬这个页面的，但是发现提供的数据不够，点进去一只：</p>
 
 <p><img src="http://liubj2016.github.io/Akuan/group/python&amp;R/images/2.png" alt="image" /></p>
 
 <p>这才是我想要的。<br />
-所以现在就有了一个大致的思路：<br />
-1. 先爬第一个网页，取得所有城投债的链接；
-2. 再解析每个网页，取得数据。</p>
+所以现在就有了一个大致的思路：</p>
+<ol>
+  <li>先爬第一个网页，取得所有城投债的链接；</li>
+  <li>再解析每个网页，取得数据。</li>
+</ol>
 
-<h2 id="section">获得链接</h2>
+<h2 id="section-1">获得链接</h2>
 <p>打开网页，右键&gt;检查：</p>
 
 <p><img src="http://liubj2016.github.io/Akuan/group/python&amp;R/images/3.png" alt="image" /></p>
@@ -86,7 +88,7 @@
 </code></pre>
 </div>
 
-<h2 id="section-1">获取表</h2>
+<h2 id="section-2">获取表</h2>
 <p>接下来就是要获取每个链接里的数据了，还是要先分析网页，找到需要的数据在哪里，<br />
 代码如下：</p>
 
@@ -113,7 +115,7 @@
     <span class="k">return</span> <span class="n">biao</span>
 </code></pre>
 </div>
-<p>## 合并数据</p>
+<h2 id="section-3">合并数据</h2>
 
 <p>到这一步就很简单了，因为表都是DataFrame格式，代码如下：</p>
 
