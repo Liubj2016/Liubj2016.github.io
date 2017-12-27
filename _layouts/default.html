@@ -1,31 +1,50 @@
+---
+layout: compress
+---
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-  <meta name="renderer" content="webkit">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css" type="text/css" />
-  <link rel="stylesheet" href="/css/default.css" type="text/css" />
-  <link rel="stylesheet" href="/css/desktop.css" type="text/css" />
-  <link rel="stylesheet" href="/css/mobile.css" type="text/css" />
-  <link rel="shortcut icon" href="/css/favicon.ico" type="image/x-icon" />
-  <link rel="icon" href="/css/favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
-  <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="{{ site.feed }}" />
-  <script src="/js/jquery-1.11.0.min.js" type="text/javascript"></script>
-  <script src="/js/jquery-migrate-1.2.1.js" type="text/javascript"></script>
-  <script src="/js/jquery.transit.min.js" type="text/javascript"></script>
-  <script src="/js/common.js" type="text/javascript"></script>
-
-<body>
-  {{ content }}
-
-<!-- 多说评论框 start -->
-
-
-</body>
-
-
+<html lang="{{site.data.site.lang}}">
+    {% include head.html %}
+    <body>
+        {% include component/totop.html %}
+        {% include header/header.html %}
+        <div class="mdui-container container">
+            <section class="content">
+                {{ content }}
+            </section>
+        </div>
+        {% if site.data.site.google_analytics != "" %}
+        {% include analytics/google.html %}
+        {% endif %}
+        {% if site.data.site.baidu_auto_push == true %}
+        {% include submission/baidu.html %}
+        {% endif %}
+        {% include component/sw.html %}
+        {% include component/customCssJS.html %}
+        {% include footer/footer.html %}
+        {% if site.data.site.uiux.meng == true%}
+            {% if site.data.meng.live2d.switch == true %}
+                {% include meng/live2d.html %}
+            {% endif %}
+            {% if site.data.meng.title.switch == true %}
+                {% include meng/title.html %}
+            {% endif %}
+            {% if site.data.meng.cursor.switch == true %}
+                {% include meng/cursor.html %}
+            {% endif %}
+            {% if site.data.meng.console.switch == true %}
+                {% include meng/console.html %}
+            {% endif %}
+            {% if site.data.meng.background.switch == true %}
+                {% include meng/background.html %}
+            {% endif %}
+            {% if site.data.meng.card.switch == true %}
+                {% include meng/card.html %}
+            {% endif %}
+            {% if site.data.meng.music_player.player == "cplayer" %}
+                {% include meng/cplayer.html %}
+            {% elsif  site.data.meng.music_player.player == "aplayer"%}
+                {% include meng/aplayer.html %}
+            {% endif %}
+        {% endif %}
+    </body>
 </html>

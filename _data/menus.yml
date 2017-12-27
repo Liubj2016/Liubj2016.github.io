@@ -1,0 +1,17 @@
+- name: 主页
+  url: /
+  icon: home
+- name: 分类
+  url: /category/
+  icon: "&#xe53b;"
+- name: 标签
+  url: /tags/
+  icon: "&#xe893;"
+- name: 友情链接
+  url: /friends/
+  icon: "&#xe8a3;"
+- name: 编辑器
+  url: /editor/
+  icon: "&#xe150;"
+- name: navSearch
+  switch: true

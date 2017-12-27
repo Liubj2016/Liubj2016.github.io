@@ -1,25 +1,24 @@
-# auto: true
+title: "hentai"
+description: "Stay hungry. Stay foolish."
+url: 
+baseurl: ""
+author: "LiuKK"
+paginate: 5
+paginate_path: "/blog/page:num/"
 
-markdown: kramdown
-highlighter: rouge
-paginate: 8
-permalink: /:title
-encoding: UTF-8
-gems: [jekyll-paginate]
-port: 4001
+plugins:
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-feed
 
-title: liubaojie's site
-url: http://Liubj2016.github.io
-feed: /atom.xml
-author_info: <a href="http://Liubj2016.github.io/">Liubj2016</a>
-
-myblog:
-  gavatar: images/2.jpg
-  gpname: liubaojie
-  linkedin: http://www.linkedin.com/in
-  github: https://github.com/
-  email: mailto:liubaojie2016@163.com
-  coverimgs: []
-  postbgimg: []
-
-categories: [python&R, learn, life, read]
+exclude:
+  - package.json
+  - node_modules
+  - gulpfile.js
+  - Gemfile
+  - Gemfile.lock
+  - jekyll-theme-mdui.gemspec
+  - LICENSE.txt
+  - README.md
+  - vendor
+  - docs
