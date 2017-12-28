@@ -2,7 +2,7 @@
 layout: post
 title:  "《金融数据分析导论--R语言》（2）金融时间序列的线性模型"
 date:  2016-05-13 20:04:00 +0800
-categories: Reading notes
+categories: Reading_notes
 tags: 金融 数据分析 R
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK
@@ -22,7 +22,7 @@ author: LiuKK
 **皮尔逊相关系数**：
 
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/AFDR1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/AFDR1.png)
 
 
 ```r
@@ -37,7 +37,7 @@ cor(sp5,ibm,method='kendall')
 
 **自相关函数**：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/AFDR2.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/AFDR2.png)
 
 一个弱平稳时间序列<span title='MathGene HTML' style='font-family:Times,Serif;font-size:100%'><i>x</i><sub><sub><i>t</i></sub></sub></span>是序列自身前后不相关的。
 ```r
@@ -49,7 +49,7 @@ plot(dec10,xlab='year',ylab='returns')
 title(main='(a): Simple returns')
 acf(d10,lag=24) # command to obtain sample ACF of the data
 ```
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/rplot1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/rplot1.png)
 
 **混成检验**
 
@@ -63,7 +63,7 @@ lnibm=log(ibm+1) # Transfer to log returns
 Box.test(ibm,lag=12,type='Ljung')
 Box.test(lnibm,lag=12,type='Ljung')
 ```
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/r3.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/r3.png)
 
 可以看到P值不显著，则接受原假设，即自相关函数为0.
 
@@ -74,13 +74,13 @@ Box.test(lnibm,lag=12,type='Ljung')
 
 ## 2.4简单自回归模型（AR）
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ar1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ar1.png)
 
 ### 2.4.1AR模型的性质
 
-- **均值**：![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ar2.png)
-- **方差**：![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ar3.png)
-- **平稳的充要条件**：![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ar4.png)
+- **均值**：![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ar2.png)
+- **方差**：![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ar3.png)
+- **平稳的充要条件**：![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ar4.png)
 - **自相关系数**：呈现漂亮的指数衰减。
 
 ### 2.4.2实践中AR模型的识别
@@ -91,13 +91,13 @@ AR(p)序列的的样本偏自相关函数是p步截尾的。
 
 MA(1)模型的一般形式为：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/MA1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/MA1.png)
 
 ### 2.5.1MA模型的性质
 
 - MA模型的常数项就是序列的的均值
-- MA(q)模型的方差为![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/MA2.png)
-- 自相关函数（ACF）![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/MA3.png)
+- MA(q)模型的方差为![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/MA2.png)
+- 自相关函数（ACF）![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/MA3.png)
 - MA(q)序列只与其前q个滞后值线性相关，是一个“有限记忆”模型。
 
 ### 2.5.2MA模型定阶
@@ -108,12 +108,12 @@ MA(1)模型的一般形式为：
 
 ARMA(1,1)模型的形式：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ARMA1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ARMA1.png)
 
 ### 2.6.1ARMA(1,1)模型的性质
 
-- 均值：![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ARMA2.png)
-- 方差：![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ARMA3.png)
+- 均值：![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ARMA2.png)
+- 方差：![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ARMA3.png)
 - ACF和PACF都不能在任意有限间隔后截尾
 - ACF与AR(1)模型很相似，只是指数衰减从间隔2开始。
 - PACF与MA(1)模型很相似，只是指数衰减从间隔2开始。
@@ -127,12 +127,12 @@ ACF和PACF都无法提供足够的信息来识别ARMA模型，这时可以用到
 利率、汇率、资产的价格序列往往都是非平稳的，这样的非平稳序列叫做**单位根非平稳时间序列（unit-root nonstationary time series）**。
 
 ### 2.7.1随机游走
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/RW1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/RW1.png)
 
 它可以被看作一个特殊的AR(1)模型，那么<span title='MathGene HTML' style='font-family:Times,Serif;font-size:100%'><i>p</i><sub><sub><i>t-1</i></sub></sub></span>的系数是1，这不满足AR(1)的平稳性条件。从而随机游走不是弱平稳的。
 
 ### 2.7.2带漂移的随机游走
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/RW2.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/RW2.png)
 
 常数项表示价格的时间趋势，通常称为模型的**漂移（drift）**。
 
@@ -149,17 +149,17 @@ ACF和PACF都无法提供足够的信息来识别ARMA模型，这时可以用到
 
 利用如下两个模型：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/RW3.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/RW3.png)
 
 DF统计量为：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/RW4.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/RW4.png)
 
 由于经常使用的是AR(p)模型，所以需要用到**扩展DF单位根(Augmented Dickey-Fuller, ADF)检验**。
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/RW5.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/RW5.png)
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/RW6.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/RW6.png)
 
 
 ```r
@@ -169,6 +169,6 @@ gdp=log(da[,4])
 m1=ar(diff(gdp),method='mle')
 adfTest(gdp,lags=10,type=c("c"))
 ```
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/RW7.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/RW7.png)
 
 p值可以看出接受原假设，即存在单位根。

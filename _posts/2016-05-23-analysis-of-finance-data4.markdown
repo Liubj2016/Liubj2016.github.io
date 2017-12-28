@@ -2,7 +2,7 @@
 layout: post
 title:  "《金融数据分析导论--R语言》（4）资产波动率及其模型"
 date:  2016-05-23 20:04:00 +0800
-categories: Reading notes
+categories: Reading_notes
 tags: 金融 数据分析 R ARCH GARCH
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK
@@ -46,9 +46,9 @@ acf(abs(intc),lag=24)
 Box.test(abs(intc),lag=12,type='Ljung')#拒绝原假设——序列相关
 ```
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ARCH1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ARCH1.png)
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ARCH2.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ARCH2.png)
 
 ## 4.3模型的建立
 对波动率建立方程需要如下4个步骤：
@@ -80,12 +80,12 @@ ARCH模型的基本思想：
 ### 4.5.1ARCH模型的性质
 下面是一个ARCH(1)模型：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ARCH3.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ARCH3.png)
 
 性质：
 
-1. yt的无条件均值仍然是0，![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ARCH4.png)
-2. yt的无条件方差：![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ARCH5.png)
+1. yt的无条件均值仍然是0，![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ARCH4.png)
+2. yt的无条件方差：![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ARCH5.png)
 
 ### 4.5.2ARCH模型的优点和缺点
 **优点**：
@@ -234,7 +234,7 @@ beta1  0.8525855   0.0394322   21.622  < 2e-16 ***
 ```
 可以看到系数都显著，下面是波动率序列和残差序列：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/GARCH1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/GARCH1.png)
 
 ```r
 par(mfcol=c(2,2)) # Obtain ACF & PACF
@@ -245,13 +245,13 @@ pacf(resi^2,lag=24)
 #绘制at和at^2的ACF和PACF
 ```
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/GARCH2.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/GARCH2.png)
 
 这些ACF和PACF确认了拟合模型充分刻画了对数收益率序列的条件均值和方差。
 
 ## 4.7指数GARCH模型
 Nelson(1991)提出了指数GARCH模型(EGARCH)模型。具体地，为了允许在模型中体现正的和负的资产收益率的非对称效应，形式如下：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/GARCH3.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/GARCH3.png)
 
 能体现杠杆效应的还有TGARCH、APGARCH等。

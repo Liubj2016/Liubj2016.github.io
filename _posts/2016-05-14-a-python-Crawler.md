@@ -2,7 +2,7 @@
 layout: post
 title:  "一个python爬虫"
 date:  2016-05-14 20:04:59 +0800
-categories: Python & R
+categories: Python
 tags: python 爬虫
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK

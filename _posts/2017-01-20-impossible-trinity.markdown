@@ -2,7 +2,7 @@
 layout: post
 title:  "【译】经济学人——不可能三角"
 date:  2017-01-20 15:00:00 +0800
-categories: Reading notes
+categories: Reading_notes
 tags: economist translate
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK
@@ -10,13 +10,13 @@ author: LiuKK
 
 # 不可能三角
 
-![png](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/mundell.png)
+![png](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/mundell.png)
 
 HILLEL THE ELDER, a first-century religious leader, was asked to summarise the Torah while standing on one leg. “That which is hateful to you, do not do to your fellow. That is the whole Torah; the rest is commentary,” he replied. Michael Klein, of Tufts University, has written that the insights of international macroeconomics (the study of trade, the balance-of-payments, exchange rates and so on) might be similarly distilled: “Governments face the policy trilemma; the rest is commentary.”
 
 初世纪的宗教领导独腿长者希勒尔曾经被要求总结律法，他回答道：“己所不欲，勿施于人，这便是整个律法，其它的一切都是注脚。”塔夫茨大学的迈克尔·克莱因曾写道：国际宏观经济学（研究贸易，国际收支平衡，汇率等的学科）也可以类似地被精炼成一句话：“政府面临政策困境；其它的都是注脚。”
 
-![png](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/sanjiao.png)
+![png](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/sanjiao.png)
 
 The policy trilemma, also known as the impossible or inconsistent trinity, says a country must choose between free capital mobility, exchange-rate management and monetary autonomy (the three corners of the triangle in the diagram). Only two of the three are possible. A country that wants to fix the value of its currency and have an interest-rate policy that is free from outside influence (side C of the triangle) cannot allow capital to flow freely across its borders. If the exchange rate is fixed but the country is open to cross-border capital flows, it cannot have an independent monetary policy (side A). And if a country chooses free capital mobility and wants monetary autonomy, it has to allow its currency to float (side B).
 

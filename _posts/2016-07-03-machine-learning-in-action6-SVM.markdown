@@ -2,7 +2,7 @@
 layout: post
 title:  "机器学习实战（6）--支持向量机SVM"
 date:  2016-07-03 20:04:00 +0800
-categories: Reading notes
+categories: Reading_notes
 tags: 机器学习 SVM
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK
@@ -14,14 +14,14 @@ author: LiuKK
 本章将使用最流行的一种实现，即序列最小优化（Sequence Minimum Optimization，SMO）算法。
 
 ## 6.1基于最大间隔分隔数据
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/SVM1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/SVM1.png)
 
 - 将数据集分割开来的直线称为分隔超平面（separating hyperplane）。
 - 我们希望找到离分割超平面最近的点，确保它们离分隔面的距离尽可能远。
 - 支持向量（support vector）就是离分割超平面最近的哪些点。
 
 ## 6.2寻找最大间隔
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/SVM2.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/SVM2.png)
 
 分割超平面的形式可以写成这样：
 ```math
@@ -37,15 +37,15 @@ W^{T}X+b
 这里的类别标签用-1和1，而不是0和1，以便用统一的公式来表示间隔或者数据点到分隔超平面的距离而不用担心数据到底是属于-1还是1类。  
 现在的目标就是找出分类器定义中的W和b。为此，我们必须找到具有最小间隔的数据点，也就是支持向量。一旦找到具有最小间隔的数据点，就需要对该间隔最大化：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/1.jpg)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/1.jpg)
 
 直接求解这个问题很麻烦，所以用拉格朗日乘子法，通过引入拉格朗日乘子可以基于约束条件来表达原问题（尖括号表示两个向量的内积）：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/gongshi2.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/gongshi2.png)
 
 引入松弛变量后约束条件变为：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/gongshi3.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/gongshi3.png)
 
 这里用常数C来控制“最大化间隔”和“保证大部分点的函数间隔小于1.0”这两个目标权重。
 
@@ -194,12 +194,12 @@ def smoSimple(dataMatIn,classLabels,C,toler,maxIter):
 b,alphas=smoSimple(dataArr,labelArr,0.6,0.001,40)
 ```
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/SVMsmo.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/SVMsmo.png)
 
 程序在运行上比较慢，但只是为了了解下思路，毕竟是要成为调包侠的男人。  
 
 ## 6.5在复杂数据上应用核函数
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/moshi.png)  
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/moshi.png)  
 
 上图的数据集明显存在模式，但是很难用一条直线分割，这里就需要用到核函数（kernel）了。  
 
@@ -210,7 +210,7 @@ SVM优化中一个很好的地方就是，所有的运算都可以写成内积�
 ### 6.5.2径向核函数
 径向核函数直接以向量作为自变量，能够基于向量的距离运算输出一个标量。这个距离可以是从<0,0>向量或者其他向量开始计算的距离。高斯版本的形式：
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/SVMk.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/SVMk.png)
 
 上述高斯核函数将数据从其特征空间映射到一个无穷维的空间。  
 后面的核函数的应用就不怎么看得懂了，[Kernel functions](http://scikit-learn.org/stable/modules/svm.html#kernel-functions)。

@@ -14,22 +14,22 @@ background:
    purecolor: "#eeeeee" # the background color
 
 img: 
-   avatar: "images/ico.png" # your avatar
+   avatar: "https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ico.png" # your avatar
 
 card: 
    card_shadow: 1 # card shadow (0-24), 0 is not displayed
-   card_hoverable: false # When the hover to deepen the shadow
+   card_hoverable: true # When the hover to deepen the shadow
 
-many_authors: false
+many_authors: true
 
 sns_share: # SNS Share Switch
-   twitter: true
+   twitter: false
    facebook: false
    googleplus: false
    weibo: true
    linkedin: false
    qq: true
-   telegram: true
+   telegram: false
   
 comment:
   used: "livere" # disqus,livere,gitment,valine

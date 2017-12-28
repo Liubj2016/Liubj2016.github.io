@@ -2,14 +2,14 @@
 layout: post
 title:  "【译】经济学人——明斯基时刻"
 date:  2017-01-13 14:04:59 +0800
-categories: Reading notes
+categories: Reading_notes
 tags: economist translate
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK
 ---
 
 # 明斯基时刻
-![png](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/minsky.png)
+![png](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/minsky.png)
 
 
 FROM the start of his academic career in the 1950s until 1996, when he died, Hyman Minsky laboured in relative obscurity. His research about financial crises and their causes attracted a few devoted admirers but little mainstream attention: this newspaper cited him only once while he was alive, and it was but a brief mention. So it remained until 2007, when the subprime-mortgage crisis erupted in America. Suddenly, it seemed that everyone was turning to his writings as they tried to make sense of the mayhem. Brokers wrote notes to clients about the “Minsky moment” engulfing financial markets. Central bankers referred to his theories in their speeches. And he became a posthumous media star, with just about every major outlet giving column space and airtime to his ideas. The Economist has mentioned him in at least 30 articles since 2007.

@@ -2,7 +2,7 @@
 layout: post
 title:  "金融工程学课后部分答案"
 date:  2017-03-05 20:04:59 +0800
-categories: Reading notes
+categories: Reading_notes
 tags: 金融工程
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK
@@ -188,9 +188,9 @@ F是远期价格， S是现货价格， 远期价格就是使合约价值为0的
 如果成分资产完全负相关，则投资组合标准差等于他们标准差加权平均值的差。  
 如果完全不相关，则  
 
-```math
-\sigma^2=x_{A}^2\sigma_{A}^2+(1-x_{A})^2\sigma_{B}^2
-```
+
+$$\sigma^2=x_{A}^2\sigma_{A}^2+(1-x_{A})^2\sigma_{B}^2$$
+
 
 # 第十四章 债券免疫：资产负债最优策略
 

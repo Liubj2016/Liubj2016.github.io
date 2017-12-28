@@ -2,14 +2,14 @@
 layout: post
 title:  "【译】经济学人——信息不对称"
 date:  2017-01-01 20:04:59 +0800
-categories: Reading notes
+categories: Reading_notes
 tags: economist translate
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK
 ---
 
 # 信息不对称  
-![png](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/car.png)  
+![png](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/car.png)  
 
 
 IN 2007 the state of Washington introduced a new rule aimed at making the labour market fairer: firms were banned from checking job applicants’ credit scores. Campaigners celebrated the new law as a step towards equality—an applicant with a low credit score is much more likely to be poor, black or young. Since then, ten other states have followed suit. But when Robert Clifford and Daniel Shoag, two economists, recently studied the bans, they found that the laws left blacks and the young with fewer jobs, not more.  

@@ -15,7 +15,11 @@ author: LiuKK
 ## 1.Black-Scholes期权定价公式的推导  
 保罗萨缪尔森在1965年提出来的股价模型：
 
-$$dS=\mu S dt+\sigma S dB①$$  
+$$
+\begin{align*}
+dS=\mu S dt+\sigma S dB①
+\end{align*}
+$$
 
 其中\\(\mu\,\sigma\\)是常数,\\(B\\)是布朗运动。  
 上述微分方程的解为：  
@@ -80,10 +84,9 @@ $$V=S\_{0} N \left(d\_{1} \right)-e^{-r T} X N \left(d\_{2} \right)$$
 
 ## 2.二叉树期权定价
 
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 >二叉树也称为二项式定价模型，二项期权定价模型由考克斯（J.C.Cox）、罗斯（S.A.Ross）、鲁宾斯坦（M.Rubinstein）和夏普（Sharpe）等人提出的一种期权定价模型，主要用于计算美式期权的价值。其优点在于比较直观简单，不需要太多数学知识就可以加以应用。  
 
-![image](http://liubj2016.github.io/Akuan/group/learn/https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/BT1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/BT1.png)
 
 
 在很小的一段时间内假设股价会向上运动到\\(S\_{0}u\\),也可能向下运动到\\(S\_{0}d\\)。  
@@ -169,7 +172,7 @@ p1=p*exp(-r*T);
 
 可以证明，随着期数的增加，二叉树的结果收敛于BS公式的结果。
 
-![image](http://liubj2016.github.io/Akuan/group/learn/https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/BT2.png)  
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/BT2.png)  
 
 
 当然，二叉树也可以为美式期权定价，方法与欧式期权类似，只不过需要算出每个节点的价格，代码就不贴了，有兴趣可以自己实现以下。
@@ -338,7 +341,7 @@ $$ \frac{ \partial V}{ \partial t}+r S \frac{ \partial V}{ \partial S}+ \frac{1}
 
 $$V\_{ \imath , j}=V \left( \imath  \Delta t , j \Delta S \right) , \imath =0 , 1 , \dotsi , N , j=0 , 1 , \dotsi , M$$
 
-![image](http://liubj2016.github.io/Akuan/group/learn/https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/BSPDE1.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/BSPDE1.png)
 
 - 对于一阶项：  
 
@@ -374,7 +377,7 @@ $$b\_{j}=1+ \Delta t \left( \sigma^{2} j^{2}+r \right)$$
 
 $$c\_{j}= \frac{-1}{2} \Delta t \left( \sigma^{2} j^{2}+r j \right)$$  
 
-![image](http://liubj2016.github.io/Akuan/group/learn/https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/BSPDE2.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/BSPDE2.png)
 
 回想上面的网格图，以欧式看跌期权为例，算法如下：  
 1.初始化一些值，\\(f\_{ \imath , 0}=K , f\_{ \imath , M}=0 , f\_{N , j}=m a x \left(K-j \Delta S , 0 \right)\\)，还有\\(a\_{j}\\)，\\(b\_{j}\\)，\\(c\_{j}\\)。  
@@ -446,5 +449,5 @@ ax.set\_zlabel("Option price")
 
 
 
-![png](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/output_23_2.png)
+![png](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/output_23_2.png)
 

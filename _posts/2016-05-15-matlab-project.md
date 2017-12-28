@@ -57,14 +57,14 @@ P=p*exp(-r*T);
 ```
 ## **c**
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/5.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/5.png)
 
 **精确度**：由上表可知，三叉树在N=40的时候，得到的结果与bls公式的结果相比，误差仅为0.01左右。  
 **效率**：通过多次运行程序，观察得，当N小于100时，运行效率较高；N大于100时，程序效率明显下降。
 
 ## **d**
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/5.png)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/5.png)
 
 **精确度**：由上表可知，在N较小的情况下，三叉树的精确度更高，但随着N的增大，两者精确度变得很接近。                                                           
 **效率**：当N较小的时候，运行时间二叉树与三叉树的差距不大；但N大于100时，二叉树快许多。

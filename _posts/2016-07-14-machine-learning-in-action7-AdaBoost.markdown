@@ -2,7 +2,7 @@
 layout: post
 title:  "机器学习实战（7）--利用AdaBoost元算法提高分类器性能 "
 date:  2016-07-14 20:04:00 +0800
-categories: Reading notes
+categories: Reading_notes
 tags: 机器学习 AdaBoost
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK
@@ -42,14 +42,14 @@ AdaBoost的运算如下:
 **注意：样本的权重是D，分类器的权重是alpha！**  
 
 如果样本被正确分类，那么更新它的权重如下：  
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ada1.png)  
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ada1.png)  
 如果样本被错误分类，那么更新它的权重如下：  
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ada2.png)   
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ada2.png)   
 
 ---
 
 ## 7.3基于单层决策树构建的弱分类器  
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/ada3.png)  
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ada3.png)  
 
 要想把上图中的数据点用一条平行于坐标轴的直线分开显然是不可能的。单层决策树难以处理这种问题。  
 
@@ -144,23 +144,23 @@ def adaboostTrainDS(dataArr, classLabels, numIt=40):
 
 ### 7.5.1其他分类器性能度量的指标：正确率、召回率和ROC曲线
 1. 混淆矩阵（confused matrix）是个不错的度量方法。  
-    ![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/confused2.png)  
+    ![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/confused2.png)  
 如果非对角线元素都是0，那么就是一个完美的分类器。还可以用下图来直观表示：  
- ![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/confused.png)  
+ ![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/confused.png)  
 
 2. 对于一个二类问题的混淆矩阵，有  
-    ![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/confused3.png)  
+    ![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/confused3.png)  
 3. 正确率（precision），它等于TP/(TP+FP)
 4. 召回率（recall），它等于TP/(TP+FN)
 5. 构造正确率或者召回率高的分类器是容易的，但很难保证两者同时成立。
 6. ROC曲线：  
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/confused4.png)     
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/confused4.png)     
 图中的ROC曲线中给了两条线，横轴是伪正例的比例（假阳率=FP/(FP+TN)），而纵轴是真阳例的比例（真阳率=TP/(TP+FN)）。虚线是随机猜测的结果曲线。   
 在理想情况下，最佳的分类器应该尽可能的位于左上角。   
 对于不同的ROC曲线比较的一个指标是ROC曲线下的面积（Area Under the Curve）。一个完美分类器的AUC是1.0，随机猜测的AUC是0.5。  
 
 ### 7.5.2基于代价函数分类器决策控制
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/daijia.png)  
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/daijia.png)  
 
 表中的第二个与第一个的代价函数是不同的，我们可以基于代价函数来找到拥有最小代价的分类器，用来更新权重D。

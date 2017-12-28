@@ -10,10 +10,10 @@ author: LiuKK
 
 # 大家的日语
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/j1.gif)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/j1.gif)
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/j2.gif)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/j2.gif)
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/j3.jpg)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/j3.jpg)
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/j4.gif)
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/j4.gif)

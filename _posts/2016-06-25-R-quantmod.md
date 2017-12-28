@@ -2,7 +2,7 @@
 layout: post
 title:  "R-quantmod包"
 date:  2016-06-25 20:04:59 +0800
-categories: Python & R
+categories: Python
 tags: R
 img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
 author: LiuKK

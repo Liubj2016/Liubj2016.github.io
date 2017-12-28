@@ -14,7 +14,7 @@ author: LiuKK
 jump diffusion model be a more appropriate model to capture this characteristic than a
 plain diffusion model. We extend the Black-Scholes to include jumps, resulting in the
 following model in risk-neutral world,  
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/project2.png)  
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/project2.png)  
 where Yi ~U(1.1, 1.3) and N(t) is a Poisson process with lambda=4 per year.
 
 *其中Z服从标准正态分布。*

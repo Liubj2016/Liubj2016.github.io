@@ -40,7 +40,7 @@ z.plot(figsize=(14,7))
 
 
 
-![png](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/output_xz.png)
+![png](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/output_xz.png)
 
 
 
@@ -227,6 +227,6 @@ data3.plot(figsize=(14,7))
 
 
 
-![png](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/output_xz_2.png)
+![png](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/output_xz_2.png)
 
 策略的话，简单的策略就是价差超过upper的时候卖空价差，即卖出北京银行，买入交通银行；价差小于down的时候，买入价差，即买入交通银行，卖空北京银行。  

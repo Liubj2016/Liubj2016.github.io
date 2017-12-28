@@ -28,7 +28,7 @@ author: LiuKK
 
 这句看上去颓废的话总能给我一种奇妙的力量，让我充满动力。对啊，既然人生不过一场虚无，那我们何必去问眼前的事情有什么意义，尽管去做就好了，万一我们能从中发掘出一些意想不到的快乐呢，就好像找到了意义一样，真是赚到了呀。
 
-![image](https://github.com/Liubj2016/Liubj2016.github.io/blob/master/images/rensheng.jpg)  
+![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/rensheng.jpg)  
 
 
 2016-6-22

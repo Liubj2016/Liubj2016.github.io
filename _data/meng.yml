@@ -15,7 +15,7 @@ console: # Meng console info
   switch: true # Meng console info switch
   theme_info: true # output theme info
   text: "Copyright © 2017 Jekyll-Theme-MDUI" # text
-  color: "#fff" # text color
+  color: "#666666" # text color
   background: "#448aff" # background color
 
 header: # Meng header color + theme-color
@@ -30,7 +30,7 @@ background: # Meng background
 
 card: # Meng card
   switch: true
-  background_color: 'rgba(255, 255, 255, 0.5)'
+  background_color: 'rgba(54, 54, 54, 0.7)'
   card_img_opacity: '0.8'
 
 live2d: # live2d ,see https://github.com/EYHN/hexo-helper-live2d
