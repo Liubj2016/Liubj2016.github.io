@@ -4,7 +4,7 @@ title:  "scikit-learn线性和二次判别分析"
 date:  2016-03-27 20:04:59 +0800
 categories: Learn
 tags: 机器学习 translate
-img: https://ooo.0o0.ooo/2017/05/27/59292b1243dc9.jpg
+img: https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/sklearn.png
 author: LiuKK
 ---
 

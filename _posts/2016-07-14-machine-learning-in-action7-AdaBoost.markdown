@@ -38,8 +38,7 @@ AdaBoost的运算如下:
 
 其中错误率的定义为:  e=未正确分类的样本数目/所有样本数目   
 每个分类器权重alpha的计算公式为：  $$alpha=0.5*ln(1-e/e)$$
-
-**注意：样本的权重是D，分类器的权重是alpha！**  
+**注意：样本的权重是D，分类器的权重是alpha！**
 
 如果样本被正确分类，那么更新它的权重如下：  
 ![image](https://raw.githubusercontent.com/Liubj2016/Liubj2016.github.io/master/images/ada1.png)  
