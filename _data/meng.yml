@@ -14,7 +14,7 @@ cursor: # Meng cursor
 console: # Meng console info
   switch: true # Meng console info switch
   theme_info: true # output theme info
-  text: "Copyright © 2017 Jekyll-Theme-MDUI" # text
+  text: "Copyright © 2018 Jekyll-Theme-MDUI" # text
   color: "#666666" # text color
   background: "#448aff" # background color
 
@@ -30,8 +30,8 @@ background: # Meng background
 
 card: # Meng card
   switch: true
-  background_color: 'rgba(54, 54, 54, 0.7)'
-  card_img_opacity: '0.8'
+  background_color: 'rgba(54, 54, 54, 0.5)'
+  card_img_opacity: '0.5'
 
 live2d: # live2d ,see https://github.com/EYHN/hexo-helper-live2d
   switch: true
@@ -51,14 +51,14 @@ music_player:
   player: "aplayer" #cplayer or aplayer
   button_color: "#1abc9c"
   music:
-    - title: 'Faded'
-      author: 'Alan Walker'
-      url: 'http://www.170mv.com/kw/other.web.rh01.sycdn.kuwo.cn/resource/n2/14/71/3899067167.mp3'
-      pic: 'http://p4.music.126.net/8dzD62VK8jLDbhEqkmpIAg==/18277181788626198.jpg?param=130y130'
-    - title: 'Unity'
-      author: 'TheFatRat'
-      url: 'http://www.170mv.com/kw/other.web.ri01.sycdn.kuwo.cn/resource/n2/44/7/1205252665.mp3'
-      pic: 'http://img4.kuwo.cn/star/starheads/240/72/35/3484765923.jpg'
+    - title: 'Purple Passion'
+      author: 'Diana Boncheva'
+      url: 'http://other.web.rb01.sycdn.kuwo.cn/resource/n2/56/39/1288983993.mp3'
+      pic: 'http://p1.music.126.net/_LSagRKhZzUsjSy5fIAMsg==/923589767384661.jpg'
+    - title: '英雄'
+      author: 'ボイジャー'
+      url: 'http://other.web.ri01.sycdn.kuwo.cn/resource/n3/97/38/3521813207.mp3'
+      pic: 'http://p1.music.126.net/01v62ldvSHyPvkKD7nLeoQ==/5754843859835136.jpg'
 
 head_card:
   switch: false
